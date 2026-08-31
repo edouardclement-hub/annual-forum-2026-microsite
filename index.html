@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMH Annual Forum 2026</title>
+<base target="_blank">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+  @import url('https://reinhart1010.github.io/aileron/aileron.lite.min.css');
+  /* Note: the Aileron source given in the brief (cdn.jsdelivr.net/gh/suitangi/Aileron) does not
+     resolve — that GitHub repo doesn't exist. Using the confirmed, working Aileron mirror
+     (reinhart1010/aileron) instead, which defines the same 'Aileron' font-family / weights. */
+  :root{
+    /* New palette (from LIVE.png banner) */
+    --bg-primary:#0B1E45;
+    --bg-secondary:#0D2252;
+    --bg-card:#14295C;         /* not in the original 7 vars — added so cards/circles remain
+                                   visually distinct from section backgrounds; same navy family */
+    --accent-cyan:#4FC3F7;
+    --accent-blue:#2979FF;
+    --text-primary:#FFFFFF;
+    --text-muted:#A8C0E8;
+    --border:rgba(255,255,255,0.12);
+    --accent-cyan-bg:rgba(79,195,247,0.12);
+    --accent-blue-bg:rgba(41,121,255,0.12);
+
+    /* Legacy variable names aliased to the new palette so the rest of the stylesheet
+       (built before this update) cascades correctly without a full rewrite of every rule. */
+    --bg-0:var(--bg-primary);
+    --bg-1:var(--bg-secondary);
+    --bg-2:var(--bg-secondary);
+    --bg-3:var(--bg-card);
+    --line:var(--border);
+    --line-soft:var(--border);
+    --text-hi:var(--text-primary);
+    --text-mid:var(--text-muted);
+    --text-lo:var(--text-muted);
+    --accent:var(--accent-cyan);
+    --accent-dim:var(--accent-blue);
+    --accent-bg:var(--accent-cyan-bg);
+    --accent-2:var(--accent-blue);
+    --accent-2-bg:var(--accent-blue-bg);
+    --amber:#F5A623;
+    --white-card:#EDEFF5;
+    --on-accent:#0B1E45;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg-primary);
+    color:var(--text-primary);
+    font-family:'Montserrat', -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+    padding-top:60px;
+  }
+  h1,h2,h3,.eyebrow,.stat-num,.cd-num,.logo,
+  .sponsor-tier-label,.price-tag,.a-title,.featured-name,.sp-name,
+  .price-title,.price-amount,.contact-card h3,.page-banner h1{
+    font-family:'Aileron', 'Montserrat', -apple-system,sans-serif;
+  }
+  .mono{
+    font-family:'Aileron', 'Montserrat', sans-serif;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 40px;}
+  .eyebrow{font-size:12px; color:var(--accent-cyan); font-weight:600; margin-bottom:14px;}
+  h1,h2,h3{font-weight:700; letter-spacing:-0.01em; color:var(--text-primary);}
+  p{color:var(--text-muted); font-family:'Montserrat', sans-serif;}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:13px 26px; border-radius:6px; font-size:14px; font-weight:600;
+    cursor:pointer; border:1px solid transparent; white-space:nowrap;
+    font-family:'Montserrat', inherit; -webkit-appearance:none; appearance:none;
+  }
+  .btn-primary{background:var(--accent-blue); color:var(--text-primary);}
+  .btn-outline{background:transparent; color:var(--text-primary); border-color:var(--border);}
+  .btn-outline:hover{border-color:var(--accent-cyan); color:var(--accent-cyan);}
+
+  /* NAV */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50; height:60px;
+    background:rgba(11,30,69,0.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    display:flex; align-items:center;
+  }
+  .nav-inner{width:100%; display:flex; align-items:center; justify-content:space-between;}
+  .logo{display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; cursor:pointer;}
+  .logo-mark-img{width:26px; height:26px; object-fit:contain; display:inline-block; vertical-align:middle;}
+  .nav-logo-lockup{height:32px; width:auto; display:block;}
+  .nav-links{display:flex; gap:32px; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-primary); font-family:'Montserrat', sans-serif;}
+  .nav-links a{cursor:pointer; padding-bottom:4px; border-bottom:2px solid transparent;}
+  .nav-links a:hover{color:var(--accent-cyan);}
+  .nav-links a.active{color:var(--accent-cyan); border-bottom-color:var(--accent-cyan);}
+  .nav-right{display:flex; align-items:center; gap:20px;}
+  .nav-right .btn-primary{border-radius:4px; font-size:12px; text-transform:uppercase; letter-spacing:0.08em;}
+  .nav-logo-badge{height:34px; width:auto; display:block;}
+  .nav-hamburger{display:none; flex-direction:column; justify-content:center; gap:4px; width:32px; height:32px; background:none; border:none; cursor:pointer; padding:0;}
+  .nav-hamburger span{display:block; width:22px; height:2px; background:var(--text-primary);}
+  @media (max-width:860px){
+    .nav-links{
+      display:none; position:absolute; top:60px; left:0; right:0; background:var(--bg-primary);
+      flex-direction:column; gap:0; border-bottom:1px solid var(--border); padding:8px 0;
+    }
+    .nav-links.open{display:flex;}
+    .nav-links a{padding:14px 24px; border-bottom:1px solid var(--border);}
+    .nav-hamburger{display:flex;}
+  }
+  .lang-toggle{font-size:12px; color:var(--text-muted); display:flex; gap:6px; align-items:center;}
+  .lang-toggle span:first-child{color:var(--text-primary); font-weight:600;}
+
+  /* PAGE VISIBILITY */
+  .page{display:none;}
+  .page.active{display:block;}
+
+  /* HERO (home) */
+  .hero{
+    position:relative; min-height:90vh; display:flex; align-items:center;
+    overflow:hidden; border-bottom:1px solid var(--border);
+    padding:80px 0 60px; background:var(--bg-primary);
+  }
+  .hero-shape-blur{
+    position:absolute; top:-5%; right:-5%; width:60%; height:auto; z-index:0;
+    opacity:0.35; mix-blend-mode:screen; pointer-events:none;
+  }
+  .hero-canvas-wrap{position:absolute; inset:0; z-index:0;}
+  .hero-canvas-wrap canvas{position:absolute; inset:0; width:100%; height:100%; display:block;}
+  .hero-diamond-grid{position:absolute; inset:0; z-index:0; pointer-events:none;}
+  .hero-inner{
+    position:relative; z-index:1; display:grid;
+    grid-template-columns:55fr 45fr; gap:40px; align-items:center; width:100%;
+  }
+  .hero-left{max-width:720px;}
+  .hero-right{display:flex; justify-content:flex-end; align-items:center;}
+  .diamond-grid-image{width:100%; max-width:460px; height:auto; margin-top:-10px; margin-right:-20px;}
+  @media (max-width:768px){
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-right{display:none;}
+  }
+  .hero-lockup-logo{max-width:420px; width:100%; height:auto; margin-bottom:28px; display:block;}
+  .hero-h1{font-size:72px; line-height:1.0; margin:0 0 20px; font-weight:700; color:var(--text-primary); text-transform:none;}
+  .hero-subtext{font-size:18px; color:var(--text-muted); max-width:440px; margin-bottom:24px; font-family:'Montserrat', sans-serif;}
+  .hero-date-block{margin-bottom:28px;}
+  .hero-date{font-size:16px; letter-spacing:0.12em; color:var(--accent-cyan); font-weight:700;}
+  .hero-location{font-size:13px; letter-spacing:0.12em; color:var(--accent-cyan); margin-top:4px;}
+  .hero-actions{display:flex; gap:14px; margin-bottom:40px;}
+  .hero-actions .btn{font-size:13px; text-transform:uppercase; letter-spacing:0.08em; border-radius:4px; height:44px; padding:0 28px;}
+  .nav-register-btn{
+    font-size:12px; text-transform:uppercase; letter-spacing:0.08em; border-radius:4px;
+    height:34px; padding:0 18px; display:inline-flex; align-items:center;
+  }
+  @media (max-width:860px){
+    .nav-register-btn{height:auto; padding:14px 24px; border-radius:0; display:block; width:100%; box-sizing:border-box;}
+  }
+  .countdown{display:flex; gap:22px;}
+  .cd-block{text-align:left;}
+  .cd-num{font-size:36px; font-weight:700; color:var(--accent-cyan);}
+  .cd-label{font-size:11px; color:var(--text-muted);}
+  .mono.cd-label{letter-spacing:0.1em;}
+
+  /* STATS */
+  .stats{background:var(--bg-secondary); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:34px 0;}
+  .stats .wrap{display:flex; justify-content:space-around; text-align:center;}
+  .stats .wrap > div{position:relative; flex:1;}
+  .stats .wrap > div:not(:last-child)::after{
+    content:""; position:absolute; right:0; top:50%; transform:translateY(-50%);
+    width:1px; height:36px; background:var(--border);
+  }
+  .stat-num{font-size:44px; font-weight:700; color:var(--accent-cyan);}
+  .stat-label{font-size:13px; color:var(--text-muted); margin-top:4px; text-transform:uppercase; letter-spacing:0.1em;}
+
+  .section{padding:96px 0;}
+  .why-attend{background:var(--bg-secondary);}
+  .why-attend h2{font-size:36px; max-width:520px; margin-bottom:18px;}
+  .why-attend > .wrap > p{max-width:560px; margin-bottom:24px; font-size:16px;}
+  .benefit-row{display:flex; gap:20px; align-items:flex-start; padding:20px 0; border-top:1px solid var(--border);}
+  .benefit-row:last-of-type{border-bottom:1px solid var(--border);}
+  .hof-teaser-simple{margin:20px 0 20px 68px;}
+  .hof-teaser-simple .btn{font-size:12px; padding:10px 20px; height:auto; text-transform:uppercase; letter-spacing:0.06em; border-radius:4px; display:inline-flex;}
+  @media (max-width:640px){
+    .hof-teaser-simple{margin-left:0;}
+  }
+  .b-icon{width:48px; height:48px; border-radius:10px; background:var(--accent-cyan-bg); color:var(--accent-cyan); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .b-icon svg{width:28px; height:28px;}
+  .b-label{font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:4px;}
+  .b-desc{font-size:14px; color:var(--text-muted);}
+
+  .format{background:var(--bg-1);}
+  .format .wrap{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
+  .format h2{font-size:32px; margin-bottom:18px;}
+  .format p{margin-bottom:14px; font-size:15px;}
+  .quote-card{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:36px; position:relative;}
+  .quote-mark{font-size:40px; color:var(--accent); line-height:1; margin-bottom:8px;}
+  .quote-card blockquote{font-size:19px; font-style:italic; color:var(--text-hi); line-height:1.5; margin-bottom:18px;}
+  .quote-attr{font-size:13px; color:var(--text-lo);}
+  .mini-node-graphic{background:var(--bg-3); border:1px solid var(--line); border-radius:12px; height:220px; display:flex; align-items:center; justify-content:center;}
+
+  .theme{text-align:center;}
+  .theme h2{font-size:34px; margin:14px 0 18px;}
+  .theme p{max-width:560px; margin:0 auto 34px;}
+  .pills{display:flex; flex-wrap:wrap; gap:10px; justify-content:center;}
+  .pill{border:1px solid var(--line); border-radius:999px; padding:9px 18px; font-size:13px; color:var(--text-mid);}
+
+  .agenda-tabs{display:flex; gap:10px; margin:24px 0 30px;}
+  .tab-btn{padding:10px 20px; border-radius:6px; font-size:13px; font-weight:600; border:1px solid var(--line); background:transparent; color:var(--text-mid); cursor:pointer;}
+  .tab-btn.active{background:var(--accent-bg); color:var(--accent); border-color:var(--accent-dim);}
+  .agenda-card{background:var(--bg-secondary); border-radius:16px; padding:10px 28px; margin-top:6px; border:1px solid var(--border);}
+
+  /* ACCORDION AGENDA COMPONENT */
+  .day-subtitle{font-size:14px; color:var(--text-muted); margin:-6px 0 18px; font-style:italic;}
+  .acc-list{border-radius:16px; overflow:hidden; border:1px solid var(--border);}
+  details.acc-item{background:var(--bg-secondary); border-bottom:1px solid var(--border);}
+  details.acc-item:last-child{border-bottom:none;}
+  details.acc-item summary{
+    list-style:none; cursor:pointer; padding:18px 24px;
+    display:grid; grid-template-columns:120px 1fr 22px; gap:18px; align-items:center;
+    transition:background-color 0.15s ease;
+  }
+  details.acc-item summary::-webkit-details-marker{display:none;}
+  details.acc-item summary:hover{background:var(--bg-card);}
+  details.acc-item summary:focus-visible{outline:2px solid var(--accent-blue); outline-offset:-2px;}
+  .acc-time{font-size:13px; color:var(--text-muted); font-variant-numeric:tabular-nums;}
+  .acc-title{font-size:15px; font-weight:700; color:var(--text-primary);}
+  .acc-chevron{width:22px; height:22px; border-radius:50%; background:var(--bg-card); color:var(--text-muted); display:flex; align-items:center; justify-content:center; font-size:13px; transition:transform 0.2s ease, background-color 0.2s ease, color 0.2s ease; flex-shrink:0;}
+  details.acc-item summary:hover .acc-chevron{background:var(--accent-cyan-bg); color:var(--accent-cyan);}
+  details.acc-item[open] .acc-chevron{transform:rotate(45deg); background:var(--accent-cyan); color:var(--bg-primary);}
+  .acc-desc{padding:0 24px 22px 162px; font-size:13.5px; line-height:1.6; color:var(--text-muted); max-width:640px;}
+  .acc-crosslink{margin-top:10px;}
+  .acc-crosslink a{color:var(--accent-cyan); text-decoration:underline; cursor:pointer; font-weight:600;}
+  details.acc-item[open] summary{background:var(--bg-card);}
+  .acc-static-row{
+    background:var(--bg-primary); padding:14px 24px; display:grid; grid-template-columns:120px 1fr; gap:18px; align-items:center;
+    border-bottom:1px solid var(--border);
+  }
+  .acc-static-row:last-child{border-bottom:none;}
+  .acc-static-row .acc-time{color:var(--text-muted); opacity:0.7;}
+  .acc-static-row .acc-title{font-weight:600; color:var(--text-muted); font-size:14px;}
+  .agenda-row{display:grid; grid-template-columns:80px 26px 1fr auto; gap:18px; align-items:flex-start; padding:20px 0; border-top:1px solid var(--border);}
+  .agenda-row:first-of-type{border-top:none;}
+  .a-time{font-size:13px; color:var(--text-muted); padding-top:2px;}
+  .a-dot{width:10px; height:10px; border-radius:50%; background:var(--accent-blue); margin-top:6px;}
+  .a-title{font-size:15px; font-weight:700; color:var(--text-primary);}
+  .a-meta{font-size:12px; color:var(--text-muted); margin-top:2px;}
+  .a-desc{font-size:12px; color:var(--text-muted); margin-top:6px; max-width:480px;}
+  .a-tag{font-size:11px; padding:5px 12px; border-radius:999px; font-weight:600; white-space:nowrap;}
+  .tag-networking{background:rgba(112,223,220,0.22); color:#0F766E;}
+  .tag-plenary{background:rgba(45,106,246,0.14); color:#2D6AF6;}
+  .tag-keynote{background:rgba(45,106,246,0.14); color:#2D6AF6;}
+  .tag-panel{background:rgba(219,39,119,0.12); color:#DB2777;}
+  .tag-workshop{background:rgba(45,106,246,0.14); color:#2D6AF6;}
+  .center-btn{display:flex; justify-content:center; margin-top:30px;}
+
+  .speakers{background:var(--bg-1);}
+  .cfp-banner{background:var(--accent); border-radius:12px; display:flex; align-items:center; justify-content:space-between; padding:26px 32px; margin:26px 0 44px;}
+  .cfp-banner .txt{font-size:16px; font-weight:700; color:var(--on-accent);}
+  .cfp-banner .btn-primary{background:var(--on-accent); color:var(--accent);}
+  .cfp-banner-full{background:var(--accent); border-radius:16px; text-align:center; padding:40px 32px; margin:26px 0 50px;}
+  .cfp-banner-full .eyebrow{color:var(--on-accent); opacity:0.7;}
+  .cfp-banner-full h2{color:var(--on-accent); font-size:26px; margin-bottom:10px;}
+  .cfp-banner-full p{color:var(--on-accent); opacity:0.85; max-width:520px; margin:0 auto 22px;}
+  .cfp-banner-full .btn-primary{background:var(--on-accent); color:var(--accent);}
+  .speaker-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+  .sp-card{text-align:center;}
+  .sp-photo{width:88px; height:88px; border-radius:50%; background:var(--bg-3); margin:0 auto 14px; border:1px solid var(--line);}
+  .sp-name{font-size:15px; font-weight:600; color:var(--text-hi);}
+  .sp-title{font-size:12px; color:var(--accent); margin-top:2px;}
+  .sp-org{font-size:12px; color:var(--text-lo); margin-top:1px;}
+
+  .featured-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:56px;}
+
+  /* SPEAKER CARD + MODAL SYSTEM (built for State B, activates once real speakers are added) */
+  .speaker-grid-new{display:grid; grid-template-columns:repeat(4,1fr); gap:28px; margin-top:20px;}
+  .speaker-card-new{text-align:center; cursor:pointer;}
+  .speaker-card-photo-wrap{position:relative; width:140px; height:140px; border-radius:50%; margin:0 auto 14px; overflow:hidden; background:var(--bg-card);}
+  .speaker-card-photo-wrap img{width:100%; height:100%; object-fit:cover; display:block;}
+  .speaker-card-overlay{position:absolute; inset:0; background:rgba(11,30,69,0.8); opacity:0; transition:opacity 0.2s ease; display:flex; align-items:center; justify-content:center;}
+  .speaker-card-photo-wrap:hover .speaker-card-overlay{opacity:1;}
+  .speaker-card-overlay span{color:var(--text-primary); font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; font-family:'Montserrat', sans-serif;}
+  .speaker-card-name{font-weight:700; font-size:15px; color:var(--text-primary);}
+  .speaker-card-title{font-size:13px; color:var(--accent-cyan); margin-top:2px;}
+  .speaker-card-org{font-size:13px; color:var(--text-muted); margin-top:1px;}
+
+  .speaker-modal-overlay{position:fixed; inset:0; background:rgba(5,10,20,0.75); z-index:200; display:none; align-items:center; justify-content:center; padding:24px;}
+  .speaker-modal-overlay.open{display:flex;}
+  .speaker-modal{background:var(--bg-secondary); border:1px solid var(--border); border-radius:16px; max-width:680px; width:100%; max-height:90vh; overflow-y:auto; padding:40px; position:relative; display:grid; grid-template-columns:180px 1fr; gap:32px;}
+  .speaker-modal-close{position:absolute; top:16px; right:20px; background:none; border:none; color:var(--text-muted); font-size:28px; line-height:1; cursor:pointer;}
+  .speaker-modal-close:hover{color:var(--text-primary);}
+  .speaker-modal-photo{width:160px; height:160px; border-radius:50%; object-fit:cover; display:block;}
+  .speaker-modal-name{font-size:20px; font-weight:700; color:var(--text-primary); margin-top:16px; font-family:'Aileron', sans-serif;}
+  .speaker-modal-title{font-size:13px; color:var(--accent-cyan); margin-top:4px;}
+  .speaker-modal-org{font-size:13px; color:var(--text-muted); margin-top:1px;}
+  .speaker-modal-linkedin{display:inline-flex; margin-top:14px;}
+  .speaker-modal-bio-heading{font-size:12px; color:var(--accent-cyan); margin-bottom:10px;}
+  .speaker-modal-bio{font-size:14px; line-height:1.6; color:var(--text-muted);}
+  @media (max-width:600px){
+    .speaker-modal{grid-template-columns:1fr; padding:28px;}
+  }
+
+  .featured-card{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:26px; display:flex; gap:18px; position:relative;}
+  .featured-badge{position:absolute; top:16px; right:16px; background:var(--amber); color:#241800; font-size:10px; font-weight:700; letter-spacing:0.06em; padding:4px 9px; border-radius:4px;}
+  .featured-photo{width:64px; height:64px; border-radius:50%; background:var(--bg-3); border:1px solid var(--line); flex-shrink:0;}
+  .featured-name{font-size:16px; font-weight:700; color:var(--text-hi);}
+  .featured-title{font-size:13px; color:var(--accent); margin-top:2px;}
+  .featured-org{font-size:13px; color:var(--text-lo); margin-top:1px;}
+
+  .sponsors h2{font-size:32px; max-width:520px; margin:14px 0 12px;}
+  .sponsors > .wrap > p{max-width:520px; margin-bottom:26px;}
+  .sponsor-tier-label{font-size:11px; color:var(--text-lo); margin:30px 0 14px;}
+  .sponsor-row{display:flex; gap:16px;}
+  .sponsor-box{background:var(--white-card); border-radius:8px; height:90px; flex:1;}
+  .sponsor-box.platinum{max-width:280px;}
+  .sponsor-tier-heading{font-size:18px; font-weight:700; color:var(--text-primary); margin:36px 0 16px; font-family:'Aileron', sans-serif;}
+  .sponsor-tier-heading:first-child{margin-top:0;}
+  .sponsor-empty-line{font-size:14px; color:var(--text-muted); font-style:italic; margin-bottom:8px;}
+  .sponsor-logo-grid{display:flex; flex-wrap:wrap; gap:16px;}
+  .sponsor-logo-tile{background:var(--white-card); border-radius:8px; display:flex; align-items:center; justify-content:center; padding:16px 24px;}
+  .sponsor-logo-tile img{max-width:100%; object-fit:contain; display:block;}
+  .tier-platinum .sponsor-logo-tile{height:110px;}
+  .tier-platinum .sponsor-logo-tile img{max-height:70px;}
+  .tier-gold .sponsor-logo-tile{height:90px;}
+  .tier-gold .sponsor-logo-tile img{max-height:56px;}
+  .tier-exhibitor .sponsor-logo-tile, .sponsor-logo-grid:not(.tier-platinum):not(.tier-gold) .sponsor-logo-tile{height:70px;}
+  .tier-exhibitor .sponsor-logo-tile img, .sponsor-logo-grid:not(.tier-platinum):not(.tier-gold) .sponsor-logo-tile img{max-height:40px;}
+  .benefit-tags{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;}
+  .benefit-tag{border:1px solid var(--line); border-radius:6px; padding:10px 16px; font-size:12px; color:var(--text-mid);}
+
+  .signup{background:var(--bg-2); text-align:center;}
+
+  /* SCROLLING DIAMOND STRIPS */
+  .diamond-strip-section{background:var(--bg-primary); overflow:hidden; padding:30px 0;}
+  .diamond-strip-track{display:flex; gap:24px; width:max-content;}
+  .strip-diamond{
+    width:160px; height:160px; flex-shrink:0; overflow:hidden;
+    clip-path:polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.15);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .strip-diamond span{font-size:10px; color:var(--text-muted); font-family:'Montserrat', sans-serif;}
+  @keyframes scrollLeft{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @keyframes scrollRight{ from{transform:translateX(-50%);} to{transform:translateX(0);} }
+  .scroll-left{animation:scrollLeft 30s linear infinite;}
+  .scroll-right{animation:scrollRight 30s linear infinite;}
+  .diamond-strip-section:hover .diamond-strip-track{animation-play-state:paused;}
+
+  /* PARALLAX PHOTO SECTION (replaces second scrolling strip) */
+  .parallax-photo-section{
+    background-attachment:fixed;
+    background-size:cover;
+    background-position:center;
+    min-height:450px;
+    width:100%;
+  }
+  @media (max-width:768px){
+    .parallax-photo-section{background-attachment:scroll;}
+  }
+
+  /* WHY ATTEND diagonal photo */
+  .why-attend-grid{display:grid; grid-template-columns:48fr 52fr; gap:40px; align-items:start;}
+  .why-attend-photo-col{position:relative;}
+  .why-attend-photo{
+    width:100%; aspect-ratio:1/1; max-width:560px; margin:0 auto;
+    clip-path:polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    background:rgba(255,255,255,0.06); border:2px solid rgba(255,255,255,0.15);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .why-attend-photo span{font-size:13px; color:var(--text-muted); font-family:'Montserrat', sans-serif;}
+  .why-attend-shape-blur{
+    position:absolute; left:-15%; top:10%; width:400px; opacity:0.2; pointer-events:none; z-index:0;
+  }
+
+  /* GET IN TOUCH */
+  .contact-section{background:var(--bg-0); text-align:center;}
+  .contact-section .eyebrow-heading{font-size:32px; font-weight:800; color:var(--accent); margin-bottom:8px;}
+  .contact-section .sub{font-size:15px; color:var(--text-mid); margin-bottom:36px;}
+  .contact-card{
+    background:#FFFFFF; border-radius:16px; padding:40px; text-align:left;
+    max-width:560px; margin:0 auto; box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  }
+  .contact-card h3{font-size:20px; color:#12141C; margin-bottom:4px;}
+  .contact-card .sub{font-size:13px; color:#5B6272; margin-bottom:24px; text-align:left;}
+  .contact-field{margin-bottom:18px;}
+  .contact-field label{display:block; font-size:13px; font-weight:600; color:#12141C; margin-bottom:6px;}
+  .contact-field label .req{color:#DC2626;}
+  .contact-field input, .contact-field textarea{
+    width:100%; padding:11px 14px; border-radius:6px; border:1px solid #D5D8E1;
+    background:#FFFFFF; color:#12141C; font-size:14px; font-family:inherit;
+  }
+  .contact-field input::placeholder, .contact-field textarea::placeholder{color:#9AA1B0;}
+  .contact-field textarea{resize:vertical; min-height:90px;}
+  .contact-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .contact-submit-wrap{text-align:center; margin-top:8px;}
+  .contact-submit-wrap .btn-primary{padding:13px 40px;}
+  .signup h2{font-size:28px; margin-bottom:10px;}
+  .signup p{max-width:420px; margin:0 auto 24px;}
+  .signup-form{display:flex; justify-content:center; gap:10px;}
+  .signup-form input{width:280px; padding:13px 16px; border-radius:6px; border:1px solid var(--line); background:var(--bg-3); color:var(--text-hi); font-size:14px;}
+  .signup-form input::placeholder{color:var(--text-lo);}
+
+  /* INTERIOR PAGE BANNER */
+  .page-banner{background:#070F2A; padding:70px 0 50px; text-align:center; border-bottom:1px solid var(--line-soft);}
+  .page-banner h1{font-size:40px; text-transform:uppercase; font-weight:800; margin-bottom:12px;}
+  .page-banner p{font-size:15px; color:var(--text-mid);}
+  .banner-actions{display:flex; gap:12px; justify-content:center; margin-top:22px; flex-wrap:wrap;}
+  .tz-note{font-size:12px; color:var(--text-lo); margin-top:14px;}
+
+  /* HALL OF FAME (alternating bands, same pattern and top-section colour as Venue page) */
+  #page-halloffame .hof-band{padding:70px 0; border-top:1px solid var(--border);}
+  #page-halloffame .hof-band.alt{background:var(--bg-secondary);}
+  #page-halloffame .hof-band h2{font-size:26px; margin-bottom:20px; color:var(--text-primary); max-width:680px;}
+  #page-halloffame .hof-band p{max-width:680px; margin-bottom:14px;}
+  .hof-dates{display:flex; gap:28px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:24px;}
+  .hof-date-label{display:block; font-size:11px; color:var(--text-muted); letter-spacing:0.1em;}
+  .hof-date-value{display:block; font-size:15px; color:var(--accent-cyan); font-weight:700; margin-top:4px;}
+  .hof-about-grid{display:grid; grid-template-columns:1fr 340px; gap:40px; align-items:center;}
+  .hof-about-photo{width:100%; height:auto; border-radius:12px; display:block; object-fit:cover;}
+  .hof-criteria-list{list-style:none; padding:0; margin:0 0 20px; max-width:680px;}
+  .hof-criteria-list li{position:relative; padding:10px 0 10px 28px; border-bottom:1px solid var(--border); color:var(--text-muted); font-size:14.5px;}
+  .hof-criteria-list li:last-child{border-bottom:none;}
+  .hof-criteria-list li::before{content:"\2713"; position:absolute; left:0; top:10px; color:var(--accent-cyan); font-weight:700;}
+  .hof-note{font-style:italic; color:var(--text-muted); font-size:13.5px;}
+  .hof-timeline-list{list-style:none; padding:0; margin:0 0 24px; max-width:680px;}
+  .hof-timeline-list li{padding:6px 0; color:var(--text-muted); font-size:14.5px;}
+  .hof-timeline-list li strong{color:var(--text-primary);}
+  .hof-inductee-grid{display:grid; grid-template-columns:180px 1fr; gap:32px; align-items:flex-start; max-width:760px;}
+  .hof-inductee-photo{
+    width:180px; height:180px; border-radius:50%; object-fit:cover;
+    border:2px solid rgba(255,255,255,0.15);
+  }
+  .hof-sponsor-link{color:var(--accent-cyan); cursor:pointer; text-decoration:none; border-bottom:1px solid transparent; transition:border-color 0.15s ease, color 0.15s ease;}
+  .hof-sponsor-link:hover{border-bottom-color:var(--accent-cyan); color:var(--text-primary);}
+  .hof-mailto-link{color:var(--accent-cyan); text-decoration:none; border-bottom:1px solid transparent; transition:border-color 0.15s ease, color 0.15s ease;}
+  .hof-mailto-link:hover{border-bottom-color:var(--accent-cyan); color:var(--text-primary);}
+  @media (max-width:700px){
+    .hof-about-grid{grid-template-columns:1fr;}
+    .hof-inductee-grid{grid-template-columns:1fr;}
+  }
+
+  .format-explainer{padding:70px 0; border-bottom:1px solid var(--line-soft);}
+  .format-explainer .wrap{display:grid; grid-template-columns:1.4fr 1fr; gap:50px; align-items:center;}
+  .format-explainer h2{font-size:26px; margin-bottom:14px;}
+  .placeholder-tag{display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent-2); background:var(--accent-2-bg); border:1px solid var(--accent-2); border-radius:4px; padding:2px 8px; margin-left:10px;}
+
+  .grid-intro{font-size:14px; color:var(--text-mid); margin:0 0 30px;}
+
+  .fee-block{padding:70px 0; text-align:center; border-bottom:1px solid var(--line-soft);}
+  .fee-block h2{font-size:26px; margin-bottom:14px;}
+  .fee-block p{max-width:640px; margin:0 auto;}
+  .pricing-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:20px;}
+  .price-card{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:28px; text-align:left;}
+  .price-card.featured{border-color:var(--accent-dim); background:var(--accent-bg);}
+  .price-tag{font-size:11px; color:var(--text-lo); margin-bottom:8px;}
+  .price-tag.mono{letter-spacing:0.1em;}
+  .price-title{font-size:17px; font-weight:700; margin-bottom:8px;}
+  .price-amount{font-size:34px; font-weight:800; margin:14px 0;}
+  .price-desc{font-size:13px; color:var(--text-mid); margin-bottom:20px;}
+  .fee-note{font-size:13px; color:var(--text-lo); max-width:640px; margin:24px auto 0;}
+
+  .sponsor-tier-block{padding:14px 0 40px;}
+
+  /* VENUE (light exception) */
+  /* VENUE (dark theme, matches homepage palette) */
+  #page-venue .venue-overview{padding:70px 0; background:var(--bg-primary);}
+  #page-venue .venue-grid{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:start;}
+  #page-venue .venue-photo-img{width:100%; height:auto; border-radius:12px; display:block;}
+  #page-venue .venue-name{font-size:24px; margin-bottom:6px; color:var(--text-primary);}
+  #page-venue .venue-address{font-size:14px; color:var(--accent-cyan); margin-bottom:18px;}
+  #page-venue .venue-desc p{margin-bottom:14px; color:var(--text-muted);}
+  #page-venue .venue-carleton-logo{max-width:220px; height:auto; margin-top:24px; background:var(--white-card); border-radius:8px; padding:14px 18px;}
+  #page-venue .venue-band{padding:70px 0; border-top:1px solid var(--border);}
+  #page-venue .venue-band.alt{background:var(--bg-secondary);}
+  #page-venue .venue-band h2{font-size:26px; margin-bottom:28px; color:var(--text-primary);}
+  #page-venue .venue-list{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:28px;}
+  #page-venue .venue-list-item{display:flex; gap:14px; align-items:flex-start;}
+  #page-venue .venue-icon{width:38px; height:38px; border-radius:8px; background:var(--accent-cyan-bg); color:var(--accent-cyan); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  #page-venue .venue-icon svg{width:20px; height:20px;}
+  #page-venue .venue-item-title{font-size:15px; font-weight:700; color:var(--text-primary); margin-bottom:4px;}
+  #page-venue .venue-item-body{font-size:13.5px; color:var(--text-muted); line-height:1.6;}
+  #page-venue .venue-item-body a{color:var(--accent-cyan); text-decoration:underline;}
+  #page-venue .hotel-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:20px; margin-top:10px;}
+  #page-venue .hotel-card{background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:24px;}
+  #page-venue .hotel-card h3{font-size:16px; margin-bottom:6px; color:var(--text-primary);}
+  #page-venue .hotel-card p{font-size:13px; color:var(--text-muted); margin-bottom:10px;}
+
+
+  /* FOOTER (default, dark pages) */
+  footer{background:#070F2A; padding:64px 0 30px; border-top:1px solid var(--border);}
+  .footer-grid{display:grid; grid-template-columns:2.0fr 0.8fr 0.8fr 1fr 1.2fr; gap:32px; margin-bottom:50px;}
+  .footer-about p{font-size:12px; margin-top:14px; max-width:280px; color:var(--text-muted); font-family:'Montserrat', sans-serif;}
+  .footer-about p a{color:var(--accent-cyan); text-decoration:underline;}
+  .footer-col h4{font-size:12px; color:var(--accent-cyan); margin-bottom:14px; font-weight:700; letter-spacing:0.12em; font-family:'Aileron', sans-serif;}
+  .footer-col a{display:block; font-size:13px; color:var(--text-muted); margin-bottom:10px; cursor:pointer; font-family:'Montserrat', sans-serif;}
+  .footer-col a:hover{color:var(--accent-cyan);}
+  .footer-newsletter form{display:flex; flex-direction:column; gap:8px;}
+  .footer-newsletter input[type="email"]{width:100%; padding:11px 14px; border-radius:6px; border:1px solid var(--border); background:var(--bg-card); color:var(--text-primary); font-size:13px;}
+  .footer-newsletter input[type="email"]::placeholder{color:var(--text-muted);}
+  .footer-newsletter input[type="submit"]{
+    width:100%; padding:11px 14px; border-radius:6px; border:none; cursor:pointer;
+    background:var(--accent-blue); color:var(--text-primary); font-size:13px; font-weight:600; font-family:'Montserrat', inherit;
+  }
+  .footer-newsletter .mc-fineprint{font-size:11px; color:var(--text-muted); margin-top:2px;}
+  .social-icons{display:flex; gap:12px;}
+  .social-icons span{width:34px; height:34px; border-radius:8px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--text-muted);}
+  .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:24px; border-top:1px solid var(--border); font-size:12px; color:var(--text-muted);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="logo" onclick="goTo('home')"><img src="images/nav-logo.png" alt="EMH logo" class="logo-mark-img"> <span style="color:var(--accent-cyan);">EMH</span> Annual Forum 2026</a>
+    <div class="nav-links" id="navLinks">
+      <a data-page="home" onclick="goTo('home')">Home</a>
+      <a data-page="agenda" onclick="goTo('agenda')">Agenda</a>
+      <a data-page="speakers" onclick="goTo('speakers')">Speakers</a>
+      <a data-page="sponsors" onclick="goTo('sponsors')">Sponsors</a>
+      <a data-page="venue" onclick="goTo('venue')">Venue</a>
+      <a data-page="halloffame" onclick="goTo('halloffame')">Hall of Fame</a>
+      <a href="https://www.eventbrite.ca/" rel="noopener noreferrer" class="btn btn-primary nav-register-btn">Register Now</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HOME ============ -->
+<div class="page" id="page-home">
+
+<section class="hero">
+  <img src="images/shape-blur.png" class="hero-shape-blur" alt="" aria-hidden="true">
+  <div class="hero-canvas-wrap"><canvas id="hero-net"></canvas></div>
+  <svg class="hero-diamond-grid" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <pattern id="diamondgrid" width="60" height="60" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <rect x="0" y="0" width="60" height="60" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#diamondgrid)"/>
+  </svg>
+  <div class="wrap hero-inner">
+    <div class="hero-left">
+      <img src="images/hero-lockup.png" alt="EMH Annual Forum 2026 — 5th Anniversary, Where Models Meet Reality" class="hero-lockup-logo">
+      <h1 class="hero-h1">Where Models<br>Meet Reality</h1>
+      <div class="hero-date-block">
+        <div class="hero-date mono">December 16-17, 2026</div>
+        <div class="hero-location mono">Ottawa, Canada</div>
+      </div>
+      <div class="hero-actions">
+        <a onclick="goTo('agenda')" class="btn btn-primary">View Agenda</a>
+        <a href="https://www.eventbrite.ca/" rel="noopener noreferrer" class="btn btn-primary">Register Now</a>
+      </div>
+      <div class="countdown">
+        <div class="cd-block"><div class="cd-num" id="cdDays">--</div><div class="cd-label mono">Days</div></div>
+        <div class="cd-block"><div class="cd-num" id="cdHours">--</div><div class="cd-label mono">Hours</div></div>
+        <div class="cd-block"><div class="cd-num" id="cdMinutes">--</div><div class="cd-label mono">Minutes</div></div>
+        <div class="cd-block"><div class="cd-num" id="cdSeconds">--</div><div class="cd-label mono">Seconds</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="images/hero-diamond-grid.png" class="diamond-grid-image" alt="EMH Annual Forum photo collage">
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <div><div class="stat-num">5th</div><div class="stat-label mono">Year running</div></div>
+    <div><div class="stat-num">2</div><div class="stat-label mono">Days</div></div>
+    <div><div class="stat-num">250+</div><div class="stat-label mono">Participants</div></div>
+  </div>
+</section>
+
+<section class="diamond-strip-section">
+  <div class="diamond-strip-track scroll-left">
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-01.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-02.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-03.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-04.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-05.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-06.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-07.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-08.jpg'); background-size:cover; background-position:center;"></div>
+    <!-- PHOTO SLOTS: replace placeholder backgrounds with url('path/to/photo.jpg') background-size: cover background-position: center — images provided separately -->
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-01.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-02.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-03.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-04.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-05.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-06.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-07.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="strip-diamond" style="background-image:url('images/strip-photo-08.jpg'); background-size:cover; background-position:center;"></div>
+  </div>
+</section>
+
+<section class="section why-attend">
+  <div class="wrap">
+    <div class="why-attend-grid">
+      <div>
+        <div class="eyebrow mono">Why attend</div>
+        <h2>One Room. Many Perspectives.</h2>
+        <p>Governments across Canada have made ambitious promises: net-zero targets, major infrastructure, sweeping transition plans. Turning promises into reality raises hard questions &mdash; about cost, capacity, timelines, and public buy-in.</p>
+        <p>The EMH Annual Forum 2026 brings modellers, social scientists, policymakers, utilities, and industry leaders into the same room to work through those questions, one at a time, together.</p>
+        <p>This EMH Annual Forum 2026 asks what it actually takes to get there &mdash; and whether we're asking the right questions.</p>
+
+        <div class="benefit-row">
+          <div class="b-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v4"/><path d="M18 11a6 6 0 00-3-5.197"/><path d="M2 11a10 10 0 015-8.662"/><path d="M22 11a10 10 0 00-5-8.662"/><path d="M6 11a6 6 0 013-5.197"/><path d="M9 21h6"/><rect x="10" y="9" width="4" height="8" rx="2"/></svg></div>
+          <div><div class="b-label">Discussions &amp; Technical Deep Dives</div><div class="b-desc">Panels built around tension, not consensus. Each session brings the technical and the practical into direct conversation</div></div>
+        </div>
+        <div class="benefit-row">
+          <div class="b-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18v-6a5 5 0 1 1 10 0v6"/><path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z"/><path d="M21 12h1"/><path d="M18.5 4.5 18 5"/><path d="M2 12h1"/><path d="M12 2v1"/><path d="m4.929 4.929.707.707"/><path d="M12 12v6"/></svg></div>
+          <div><div class="b-label">Policy Shaping</div><div class="b-desc">Sessions that feed directly into federal, provincial, and regional energy planning conversations.</div></div>
+        </div>
+        <div class="benefit-row">
+          <div class="b-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M16 22a4 4 0 0 0-8 0"/><circle cx="12" cy="15" r="3"/></svg></div>
+          <div><div class="b-label">Structured Networking</div><div class="b-desc">Purpose-built activities built to create peer-to-peer and cross-sector connections between sessions.</div></div>
+        </div>
+        <div class="benefit-row">
+          <div class="b-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2"/><path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2"/><path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3"/></svg></div>
+          <div><div class="b-label">5th Anniversary Celebration</div><div class="b-desc">Mark five years of the EMH Annual Forum 2026 with us. Special Hall of Fame award recognizing peers who've shaped the community.</div></div>
+        </div>
+
+        <div class="hof-teaser-simple"><a onclick="goTo('halloffame')" class="btn btn-primary">Learn More About the Hall of Fame Award</a></div>
+
+        <div class="benefit-row">
+          <div class="b-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg></div>
+          <div><div class="b-label">Poster Sessions</div><div class="b-desc">Engage directly with researchers and early-career presenters, ask questions, and vote on the work that stands out to you.</div></div>
+        </div>
+        <div class="benefit-row">
+          <div class="b-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"/></svg></div>
+          <div><div class="b-label">Bilingual by Design</div><div class="b-desc">Speakers may present in English or French, with translation services provided for all attendees.</div></div>
+        </div>
+      </div>
+      <div class="why-attend-photo-col">
+        <img src="images/shape-blur.png" class="why-attend-shape-blur" alt="" aria-hidden="true">
+        <div class="why-attend-photo" style="background-image:url('images/why-attend-blur.jpg'); background-size:cover; background-position:center;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="parallax-photo-section" style="background-image:url('images/parallax-photo.jpg');"></section>
+
+<section class="section format">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow mono">Format</div>
+      <h2>Diverse Perspectives, Timely Questions</h2>
+      <p>Every panel is built around a tension: what the models say is possible, and what actually gets built. Hear directly from the modellers, regulators, policymakers, and industry leaders working to close that gap.</p>
+      <p>No parallel sessions. No missed discussions. Everyone hears the same presentations and joins the same conversations, so no perspective gets siloed and no insight gets lost in another room.</p>
+    </div>
+    <div class="quote-card">
+      <div class="quote-mark">&ldquo;</div>
+      <blockquote>The forum successfully brought together the modelling community, offering strong buy-in from the Canadian government and generalizable lessons for broader applications."</blockquote>
+      <div class="quote-attr">&mdash; Previous Annual Forum Attendee</div>
+    </div>
+  </div>
+</section>
+
+<section class="section signup" style="margin-top:-90px">
+  <div class="wrap">
+    <h2>Stay Updated.</h2>
+    <p>Sign up for the EMH newsletter to be the first to hear about speaker announcements, agenda updates, and post-forum reports.</p>
+    <form action="https://cme-emh.us3.list-manage.com/subscribe/post?u=a62c949624a274298cd1070e5&amp;id=6c0ec918d5" method="post" id="mc-embedded-subscribe-form-hero" name="mc-embedded-subscribe-form" class="signup-form validate" target="_blank" novalidate>
+      <input type="email" name="EMAIL" placeholder="you@organization.ca" required>
+      <!-- Mailchimp bot-protection field: must stay hidden, do not remove -->
+      <div style="position:absolute; left:-5000px;" aria-hidden="true">
+        <input type="text" name="b_a62c949624a274298cd1070e5_6c0ec918d5" tabindex="-1" value="">
+      </div>
+      <input type="submit" value="Subscribe" name="subscribe" class="btn btn-primary">
+    </form>
+  </div>
+</section>
+
+</div><!-- /page-home -->
+
+<!-- ============ AGENDA ============ -->
+<div class="page" id="page-agenda">
+
+<section class="page-banner" style="background:#070F2A; border-bottom:0px solid var(--line-soft);">
+  <div class="wrap">
+    <h1>Agenda</h1>
+    <p>Join us in Ottawa for 2 days of panels, plenaries, exhibits, poster presentations, peer awards, and networking opportunities.</p>
+  </div>
+</section>
+
+<section class="format-explainer" style="background:#070F2A; border-bottom:0px solid var(--line-soft); margin-top:-60px;">
+  <div class="wrap" style="grid-template-columns:1fr; max-width:830px;">
+    <div>
+      <div class="eyebrow mono">Format</div>
+      <h2>Diverse Perspectives, Timely Questions</h2>
+      <p>This year, every panel brings modellers, policymakers, regulators, and industry together on one topic. Each speaks from their specific perspective. You leave understanding both the modelling and the decisions it has to inform.</p>
+      <p style="font-size:13px; color:var(--text-lo); margin-top:16px;">* Additional sessions and speakers may be added to the program so be sure to check back on a regular basis!</p>
+    </div>
+  </div>
+</section>
+
+<section class="section agenda" style="padding-top:50px;">
+  <div class="wrap">
+    <div class="agenda-tabs">
+      <button class="tab-btn active" onclick="showDay(1,this,'agenda')">Day 1 - Wed, Dec 16</button>
+      <button class="tab-btn" onclick="showDay(2,this,'agenda')">Day 2 - Thu, Dec 17</button>
+    </div>
+
+    <div id="agenda-day1">
+      <p class="day-subtitle">The Stakes and the System</p>
+      <div class="acc-list" id="acc-day1"></div>
+    </div>
+
+    <div id="agenda-day2" style="display:none;">
+      <p class="day-subtitle">The Challenge and the Frontier</p>
+      <div class="acc-list" id="acc-day2"></div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page-agenda -->
+
+<!-- ============ SPEAKERS ============ -->
+<div class="page" id="page-speakers">
+
+<section class="page-banner" style="background:#070F2A; border-bottom:0px solid var(--line-soft);">
+  <div class="wrap">
+    <h1>Our Speakers</h1>
+    <p>Canada's energy modelling community.</p>
+	<p>Speakers to be announced.</p>
+  </div>
+</section>
+
+<section class="section speakers" style="background:var(--bg-primary); padding-top:50px;">
+  <div class="wrap">
+
+    <div class="cfp-banner-full">
+      
+      <h2>Apply to Speak at the EMH Annual Forum 2026 as a Panelist or Poster Presenter</h2>
+      <p>We are looking for panelists from a range of backgrounds, including modelling, policy, research, industry, and practical application. Know someone who should be on stage? Submit a panelist or poster application for the EMH Annual Forum 2026.</p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScnPVbnLCguwL9ihHWquwdVjjPJxkSDMkufTU0gC_nQZw32aQ/viewform" rel="noopener noreferrer" class="btn btn-primary">Apply to Be a Panelist</a>
+    </div>
+
+    <!-- SPEAKERS GRID: remove comment tags when first speaker is added. Add one card per speaker using the template below. -->
+    <!--
+    <div class="speaker-grid-new">
+
+      SPEAKER SLOT: fill in photo (base64), name, title, org, LinkedIn URL, bio below
+      <div class="speaker-card-new"
+           onclick="openSpeakerModal(this)"
+           data-name="Dr. Elena Rodriguez"
+           data-title="Director of Strategic Analytics"
+           data-org="Canadian Renewable Energy Laboratory"
+           data-linkedin="https://www.linkedin.com/"
+           data-photo="data:image/png;base64,REPLACE_WITH_BASE64_PHOTO"
+           data-bio="Full biography paragraph goes here.">
+        <div class="speaker-card-photo-wrap">
+          <img src="data:image/png;base64,REPLACE_WITH_BASE64_PHOTO" alt="Dr. Elena Rodriguez">
+          <div class="speaker-card-overlay"><span>View Profile &rsaquo;</span></div>
+        </div>
+        <div class="speaker-card-name">Dr. Elena Rodriguez</div>
+        <div class="speaker-card-title">Director of Strategic Analytics</div>
+        <div class="speaker-card-org">Canadian Renewable Energy Laboratory</div>
+      </div>
+
+    </div>
+    -->
+
+    <!-- Speaker modal (shared by all cards above; stays in the DOM, populated on click) -->
+    <div class="speaker-modal-overlay" id="speakerModalOverlay" onclick="if(event.target===this) closeSpeakerModal()">
+      <div class="speaker-modal">
+        <button class="speaker-modal-close" onclick="closeSpeakerModal()" aria-label="Close">&times;</button>
+        <div class="speaker-modal-left">
+          <img id="speakerModalPhoto" class="speaker-modal-photo" src="" alt="">
+          <div id="speakerModalName" class="speaker-modal-name"></div>
+          <div id="speakerModalTitle" class="speaker-modal-title"></div>
+          <div id="speakerModalOrg" class="speaker-modal-org"></div>
+          <a id="speakerModalLinkedin" class="speaker-modal-linkedin" href="#" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-cyan)"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.940v5.666H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
+        <div class="speaker-modal-right">
+          <div class="speaker-modal-bio-heading mono">About the Speaker</div>
+          <p id="speakerModalBio" class="speaker-modal-bio"></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</div><!-- /page-speakers -->
+
+
+
+<!-- ============ SPONSORS ============ -->
+<div class="page" id="page-sponsors">
+
+<section class="page-banner" style="background:#070F2A; border-bottom:0px solid var(--line-soft);">
+  <div class="wrap">
+    <h1>Our Sponsors</h1>
+    <p>We gratefully acknowledge our sponsors for supporting the EMH Annual Forum 2026.</p>
+	<p>Sponsoring the EMH Annual Forum 2026 places your organization at the centre of Canada's energy modelling conversation.</p> 
+	<p>Our sponsors make this event possible and are recognized throughout the program, the site, and the room.</p>
+    <div class="banner-actions">
+      <a href="#sponsor-cta" target="_self" class="btn btn-primary">Become a Sponsor</a>
+    </div>
+  </div>
+</section>
+
+<section class="section sponsors" style="padding-top:60px;">
+  <div class="wrap">
+
+    <div class="sponsor-tier-block">
+
+      <div class="sponsor-tier-heading">Platinum</div>
+      <div class="sponsor-logo-grid tier-platinum">
+        <div class="sponsor-logo-tile"><img src="images/sponsor-01.png" alt="Institut de l'énergie Trottier (IET)"></div>
+      </div>
+
+      <div class="sponsor-tier-heading">Gold</div>
+      <div class="sponsor-logo-grid tier-gold">
+        <div class="sponsor-logo-tile"><img src="images/sponsor-02.png" alt="EHRC"></div>
+      </div>
+
+      <div class="sponsor-tier-heading">Welcome Reception</div>
+      <p class="sponsor-empty-line">Sponsorship opportunities available</p>
+
+      <div class="sponsor-tier-heading">Silver</div>
+      <div class="sponsor-logo-grid">
+        <div class="sponsor-logo-tile"><img src="images/sponsor-03.png" alt="Toronto Hydro"></div>
+      </div>
+
+      <div class="sponsor-tier-heading">Lunch &amp; Breaks</div>
+      <div class="sponsor-logo-grid">
+        <div class="sponsor-logo-tile"><img src="images/sponsor-04.png" alt="Dunsky Energy + Climate"></div>
+      </div>
+
+      <div class="sponsor-tier-heading">Exhibitor</div>
+      <div class="sponsor-logo-grid tier-exhibitor">
+        <div class="sponsor-logo-tile"><img src="images/sponsor-05.png" alt="IESO"></div>
+      </div>
+
+      <div class="sponsor-tier-heading">Gift Bags &amp; Awards</div>
+      <p class="sponsor-empty-line">Sponsorship opportunities available</p>
+
+    </div>
+  </div>
+</section>
+
+<section class="section sponsors" id="sponsor-cta" style="background:var(--bg-secondary); text-align:center;">
+  <div class="wrap">
+    <h2 style="font-size:26px; margin-bottom:14px;">Become a Sponsor</h2>
+    <p style="max-width:600px; margin:0 auto 24px;">Sponsoring the EMH Annual Forum 2026 places your organization at the centre of Canada's energy modelling conversation. Our sponsors make this event possible and are recognized throughout the program, the site, and the room.</p>
+    <a href="mailto:info@cme-emh.ca?subject=Interested%20in%20Sponsorship%20Opportunity%20-%20Event%20Site" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Become a Sponsor</a>
+  </div>
+</section>
+
+</div><!-- /page-sponsors -->
+
+<!-- ============ VENUE (light exception) ============ -->
+<div class="page" id="page-venue">
+
+<section class="page-banner" style="background:#070F2A; border-bottom:0px solid var(--line-soft);">
+  <div class="wrap">
+    <h1>Venue</h1>
+    <p>Thank you to Carleton University for being our event host.</p>
+  </div>
+</section>
+
+<!-- SECTION 1 — VENUE OVERVIEW -->
+<section class="venue-overview">
+  <div class="wrap">
+    <div class="venue-grid">
+      <img src="images/venue-photo.jpg" class="venue-photo-img" alt="Richcraft Hall, Carleton University">
+      <div>
+        <h2 class="venue-name">Richcraft Hall (River Building)</h2>
+        <div class="venue-address">Corner of Campus Avenue &amp; University Drive, Ottawa, ON</div>
+        <div class="venue-desc">
+          <p>We are pleased to host this year's EMH Annual Forum 2026 at Carleton University. Our event will take place at Richcraft Hall.</p>
+          <p>Located on the banks of the Rideau River, Richcraft Hall features a light-filled glass Atrium on the second floor that provides an open, modern atmosphere for networking and sessions.</p>
+          <p>Situated at the corner of Campus Avenue and University Drive, the venue offers central accessibility, scenic views, and connection to campus parking and transportation.</p>
+        </div>
+        <img style="margin-left:115px" src="images/carleton-logo.png" class="venue-carleton-logo" alt="Carleton University">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 — WAYFINDING -->
+<section class="venue-band alt">
+  <div class="wrap">
+    <h2>Finding Your Way</h2>
+    <div class="venue-list">
+      <div class="venue-list-item">
+        <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div>
+          <div class="venue-item-title">Navigation Address</div>
+          <div class="venue-item-body">Set your GPS to the corner of University Dr &amp; Campus Ave.</div>
+        </div>
+      </div>
+      <div class="venue-list-item">
+        <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M14 12h.01"/></svg></div>
+        <div>
+          <div class="venue-item-title">Main &amp; Rear Entrances</div>
+          <div class="venue-item-body">Main entrance is located on Campus Avenue (ground level). Rear entrance is located near the river (ground level).</div>
+        </div>
+      </div>
+      <div class="venue-list-item">
+        <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20 20 4M4 20h16M4 20V4"/></svg></div>
+        <div>
+          <div class="venue-item-title">Ramp Access</div>
+          <div class="venue-item-body">An exterior entrance near the Steacie Building provides ramp access into Richcraft Hall. P16 Garage entrance offers ramp and elevator access from Level P1.</div>
+        </div>
+      </div>
+      <div class="venue-list-item">
+        <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="m9 8 3-3 3 3M9 16l3 3 3-3"/></svg></div>
+        <div>
+          <div class="venue-item-title">Elevators</div>
+          <div class="venue-item-body">Available inside for full wheelchair access to the Atrium (Level 2).</div>
+        </div>
+      </div>
+      <div class="venue-list-item">
+        <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h13l4-4v8l-4-4"/><path d="M3 12V6M3 18v-6"/></svg></div>
+        <div>
+          <div class="venue-item-title">Upon Arrival</div>
+          <div class="venue-item-body">Follow event signage and wayfinding maps at any building entrance to reach the 2nd Floor Atrium.</div>
+        </div>
+      </div>
+      <div class="venue-list-item">
+        <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div>
+          <div class="venue-item-title">Need Help?</div>
+          <div class="venue-item-body">Event Day Support: call 1-905-537-2724 for wayfinding assistance.<br>Advance Questions: email <a href="mailto:vanessa.smikle@cme-emh.ca?subject=Venue%20Question%20-%20Event%20Site" target="_blank" rel="noopener noreferrer">vanessa.smikle@cme-emh.ca</a>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 — GETTING THERE -->
+<section class="venue-band">
+  <div class="wrap">
+    <h2>Getting Here</h2>
+    <div class="venue-list">
+      <div class="venue-list-item">
+        <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16M8 21l-2-4h12l-2 4M8 3v4M16 3v4"/></svg></div>
+        <div>
+          <div class="venue-item-title">O-Train</div>
+          <div class="venue-item-body">Take the O-Train to the Carleton stop on Campus Avenue. Richcraft Hall is a 4-minute walk south.</div>
+        </div>
+      </div>
+      <div class="venue-list-item">
+        <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/><path d="M3 10h18"/></svg></div>
+        <div>
+          <div class="venue-item-title">Bus</div>
+          <div class="venue-item-body">Multiple routes service campus, including Bus 7 and Bus 10. Alight at the Carleton U. B stop (University Rd / Pathway Priv) for a 4-minute walk to the venue. Tap any credit card at the fare gate or bus reader (~$4.00 per ride).</div>
+        </div>
+      </div>
+      <div class="venue-list-item">
+        <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h14M5 17a2 2 0 1 0 4 0M15 17a2 2 0 1 0 4 0M5 17l1.5-6h11L19 17M9 11V7h6v4"/></svg></div>
+        <div>
+          <div class="venue-item-title">Taxi Services</div>
+          <div class="venue-item-body">Blue Line Taxi Co Ltd: (613) 238-1111<br>Executive Cabs: (613) 248-3558<br>Loyal Taxi: (819) 663-5252</div>
+        </div>
+      </div>
+      <div class="venue-list-item">
+        <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2 16 11l3.5-3.5c.83-.83.83-2.17 0-3s-2.17-.83-3 0L13 8 4.8 6.2c-.3-.07-.62.03-.83.24l-.7.7c-.3.3-.24.8.12.94L9 10.5 6.5 13H4l-1 1 3 1 1 3 1-1v-2.5l2.5-2.5 2.36 6.4c.14.37.65.42.94.12l.7-.7c.22-.21.32-.53.24-.83Z"/></svg></div>
+        <div>
+          <div class="venue-item-title">Travel from Key Locations</div>
+          <div class="venue-item-body">From Ottawa Airport: ~10 min by car/taxi or ~40 min via public transit.<br>From Ottawa VIA Rail Station: ~15-min taxi ride (~$15.00).<br>From Ottawa Bus Terminal: ~10-min taxi ride (~$10.00).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 — PARKING -->
+<section class="venue-band alt">
+  <div class="wrap">
+    <h2>Parking</h2>
+    <div class="venue-list">
+      <div class="venue-list-item">
+        <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg></div>
+        <div>
+          <div class="venue-item-title">Visitor Parking</div>
+          <div class="venue-item-body">Nearby visitor parking is available in Lot P16 and Lot P18. For detailed driving directions, public transit options, and parking rates, please see below.</div>
+        </div>
+      </div>
+      <div class="venue-list-item">
+        <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h14M5 17a2 2 0 1 0 4 0M15 17a2 2 0 1 0 4 0M5 17l1.5-6h11L19 17M9 11V7h6v4"/></svg></div>
+        <div>
+          <div class="venue-item-title">Parking Rates</div>
+          <div class="venue-item-body">Special parking rates will be shared before the event.</div>
+        </div>
+      </div>
+    </div>
+    <a href="https://drive.google.com/file/d/15O4zEpUiNGbVQjXxTj-piENp-BnJu9ik/view?usp=sharing" rel="noopener noreferrer" class="btn btn-outline" style="margin-top:30px;">View Parking &amp; Directions</a>
+  </div>
+</section>
+
+<!-- SECTION 5 — ACCOMMODATION -->
+<section class="venue-band">
+  <div class="wrap">
+    <h2>Where to Stay</h2>
+    <div class="venue-list-item" style="margin-bottom:0;">
+      <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"/></svg></div>
+      <div>
+        <div class="venue-item-title">Hotel Recommendations</div>
+        <div class="venue-item-body">Hotel recommendations will be shared before the event.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page-venue -->
+
+<!-- ============ HALL OF FAME ============ -->
+<div class="page" id="page-halloffame">
+
+<section class="page-banner" style="background:#070F2A; border-bottom:0px solid var(--line-soft);">
+  <div class="wrap">
+    <h1>Hall of Fame</h1>
+    <p>2026 Canadian Energy Modelling and Policymaking Hall of Fame</p>
+    <p style="margin-top:10px; max-width:640px; margin-left:auto; margin-right:auto;">Nominations are now open for a national award created by the Energy Modelling Hub (EMH) to recognize careers that have advanced energy system modelling and evidence-based policymaking in Canada.</p>
+    <div class="hof-dates">
+      <div><span class="hof-date-label mono">Nomination Start Date</span><span class="hof-date-value">September 1, 2026</span></div>
+      <div><span class="hof-date-label mono">Nomination End Date</span><span class="hof-date-value">October 15, 2026</span></div>
+    </div>
+    <div class="banner-actions">
+      <a href="#hof-nominate" target="_self" class="btn btn-primary">Submit a Nomination</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT THE AWARD -->
+<section class="hof-band">
+  <div class="wrap">
+    <div class="hof-about-grid">
+      <div>
+        <h2>About the Award</h2>
+        <p>EMH is accepting nominations for the 2026 Canadian Energy Modelling and Policymaking Hall of Fame.</p>
+        <p>Our field moves fast. New tools emerge, new questions appear, and the community keeps expanding. Yet behind this progress are individuals whose work has quietly and profoundly shaped how Canada plans its energy future. The Hall of Fame is about making those contributions visible.</p>
+        <p>This national recognition honours individuals whose work has advanced energy system modelling and evidence-based policymaking in Canada. It celebrates careers that strengthen analytical rigour, open up methods and data, and build the collaborative capacity the country relies on today.</p>
+        <p>The 2026 inductee will be recognized at the EMH Annual Forum 2026.</p>
+      </div>
+      <img src="images/hof-about.jpg" class="hof-about-photo" alt="2025 Hall of Fame inductee Nick Macaluso receiving his award at the EMH Annual Forum">
+    </div>
+  </div>
+</section>
+
+<!-- NOMINATION CRITERIA -->
+<section class="hof-band alt">
+  <div class="wrap">
+    <h2>Nomination Criteria</h2>
+    <p>Nominations are assessed against five criteria:</p>
+    <ul class="hof-criteria-list">
+      <li>Impact on Canadian energy and climate policy</li>
+      <li>Advancement of modelling tools, methods, or standards</li>
+      <li>Leadership in collaboration across institutions and governments</li>
+      <li>Contribution to national modelling capacity and mentorship</li>
+      <li>Commitment to transparency, analytical rigour, and evidence-based policymaking</li>
+    </ul>
+    <p class="hof-note">Note that the nominee must be present to accept the award at the EMH Annual Forum 2026 on December 16, 2026 in Ottawa, ON.</p>
+  </div>
+</section>
+
+<!-- HOW TO NOMINATE -->
+<section class="hof-band">
+  <div class="wrap">
+    <h2>How to Nominate</h2>
+    <p>Anyone in the Canadian energy community can submit a nomination, on behalf of an individual or an organization. The form takes about five minutes to complete.</p>
+    <p>A selection committee of modellers, policy practitioners, and researchers will review all submissions.</p>
+    <ul class="hof-timeline-list">
+      <li><strong>Nominations close:</strong> October 15, 2026</li>
+      <li><strong>Finalists announced:</strong> November 2026</li>
+      <li><strong>Recipients announced:</strong> December 16, 2026 at the EMH Annual Forum 2026</li>
+    </ul>
+    <a href="#hof-nominate" target="_self" class="btn btn-primary">Submit a Nomination</a>
+  </div>
+</section>
+
+<!-- PAST INDUCTEE -->
+<section class="hof-band alt">
+  <div class="wrap">
+    <div class="eyebrow mono">Past Inductee</div>
+    <h2>2025 Hall of Fame Inductee: Nick Macaluso</h2>
+    <div class="hof-inductee-grid">
+      <img src="images/hof-inductee-macaluso.jpg" class="hof-inductee-photo" alt="Nick Macaluso, 2025 Hall of Fame inductee">
+      <div>
+        <p>Over nearly four decades in public service, including 25 years at Environment and Climate Change Canada, Nick Macaluso helped build core energy, economic, and emissions modelling capacity still used today. His work supported major national decisions, including carbon pricing, and extended internationally through long-standing contributions to UNFCCC transparency and review processes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOMINATION FORM -->
+<section class="hof-band" id="hof-nominate">
+  <div class="wrap" style="text-align:center;">
+    <div class="eyebrow mono">Nomination Form</div>
+    <p style="max-width:520px; margin:0 auto 24px;">Complete the nomination form below. It takes about five minutes.</p>
+    <a href="#" rel="noopener noreferrer" class="btn btn-primary">Open Nomination Form</a>
+  </div>
+</section>
+
+<!-- SPONSORSHIP -->
+<section class="hof-band alt">
+  <div class="wrap">
+    <h2>Sponsorship Opportunities</h2>
+    <p><a onclick="goTo('sponsors')" class="hof-sponsor-link">Sponsorship opportunities</a> for the Hall of Fame Awards are open, giving organizations visibility and a chance to align with the leaders shaping Canada's clean energy transition.</p>
+    <p>To learn more or secure your sponsorship, contact us at <a href="mailto:info@cme-emh.ca?subject=Interested%20in%20Hall%20of%20Fame%20Sponsorship%20-%20Event%20Site" target="_blank" rel="noopener noreferrer" class="hof-mailto-link">info@cme-emh.ca</a>.</p>
+  </div>
+</section>
+
+</div><!-- /page-halloffame -->
+
+<!-- ============ SHARED FOOTER (appended into every page via JS) ============ -->
+<template id="footer-template">
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="logo"><img src="images/footer-logo.png" alt="EMH logo" class="nav-logo-lockup"> </div>
+        <p>The <a href="https://cme-emh.ca/en/" rel="noopener noreferrer">Energy Modelling Hub (EMH)</a> is Canada's independent reference centre for energy modelling, connecting modellers, researchers, and policymakers through open-source tools, shared data, and a national community of practice built around evidence-based energy decision-making.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="mono">Navigation</h4>
+        <a onclick="goTo('agenda')" style="font-size:12px;">Agenda</a><a onclick="goTo('speakers')"style="font-size:12px;">Speakers</a><a onclick="goTo('venue')"style="font-size:12px;">Venue</a><a onclick="goTo('halloffame')"style="font-size:12px;">Hall of Fame</a><a onclick="goTo('sponsors')"style="font-size:12px;">Sponsors</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="mono">Connect</h4>
+        <div class="social-icons"><a href="https://www.linkedin.com/company/energy-modelling-hub-carrefour-de-mod%C3%A9lisation-%C3%A9nerg%C3%A9tique/" rel="noopener noreferrer" aria-label="LinkedIn" style="width:34px; height:34px; border-radius:8px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--text-muted)"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.940v5.666H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div>
+      </div>
+	  <div class="footer-col">
+        <h4 class="mono">Copyright</h4>
+        <p style="font-size:12px; margin:0;">&copy; 2026 EMH Annual Forum 2026.<br>All rights reserved.</p>
+      </div>
+      <div class="footer-col footer-newsletter">
+        <h4 class="mono">Newsletter</h4>
+        <form action="https://cme-emh.us3.list-manage.com/subscribe?u=a62c949624a274298cd1070e5&id=6c0ec918d5" method="post" id="mc-embedded-subscribe-form-footer" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+          <input type="email" name="EMAIL" placeholder="Email address" required>
+          <!-- Mailchimp bot-protection field: must stay hidden, do not remove -->
+          <div style="position:absolute; left:-5000px;" aria-hidden="true">
+            <input type="text" name="b_a62c949624a274298cd1070e5_6c0ec918d5" tabindex="-1" value="">
+          </div>
+          <input type="submit" value="Subscribe" name="subscribe">
+        </form>
+      </div>
+    </div>
+
+  </div>
+</footer>
+</template>
+
+<script>
+// Inject the shared footer into every page section
+(function(){
+  var tpl = document.getElementById('footer-template').innerHTML;
+  document.querySelectorAll('.page').forEach(function(pg){
+    pg.insertAdjacentHTML('beforeend', tpl);
+  });
+})();
+
+// Page routing
+function goTo(pageId){
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('page-' + pageId).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(function(a){
+    a.classList.toggle('active', a.dataset.page === pageId);
+  });
+  var navLinks = document.getElementById('navLinks');
+  if(navLinks) navLinks.classList.remove('open');
+  window.scrollTo(0,0);
+  history.replaceState(null, '', '#' + pageId);
+}
+function toggleMobileNav(){
+  var navLinks = document.getElementById('navLinks');
+  if(navLinks) navLinks.classList.toggle('open');
+}
+
+// Live countdown to Dec 16, 2026, 8:00 AM EST.
+// EST is UTC-5 (no DST in December), so the target is fixed as an absolute
+// UTC instant below — this makes the countdown identical for every visitor
+// regardless of their own local timezone.
+function updateCountdown(){
+  var target = new Date("2026-12-16T13:00:00Z").getTime();
+  var now = Date.now();
+  var diff = Math.max(0, target - now);
+  var days = Math.floor(diff / 86400000);
+  var hours = Math.floor((diff % 86400000) / 3600000);
+  var mins = Math.floor((diff % 3600000) / 60000);
+  var secs = Math.floor((diff % 60000) / 1000);
+  var pad = function(n){ return String(n).padStart(2, '0'); };
+  var elDays = document.getElementById('cdDays');
+  var elHours = document.getElementById('cdHours');
+  var elMins = document.getElementById('cdMinutes');
+  var elSecs = document.getElementById('cdSeconds');
+  if(elDays) elDays.textContent = days;
+  if(elHours) elHours.textContent = pad(hours);
+  if(elMins) elMins.textContent = pad(mins);
+  if(elSecs) elSecs.textContent = pad(secs);
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Speaker modal system — reads data-* attributes off the clicked card.
+// Works automatically once real .speaker-card-new elements are uncommented.
+function openSpeakerModal(cardEl){
+  var overlay = document.getElementById('speakerModalOverlay');
+  if(!overlay) return;
+  document.getElementById('speakerModalPhoto').src = cardEl.dataset.photo || '';
+  document.getElementById('speakerModalPhoto').alt = cardEl.dataset.name || '';
+  document.getElementById('speakerModalName').textContent = cardEl.dataset.name || '';
+  document.getElementById('speakerModalTitle').textContent = cardEl.dataset.title || '';
+  document.getElementById('speakerModalOrg').textContent = cardEl.dataset.org || '';
+  document.getElementById('speakerModalLinkedin').href = cardEl.dataset.linkedin || '#';
+  document.getElementById('speakerModalBio').textContent = cardEl.dataset.bio || '';
+  overlay.classList.add('open');
+}
+function closeSpeakerModal(){
+  var overlay = document.getElementById('speakerModalOverlay');
+  if(overlay) overlay.classList.remove('open');
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeSpeakerModal();
+});
+
+window.addEventListener('DOMContentLoaded', function(){
+  var initial = (location.hash || '#home').replace('#','');
+  var valid = ['home','agenda','speakers','sponsors','venue','halloffame'];
+  goTo(valid.includes(initial) ? initial : 'home');
+});
+
+// Day tabs (home + agenda page both use this)
+function showDay(n, btn, scope){
+  document.getElementById(scope + '-day1').style.display = n===1 ? 'block':'none';
+  document.getElementById(scope + '-day2') && (document.getElementById(scope + '-day2').style.display = n===2 ? 'block':'none');
+  var tabs = btn.parentElement.querySelectorAll('.tab-btn');
+  tabs.forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+
+// ---------- Accordion agenda component ----------
+var AGENDA_DAY1 = [
+  { time: "8:15 \u2013 9:00", title: "Arrival & Coffee" },
+  { time: "9:00 \u2013 9:45", title: "Opening Remarks (15 min) + Keynote (30 min) \u2014 The stakes",
+    desc: "An outward-looking opening that frames energy as a question of competitiveness, security, and economic sovereignty, and sets the scale of the challenge the next two days respond to." },
+  { time: "9:45 \u2013 11:00", title: "Session 1 \u2014 What models tell us about the transition vision",
+    desc: "Governments across Canada are putting forward competing visions for the electricity transition. This session asks what our models actually tell us about those paths, whether they\u2019re the right ones, and where analysis can and cannot yet speak to them." },
+  { time: "11:00 \u2013 11:30", title: "Networking Break" },
+  { time: "11:30 \u2013 12:30", title: "Session 2 \u2014 Where the blind spots are: what models miss about the vision",
+    desc: "Drawing on the latest results from the Multi-Model Comparison Forum (MMCF) and recent methodological work, this session surfaces what our models systematically miss \u2014 on demand, behaviour, markets, and more \u2014 and what it would take to close those gaps. This session is best suited for those participating in the MMCF." },
+  { time: "12:30 \u2013 13:30", title: "Lunch & Networking" },
+  { time: "13:30 \u2013 13:55", title: "Poster Pitch Competition \u2014 Part 1" },
+  { time: "13:55 \u2013 15:10", title: "Session 3 \u2014 Interties, from \u201coptimal\u201d to built",
+    desc: "Modellers have shown for years that interprovincial transmission is \u201coptimal,\u201d yet little gets built. This session asks what modelling must incorporate to produce results that are buildable, not just optimal, bringing economists, regulators, and transition experts into the room." },
+  { time: "15:10 \u2013 15:40", title: "Networking Break" },
+  { time: "15:40 \u2013 16:55", title: "Session 4 \u2014 Value chains and industrial strength",
+    desc: "Decarbonizing heavy industry and building the domestic supply chains and workforce the transition depends on are where competitiveness and economic opportunity are most at stake. This session puts industry practitioners alongside modellers to ask where Canada can build real strength." },
+  { time: "16:55 \u2013 17:05", title: "Special Video" },
+  { time: "17:05 \u2013 18:30", title: "5th - Anniversary Reception + Hall of Fame", desc: "Hall of Fame induction takes place during the reception.",
+    link: { page: "halloffame", text: "Hall of Fame Induction \u2014 learn about this year's nominee \u2192" } },
+];
+
+var AGENDA_DAY2 = [
+  { time: "8:30 \u2013 9:00", title: "Arrival & Coffee" },
+  { time: "9:00 \u2013 9:30", title: "Keynote (30 min) \u2014 The challenges of transition",
+    desc: "The second outward-looking voice: the human and economic reality of delivery, labour, supply chains, and affordability, and what it asks of analysis." },
+  { time: "9:30 \u2013 10:30", title: "Session 5 \u2014 Affordable, reliable, and efficient: Electrification and the demand side",
+    desc: "A deeply electrified system has to be affordable and reliable, and how much we need to build depends heavily on the demand side. This session asks how demand management, flexibility, and efficiency reshape what a reliable grid actually requires." },
+  { time: "10:30 \u2013 11:00", title: "Networking Break" },
+  { time: "11:00 \u2013 12:00", title: "Session 6 \u2014 AI and the frontier of modelling",
+    desc: "AI is changing how modelling gets done, from preparing and filling data to running models faster to interpreting and communicating results. This session asks where AI genuinely strengthens the modelling workflow, and where it introduces risk." },
+  { time: "12:00 \u2013 12:25", title: "Poster Pitch Competition \u2014 Part 2 + Results" },
+  { time: "12:25 \u2013 13:25", title: "Lunch & Networking" },
+  { time: "13:25 \u2013 13:35", title: "Annual Barometer Presentation" },
+  { time: "13:35 \u2013 14:50", title: "Session 7 \u2014 Deciding under uncertainty",
+    desc: "The closing session turns from results to judgment: what models can justifiably claim, and how to decide well when they disagree and the future is genuinely uncertain. This discipline underpins every other session on the agenda." },
+  { time: "14:50 \u2013 15:05", title: "Closing Remarks" },
+];
+
+function escapeHtml(s){
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+function renderAgendaAccordion(containerId, sessions){
+  var el = document.getElementById(containerId);
+  if(!el) return;
+  var html = sessions.map(function(s, i){
+    var title = escapeHtml(s.title);
+    var desc = s.desc ? escapeHtml(s.desc) : null;
+    var linkHtml = s.link ? '<div class="acc-crosslink"><a onclick="goTo(\'' + s.link.page + '\')">' + escapeHtml(s.link.text) + '</a></div>' : '';
+    if(desc){
+      return '<details class="acc-item" data-idx="'+i+'">'
+        + '<summary>'
+        +   '<span class="acc-time">'+s.time+'</span>'
+        +   '<span class="acc-title">'+title+'</span>'
+        +   '<span class="acc-chevron" aria-hidden="true">+</span>'
+        + '</summary>'
+        + '<div class="acc-desc">'+desc+linkHtml+'</div>'
+        + '</details>';
+    }
+    return '<div class="acc-static-row">'
+      + '<span class="acc-time">'+s.time+'</span>'
+      + '<span class="acc-title">'+title+'</span>'
+      + '</div>';
+  }).join('');
+  el.innerHTML = html;
+
+  // Accordion behaviour: only one <details> open at a time within this list
+  var items = el.querySelectorAll('details.acc-item');
+  items.forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(d.open){
+        items.forEach(function(other){
+          if(other !== d) other.open = false;
+        });
+      }
+    });
+  });
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  renderAgendaAccordion('acc-day1', AGENDA_DAY1);
+  renderAgendaAccordion('acc-day2', AGENDA_DAY2);
+});
+
+// Animated network background (ported from NetworkNodeBackground.jsx)
+function initNetworkCanvas(canvas, opts){
+  opts = opts || {};
+  var nodeCount = opts.nodeCount || 25;
+  var color = opts.color || "20, 184, 166";
+  var maxDistance = opts.maxDistance || 140;
+  var mouseRadius = opts.mouseRadius || 280;
+  var container = canvas.parentElement;
+  var ctx = canvas.getContext("2d");
+  var BASE_SPEED = 0.15;
+  var MIN_SPEED = 0.08;
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var width = 0, height = 0, nodes = [], rafId = null;
+  var mouse = { x: -9999, y: -9999, active: false };
+
+  function rand(a,b){ return a + Math.random()*(b-a); }
+  function makeNode(){
+    return { x: Math.random()*width, y: Math.random()*height,
+      vx: rand(-BASE_SPEED,BASE_SPEED), vy: rand(-BASE_SPEED,BASE_SPEED), r: rand(1.4,2.6) };
+  }
+  function resize(){
+    var rect = container.getBoundingClientRect();
+    width = Math.max(1, rect.width); height = Math.max(1, rect.height);
+    canvas.width = Math.floor(width*dpr); canvas.height = Math.floor(height*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function init(){ resize(); nodes = Array.from({length:nodeCount}, makeNode); }
+
+  function onMouseMove(e){
+    var rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top; mouse.active = true;
+  }
+  function onMouseLeave(){ mouse.active = false; mouse.x=-9999; mouse.y=-9999; }
+  function onTouchMove(e){
+    if(!e.touches || !e.touches.length) return;
+    var rect = canvas.getBoundingClientRect();
+    mouse.x = e.touches[0].clientX - rect.left; mouse.y = e.touches[0].clientY - rect.top; mouse.active = true;
+  }
+
+  canvas.addEventListener("mousemove", onMouseMove);
+  canvas.addEventListener("mouseleave", onMouseLeave);
+  canvas.addEventListener("touchmove", onTouchMove, { passive: true });
+  canvas.addEventListener("touchend", onMouseLeave);
+
+  var resizeTimeout;
+  function handleResize(){
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function(){
+      var rect = container.getBoundingClientRect();
+      if(rect.width < 1 || rect.height < 1) return; // still hidden — skip, don't collapse
+      var prevW=width, prevH=height; resize();
+      if(prevW>0 && prevH>0){
+        var sx=width/prevW, sy=height/prevH;
+        nodes.forEach(function(n){ n.x*=sx; n.y*=sy; });
+      }
+    }, 80);
+  }
+  window.addEventListener("resize", handleResize);
+  if(window.ResizeObserver){
+    new ResizeObserver(handleResize).observe(container);
+  }
+
+  function step(){
+    ctx.clearRect(0,0,width,height);
+    for(var k=0;k<nodes.length;k++){
+      var n = nodes[k];
+      if(mouse.active){
+        var dx=mouse.x-n.x, dy=mouse.y-n.y, dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<mouseRadius && dist>0.01){
+          var force=(1-dist/mouseRadius)*0.02;
+          n.vx += (dx/dist)*force; n.vy += (dy/dist)*force;
+        }
+      }
+      n.vx += rand(-0.006, 0.006);
+      n.vy += rand(-0.006, 0.006);
+      n.vx *= 0.995; n.vy *= 0.995;
+      var speed=Math.sqrt(n.vx*n.vx+n.vy*n.vy), maxSpeed=0.9;
+      if(speed>maxSpeed){
+        n.vx=(n.vx/speed)*maxSpeed; n.vy=(n.vy/speed)*maxSpeed;
+      } else if(speed<MIN_SPEED && speed>0.0001){
+        n.vx=(n.vx/speed)*MIN_SPEED; n.vy=(n.vy/speed)*MIN_SPEED;
+      }
+      n.x+=n.vx; n.y+=n.vy;
+      if(n.x<-20) n.x=width+20; if(n.x>width+20) n.x=-20;
+      if(n.y<-20) n.y=height+20; if(n.y>height+20) n.y=-20;
+    }
+    for(var i=0;i<nodes.length;i++){
+      for(var j=i+1;j<nodes.length;j++){
+        var a=nodes[i], b=nodes[j];
+        var dx2=a.x-b.x, dy2=a.y-b.y, dist2=Math.sqrt(dx2*dx2+dy2*dy2);
+        if(dist2<maxDistance){
+          var alpha=(1-dist2/maxDistance)*0.35;
+          ctx.strokeStyle="rgba("+color+","+alpha+")"; ctx.lineWidth=1;
+          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+        }
+      }
+    }
+    if(mouse.active){
+      for(var m=0;m<nodes.length;m++){
+        var nn=nodes[m];
+        var dx3=mouse.x-nn.x, dy3=mouse.y-nn.y, dist3=Math.sqrt(dx3*dx3+dy3*dy3);
+        if(dist3<mouseRadius){
+          var alpha2=(1-dist3/mouseRadius)*0.5;
+          ctx.strokeStyle="rgba("+color+","+alpha2+")"; ctx.lineWidth=1;
+          ctx.beginPath(); ctx.moveTo(mouse.x,mouse.y); ctx.lineTo(nn.x,nn.y); ctx.stroke();
+        }
+      }
+    }
+    for(var p=0;p<nodes.length;p++){
+      var np=nodes[p];
+      ctx.beginPath(); ctx.arc(np.x,np.y,np.r,0,Math.PI*2);
+      ctx.fillStyle="rgba("+color+",0.9)"; ctx.fill();
+    }
+    rafId = requestAnimationFrame(step);
+  }
+  init();
+  rafId = requestAnimationFrame(step);
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  var heroCanvas = document.getElementById('hero-net');
+  if(heroCanvas){ initNetworkCanvas(heroCanvas, {nodeCount:45, color:"112, 223, 220", maxDistance:140, mouseRadius:220}); }
+});
+</script>
+
+</body>
+</html>
+
