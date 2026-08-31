@@ -4,6 +4,10 @@ Event site for the **EMH Annual Forum 2026** (December 16–17, 2026, Richcraft 
 
 Single-page site with hash routing: `index.html` contains all six pages (Home, Agenda, Speakers, Sponsors, Venue, Hall of Fame). Images live in `images/`.
 
+**Bilingual:** `fr.html` is the French version — same structure, same images, French text. The EN/FR button in the nav switches languages while staying on the same page.
+
+> ⚠️ **Every content change must be made twice: once in `index.html` (English) and once in `fr.html` (French).** If you only have wording for one language, still update both files (put the English text in `fr.html` temporarily and mark it with `<!-- TODO: traduire -->` so it's easy to find).
+
 ## How to make a change
 
 ```bash
