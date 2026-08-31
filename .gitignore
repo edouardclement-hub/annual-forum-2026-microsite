@@ -3,3 +3,6 @@
 # Original pre-extraction file kept as a local backup only —
 # committing it would put 3.6MB of base64 into the repo history.
 emh-site-index-v25.html
+
+# Internal working documents — never commit
+*.docx
