@@ -7,6 +7,7 @@
 <base target="_blank">
 <link rel="alternate" hreflang="en-CA" href="https://edouardclement-hub.github.io/annual-forum-2026-microsite/">
 <link rel="alternate" hreflang="fr-CA" href="https://edouardclement-hub.github.io/annual-forum-2026-microsite/fr.html">
+<link rel="alternate" hreflang="x-default" href="https://edouardclement-hub.github.io/annual-forum-2026-microsite/">
 <link rel="icon" type="image/png" href="images/favicon.png">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
@@ -112,6 +113,12 @@
   }
   .lang-toggle{font-size:12px; color:var(--text-muted); display:flex; gap:6px; align-items:center;}
   .lang-toggle span:first-child{color:var(--text-primary); font-weight:600;}
+
+  /* Slightly tighter desktop nav (longer CTA label) */
+  @media (min-width:861px){
+    .nav-links{gap:22px;}
+    .nav-links a{white-space:nowrap;}
+  }
 
   /* LANGUAGE SWITCH */
   .lang-switch{font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
@@ -525,7 +532,7 @@
       <a data-page="sponsors" onclick="goTo('sponsors')">Sponsors</a>
       <a data-page="venue" onclick="goTo('venue')">Venue</a>
       <a data-page="halloffame" onclick="goTo('halloffame')">Hall of Fame</a>
-      <a href="https://www.eventbrite.ca/" rel="noopener noreferrer" class="btn btn-primary nav-register-btn">Register Now</a>
+      <a onclick="notifySignup()" class="btn btn-primary nav-register-btn">Registration soon</a>
     </div>
     <a class="lang-switch" href="fr.html" target="_self" onclick="this.href='fr.html'+location.hash">FR</a>
     <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav()" aria-label="Menu">
@@ -550,15 +557,15 @@
   </svg>
   <div class="wrap hero-inner">
     <div class="hero-left">
-      <img src="images/hero-lockup.png" alt="EMH Annual Forum 2026 — 5th Anniversary, Where Models Meet Reality" class="hero-lockup-logo">
+      <img src="images/hero-lockup.png" alt="EMH Annual Forum 2026 — 5th edition, Where Models Meet Reality" class="hero-lockup-logo">
       <h1 class="hero-h1">Where Models<br>Meet Reality</h1>
       <div class="hero-date-block">
-        <div class="hero-date mono">December 16-17, 2026</div>
-        <div class="hero-location mono">Ottawa, Canada</div>
+        <div class="hero-date mono">5th edition &middot; 16 and 17 December 2026</div>
+        <div class="hero-location mono">Richcraft Hall, Carleton University, Ottawa, Ontario</div>
       </div>
       <div class="hero-actions">
         <a onclick="goTo('agenda')" class="btn btn-primary">View Agenda</a>
-        <a href="https://www.eventbrite.ca/" rel="noopener noreferrer" class="btn btn-primary">Register Now</a>
+        <a onclick="notifySignup()" class="btn btn-outline">Registration opening soon &mdash; get notified</a>
       </div>
       <div class="countdown">
         <div class="cd-block"><div class="cd-num" id="cdDays">--</div><div class="cd-label mono">Days</div></div>
@@ -575,9 +582,9 @@
 
 <section class="stats">
   <div class="wrap">
-    <div><div class="stat-num">5th</div><div class="stat-label mono">Year running</div></div>
+    <div><div class="stat-num">300</div><div class="stat-label mono">On site</div></div>
+    <div><div class="stat-num">200+</div><div class="stat-label mono">Online</div></div>
     <div><div class="stat-num">2</div><div class="stat-label mono">Days</div></div>
-    <div><div class="stat-num">250+</div><div class="stat-label mono">Participants</div></div>
   </div>
 </section>
 
@@ -609,13 +616,12 @@
       <div>
         <div class="eyebrow mono">Why attend</div>
         <h2>One Room. Many Perspectives.</h2>
-        <p>Governments across Canada have made ambitious promises: net-zero targets, major infrastructure, sweeping transition plans. Turning promises into reality raises hard questions &mdash; about cost, capacity, timelines, and public buy-in.</p>
-        <p>The EMH Annual Forum 2026 brings modellers, social scientists, policymakers, utilities, and industry leaders into the same room to work through those questions, one at a time, together.</p>
-        <p>This EMH Annual Forum 2026 asks what it actually takes to get there &mdash; and whether we're asking the right questions.</p>
+        <p>Governments across Canada have made ambitious promises: net-zero targets, major infrastructure, sweeping transition plans. Turning promises into reality raises hard questions about cost, capacity, timelines and public buy-in.</p>
+        <p>The Forum brings modellers, social scientists, policymakers, utilities and industry leaders into the same room to work through those questions, one at a time. This year's edition asks what it actually takes to get there, and whether we are asking the right questions.</p>
 
         <div class="benefit-row">
           <div class="b-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v4"/><path d="M18 11a6 6 0 00-3-5.197"/><path d="M2 11a10 10 0 015-8.662"/><path d="M22 11a10 10 0 00-5-8.662"/><path d="M6 11a6 6 0 013-5.197"/><path d="M9 21h6"/><rect x="10" y="9" width="4" height="8" rx="2"/></svg></div>
-          <div><div class="b-label">Discussions &amp; Technical Deep Dives</div><div class="b-desc">Panels built around tension, not consensus. Each session brings the technical and the practical into direct conversation</div></div>
+          <div><div class="b-label">Discussions &amp; Technical Deep Dives</div><div class="b-desc">Each session brings the technical and the practical into direct conversation.</div></div>
         </div>
         <div class="benefit-row">
           <div class="b-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18v-6a5 5 0 1 1 10 0v6"/><path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z"/><path d="M21 12h1"/><path d="M18.5 4.5 18 5"/><path d="M2 12h1"/><path d="M12 2v1"/><path d="m4.929 4.929.707.707"/><path d="M12 12v6"/></svg></div>
@@ -627,7 +633,7 @@
         </div>
         <div class="benefit-row">
           <div class="b-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2"/><path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2"/><path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3"/></svg></div>
-          <div><div class="b-label">5th Anniversary Celebration</div><div class="b-desc">Mark five years of the EMH Annual Forum 2026 with us. Special Hall of Fame award recognizing peers who've shaped the community.</div></div>
+          <div><div class="b-label">Fifth Edition Celebration</div><div class="b-desc">Five editions of the Forum, marked with the Hall of Fame award recognizing the peers who shaped this community.</div></div>
         </div>
 
         <div class="hof-teaser-simple"><a onclick="goTo('halloffame')" class="btn btn-primary">Learn More About the Hall of Fame Award</a></div>
@@ -656,8 +662,8 @@
     <div>
       <div class="eyebrow mono">Format</div>
       <h2>Diverse Perspectives, Timely Questions</h2>
-      <p>Every panel is built around a tension: what the models say is possible, and what actually gets built. Hear directly from the modellers, regulators, policymakers, and industry leaders working to close that gap.</p>
-      <p>No parallel sessions. No missed discussions. Everyone hears the same presentations and joins the same conversations, so no perspective gets siloed and no insight gets lost in another room.</p>
+      <p>Every panel is built around a tension: what the models say is possible, and what actually gets built. Hear directly from the modellers, regulators, policymakers and industry leaders working to close that gap.</p>
+      <p>One room, one thread of discussion, from start to finish. Everyone hears the same presentations and joins the same conversations, so every perspective stays in the room.</p>
     </div>
     <div class="quote-card">
       <div class="quote-mark">&ldquo;</div>
@@ -713,14 +719,37 @@
     </div>
 
     <div id="agenda-day1">
-      <p class="day-subtitle">The Stakes and the System</p>
+      <p class="day-subtitle">The Stakes and the System &middot; Doors open at 8:15 a.m.</p>
       <div class="acc-list" id="acc-day1"></div>
     </div>
 
     <div id="agenda-day2" style="display:none;">
-      <p class="day-subtitle">The Challenge and the Frontier</p>
+      <p class="day-subtitle">The Challenge and the Frontier &middot; Program ends at 3:05 p.m.</p>
       <div class="acc-list" id="acc-day2"></div>
     </div>
+  </div>
+</section>
+
+<section class="fee-block" id="registration" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="eyebrow mono">Registration</div>
+    <h2>Registration Fees</h2>
+    <p>This is the first year the Forum includes a registration fee. It covers food and catering for the two days. If cost is a barrier to your attendance, contact <a href="mailto:vanessa.smikle@cme-emh.ca?subject=Registration%20Question" style="color:var(--accent-cyan); text-decoration:underline;">vanessa.smikle@cme-emh.ca</a> to discuss options.</p>
+    <div class="pricing-grid" style="grid-template-columns:repeat(2,minmax(240px,1fr)); max-width:640px; margin:30px auto 0;">
+      <div class="price-card featured">
+        <div class="price-tag mono">Until 15 October 2026</div>
+        <div class="price-title">Early Bird</div>
+        <div class="price-amount">CA$175</div>
+        <div class="price-desc">Entire event (2 days).<br>One-day pass: CA$120.</div>
+      </div>
+      <div class="price-card">
+        <div class="price-tag mono">From 16 October 2026</div>
+        <div class="price-title">General Admission</div>
+        <div class="price-amount">CA$200</div>
+        <div class="price-desc">Entire event (2 days).<br>One-day pass: CA$150.</div>
+      </div>
+    </div>
+    <p class="fee-note">Registration includes meals, breaks, the welcome reception and access to session recordings. Full refunds are available until 25 November 2026 (21 days before the event).</p>
   </div>
 </section>
 
@@ -742,8 +771,8 @@
 
     <div class="cfp-banner-full">
       
-      <h2>Apply to Speak at the EMH Annual Forum 2026 as a Panelist or Poster Presenter</h2>
-      <p>We are looking for panelists from a range of backgrounds, including modelling, policy, research, industry, and practical application. Know someone who should be on stage? Submit a panelist or poster application for the EMH Annual Forum 2026.</p>
+      <h2>Apply to Speak at the Forum as a Panelist or Poster Presenter</h2>
+      <p>We are looking for panelists from a range of backgrounds, including modelling, policy, research, industry, and practical application. Know someone who should be on stage? Submit a panelist or poster application by <strong>15 September 2026</strong>.</p>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLScnPVbnLCguwL9ihHWquwdVjjPJxkSDMkufTU0gC_nQZw32aQ/viewform" rel="noopener noreferrer" class="btn btn-primary">Apply to Be a Panelist</a>
     </div>
 
@@ -757,7 +786,7 @@
            data-name="Dr. Elena Rodriguez"
            data-title="Director of Strategic Analytics"
            data-org="Canadian Renewable Energy Laboratory"
-           data-linkedin="https://www.linkedin.com/"
+           data-linkedin="REPLACE_WITH_LINKEDIN_URL"
            data-photo="data:image/png;base64,REPLACE_WITH_BASE64_PHOTO"
            data-bio="Full biography paragraph goes here.">
         <div class="speaker-card-photo-wrap">
@@ -806,7 +835,7 @@
   <div class="wrap">
     <h1>Our Sponsors</h1>
     <p>We gratefully acknowledge our sponsors for supporting the EMH Annual Forum 2026.</p>
-	<p>Sponsoring the EMH Annual Forum 2026 places your organization at the centre of Canada's energy modelling conversation.</p> 
+	<p>Sponsoring the Forum places your organization at the centre of Canada's energy modelling conversation.</p> 
 	<p>Our sponsors make this event possible and are recognized throughout the program, the site, and the room.</p>
     <div class="banner-actions">
       <a href="#sponsor-cta" target="_self" class="btn btn-primary">Become a Sponsor</a>
@@ -857,8 +886,8 @@
 <section class="section sponsors" id="sponsor-cta" style="background:var(--bg-secondary); text-align:center;">
   <div class="wrap">
     <h2 style="font-size:26px; margin-bottom:14px;">Become a Sponsor</h2>
-    <p style="max-width:600px; margin:0 auto 24px;">Sponsoring the EMH Annual Forum 2026 places your organization at the centre of Canada's energy modelling conversation. Our sponsors make this event possible and are recognized throughout the program, the site, and the room.</p>
-    <a href="mailto:info@cme-emh.ca?subject=Interested%20in%20Sponsorship%20Opportunity%20-%20Event%20Site" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Become a Sponsor</a>
+    <p style="max-width:600px; margin:0 auto 24px;">Sponsoring the Forum places your organization at the centre of Canada's energy modelling conversation. Our sponsors make this event possible and are recognized throughout the program, the site, and the room.</p>
+    <a href="mailto:info@cme-emh.ca?subject=Sponsorship%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Become a Sponsor</a>
   </div>
 </section>
 
@@ -883,7 +912,7 @@
         <h2 class="venue-name">Richcraft Hall (River Building)</h2>
         <div class="venue-address">Corner of Campus Avenue &amp; University Drive, Ottawa, ON</div>
         <div class="venue-desc">
-          <p>We are pleased to host this year's EMH Annual Forum 2026 at Carleton University. Our event will take place at Richcraft Hall.</p>
+          <p>We are pleased to host this year's Forum at Carleton University. Our event will take place at Richcraft Hall.</p>
           <p>Located on the banks of the Rideau River, Richcraft Hall features a light-filled glass Atrium on the second floor that provides an open, modern atmosphere for networking and sessions.</p>
           <p>Situated at the corner of Campus Avenue and University Drive, the venue offers central accessibility, scenic views, and connection to campus parking and transportation.</p>
         </div>
@@ -937,7 +966,7 @@
         <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
         <div>
           <div class="venue-item-title">Need Help?</div>
-          <div class="venue-item-body">Event Day Support: call 1-905-537-2724 for wayfinding assistance.<br>Advance Questions: email <a href="mailto:vanessa.smikle@cme-emh.ca?subject=Venue%20Question%20-%20Event%20Site" target="_blank" rel="noopener noreferrer">vanessa.smikle@cme-emh.ca</a>.</div>
+          <div class="venue-item-body">Questions? Email <a href="mailto:vanessa.smikle@cme-emh.ca?subject=Venue%20Question" target="_blank" rel="noopener noreferrer">vanessa.smikle@cme-emh.ca</a>.</div>
         </div>
       </div>
     </div>
@@ -1001,7 +1030,7 @@
         </div>
       </div>
     </div>
-    <a href="https://drive.google.com/file/d/15O4zEpUiNGbVQjXxTj-piENp-BnJu9ik/view?usp=sharing" rel="noopener noreferrer" class="btn btn-outline" style="margin-top:30px;">View Parking &amp; Directions</a>
+    <a href="docs/parking-directions.pdf" rel="noopener noreferrer" class="btn btn-outline" style="margin-top:30px;">View Parking &amp; Directions</a>
   </div>
 </section>
 
@@ -1030,8 +1059,8 @@
     <p>2026 Canadian Energy Modelling and Policymaking Hall of Fame</p>
     <p style="margin-top:10px; max-width:640px; margin-left:auto; margin-right:auto;">Nominations are now open for a national award created by the Energy Modelling Hub (EMH) to recognize careers that have advanced energy system modelling and evidence-based policymaking in Canada.</p>
     <div class="hof-dates">
-      <div><span class="hof-date-label mono">Nomination Start Date</span><span class="hof-date-value">September 1, 2026</span></div>
-      <div><span class="hof-date-label mono">Nomination End Date</span><span class="hof-date-value">October 15, 2026</span></div>
+      <div><span class="hof-date-label mono">Nomination Start Date</span><span class="hof-date-value">26 August 2026</span></div>
+      <div><span class="hof-date-label mono">Nomination End Date</span><span class="hof-date-value">15 October 2026</span></div>
     </div>
     <div class="banner-actions">
       <a href="#hof-nominate" target="_self" class="btn btn-primary">Submit a Nomination</a>
@@ -1048,7 +1077,7 @@
         <p>EMH is accepting nominations for the 2026 Canadian Energy Modelling and Policymaking Hall of Fame.</p>
         <p>Our field moves fast. New tools emerge, new questions appear, and the community keeps expanding. Yet behind this progress are individuals whose work has quietly and profoundly shaped how Canada plans its energy future. The Hall of Fame is about making those contributions visible.</p>
         <p>This national recognition honours individuals whose work has advanced energy system modelling and evidence-based policymaking in Canada. It celebrates careers that strengthen analytical rigour, open up methods and data, and build the collaborative capacity the country relies on today.</p>
-        <p>The 2026 inductee will be recognized at the EMH Annual Forum 2026.</p>
+        <p>The 2026 inductee will be recognized at this year's Forum.</p>
       </div>
       <img src="images/hof-about.jpg" class="hof-about-photo" alt="2025 Hall of Fame inductee Nick Macaluso receiving his award at the EMH Annual Forum">
     </div>
@@ -1059,6 +1088,7 @@
 <section class="hof-band alt">
   <div class="wrap">
     <h2>Nomination Criteria</h2>
+    <p><strong>Eligibility.</strong> The Hall of Fame honours individuals, and self-nominations are not accepted. Nominees must be available to receive the recognition in person at the Forum, on 16 December 2026 in Ottawa.</p>
     <p>Nominations are assessed against five criteria:</p>
     <ul class="hof-criteria-list">
       <li>Impact on Canadian energy and climate policy</li>
@@ -1067,7 +1097,6 @@
       <li>Contribution to national modelling capacity and mentorship</li>
       <li>Commitment to transparency, analytical rigour, and evidence-based policymaking</li>
     </ul>
-    <p class="hof-note">Note that the nominee must be present to accept the award at the EMH Annual Forum 2026 on December 16, 2026 in Ottawa, ON.</p>
   </div>
 </section>
 
@@ -1075,12 +1104,12 @@
 <section class="hof-band">
   <div class="wrap">
     <h2>How to Nominate</h2>
-    <p>Anyone in the Canadian energy community can submit a nomination, on behalf of an individual or an organization. The form takes about five minutes to complete.</p>
+    <p>Anyone in the Canadian energy modelling, research or policy community can submit a nomination, individually or on behalf of an organization. The form takes about five minutes to complete.</p>
     <p>A selection committee of modellers, policy practitioners, and researchers will review all submissions.</p>
     <ul class="hof-timeline-list">
-      <li><strong>Nominations close:</strong> October 15, 2026</li>
+      <li><strong>Nominations close:</strong> 15 October 2026, 11:59 p.m. Pacific time</li>
       <li><strong>Finalists announced:</strong> November 2026</li>
-      <li><strong>Recipients announced:</strong> December 16, 2026 at the EMH Annual Forum 2026</li>
+      <li><strong>Inductee announced:</strong> 16 December 2026, at the Forum</li>
     </ul>
     <a href="#hof-nominate" target="_self" class="btn btn-primary">Submit a Nomination</a>
   </div>
@@ -1105,7 +1134,7 @@
   <div class="wrap" style="text-align:center;">
     <div class="eyebrow mono">Nomination Form</div>
     <p style="max-width:520px; margin:0 auto 24px;">Complete the nomination form below. It takes about five minutes.</p>
-    <a href="#" rel="noopener noreferrer" class="btn btn-primary">Open Nomination Form</a>
+    <a href="https://docs.google.com/forms/d/1s58eOoTSOvGYV7mj4XNzwXMxAWJyXPmipxRvhYO_wmg/viewform" rel="noopener noreferrer" class="btn btn-primary">Open Nomination Form</a>
   </div>
 </section>
 
@@ -1114,7 +1143,7 @@
   <div class="wrap">
     <h2>Sponsorship Opportunities</h2>
     <p><a onclick="goTo('sponsors')" class="hof-sponsor-link">Sponsorship opportunities</a> for the Hall of Fame Awards are open, giving organizations visibility and a chance to align with the leaders shaping Canada's clean energy transition.</p>
-    <p>To learn more or secure your sponsorship, contact us at <a href="mailto:info@cme-emh.ca?subject=Interested%20in%20Hall%20of%20Fame%20Sponsorship%20-%20Event%20Site" target="_blank" rel="noopener noreferrer" class="hof-mailto-link">info@cme-emh.ca</a>.</p>
+    <p>To learn more or secure your sponsorship, contact us at <a href="mailto:info@cme-emh.ca?subject=Hall%20of%20Fame%20Sponsorship" target="_blank" rel="noopener noreferrer" class="hof-mailto-link">info@cme-emh.ca</a>.</p>
   </div>
 </section>
 
@@ -1136,10 +1165,11 @@
       <div class="footer-col">
         <h4 class="mono">Connect</h4>
         <div class="social-icons"><a href="https://www.linkedin.com/company/energy-modelling-hub-carrefour-de-mod%C3%A9lisation-%C3%A9nerg%C3%A9tique/" rel="noopener noreferrer" aria-label="LinkedIn" style="width:34px; height:34px; border-radius:8px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--text-muted)"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.940v5.666H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div>
+      <a href="mailto:info@cme-emh.ca" style="display:block; font-size:13px; color:var(--text-muted); margin-top:12px;">info@cme-emh.ca</a>
       </div>
 	  <div class="footer-col">
         <h4 class="mono">Copyright</h4>
-        <p style="font-size:12px; margin:0;">&copy; 2026 EMH Annual Forum 2026.<br>All rights reserved.</p>
+        <p style="font-size:12px; margin:0;">&copy; 2026 Energy Modelling Hub &middot;<br>Carrefour de mod&eacute;lisation &eacute;nerg&eacute;tique</p>
       </div>
       <div class="footer-col footer-newsletter">
         <h4 class="mono">Newsletter</h4>
@@ -1182,6 +1212,12 @@ function goTo(pageId){
 function toggleMobileNav(){
   var navLinks = document.getElementById('navLinks');
   if(navLinks) navLinks.classList.toggle('open');
+}
+// Registration is not open yet: send visitors to the newsletter signup instead
+function notifySignup(){
+  goTo('home');
+  var el = document.querySelector('#page-home .signup');
+  if(el) el.scrollIntoView({behavior:'smooth'});
 }
 
 // Live countdown to Dec 16, 2026, 8:00 AM EST.

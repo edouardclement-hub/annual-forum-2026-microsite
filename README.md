@@ -46,9 +46,9 @@ python3 -m http.server 8000
 2. Reference it as `images/speaker-jane-doe.jpg`.
 3. Keep photos reasonably sized (≤ 300 KB is a good target — resize before committing).
 
-## Known placeholders (as of Aug 2026)
+## Known placeholders (as of Aug 31, 2026)
 
-- Hall of Fame "Open Nomination Form" button links to `#`
-- Register buttons point to generic `eventbrite.ca` (needs the real event URL)
+- Registration buttons show "Registration soon" and scroll to the newsletter signup — swap in the real Eventbrite event URL when ticketing opens (nav + hero, both languages)
 - Speaker grid awaiting real speakers
 - Hotel recommendations and parking rates marked "shared before the event"
+- French versions of text-bearing graphics (hero lockup, footer logo) pending from the designer
