@@ -2,6 +2,8 @@
 
 Event site for the **EMH Annual Forum 2026** (December 16–17, 2026, Richcraft Hall, Carleton University, Ottawa).
 
+**Live at:** https://forum2026.cme-emh.ca (EN) · https://forum2026.cme-emh.ca/fr.html (FR)
+
 Single-page site with hash routing: `index.html` contains all six pages (Home, Agenda, Speakers, Sponsors, Venue, Hall of Fame). Images live in `images/`.
 
 **Bilingual:** `fr.html` is the French version — same structure, same images, French text. The EN/FR button in the nav switches languages while staying on the same page.
