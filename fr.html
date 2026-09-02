@@ -48,6 +48,11 @@
     --amber:#F5A623;
     --white-card:#EDEFF5;
     --on-accent:#0B1E45;
+
+    /* Layout: nav band height. The nav content is centred in this band,
+       so the gap above it equals the gap below it. body padding-top and
+       the mobile dropdown offset both key off this value. */
+    --nav-h:76px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{
@@ -55,7 +60,7 @@
     color:var(--text-primary);
     font-family:'Montserrat', -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.5;
-    padding-top:60px;
+    padding-top:var(--nav-h);
   }
   h1,h2,h3,.eyebrow,.stat-num,.cd-num,.logo,
   .sponsor-tier-label,.price-tag,.a-title,.featured-name,.sp-name,
@@ -84,7 +89,7 @@
 
   /* NAV */
   nav{
-    position:fixed; top:0; left:0; right:0; z-index:50; height:60px;
+    position:fixed; top:0; left:0; right:0; z-index:50; height:var(--nav-h);
     background:rgba(11,30,69,0.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
     border-bottom:1px solid var(--border);
     display:flex; align-items:center;
@@ -104,7 +109,7 @@
   .nav-hamburger span{display:block; width:22px; height:2px; background:var(--text-primary);}
   @media (max-width:860px){
     .nav-links{
-      display:none; position:absolute; top:60px; left:0; right:0; background:var(--bg-primary);
+      display:none; position:absolute; top:var(--nav-h); left:0; right:0; background:var(--bg-primary);
       flex-direction:column; gap:0; border-bottom:1px solid var(--border); padding:8px 0;
     }
     .nav-links.open{display:flex;}
@@ -279,6 +284,12 @@
   .cfp-banner-full h2{color:var(--on-accent); font-size:26px; margin-bottom:10px;}
   .cfp-banner-full p{color:var(--on-accent); opacity:0.85; max-width:520px; margin:0 auto 22px;}
   .cfp-banner-full .btn-primary{background:var(--on-accent); color:var(--accent);}
+  /* The panelist/poster CTA label is long (longer still in French), and .btn is
+     white-space:nowrap by default. Let this one wrap so it never overflows its
+     banner on narrow screens; on desktop it still fits on a single line. */
+  .cfp-banner .btn, .cfp-banner-full .btn{
+    white-space:normal; max-width:100%; height:auto; line-height:1.35; text-align:center;
+  }
   .speaker-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
   .sp-card{text-align:center;}
   .sp-photo{width:88px; height:88px; border-radius:50%; background:var(--bg-3); margin:0 auto 14px; border:1px solid var(--line);}
@@ -331,16 +342,35 @@
   .sponsor-box.platinum{max-width:280px;}
   .sponsor-tier-heading{font-size:18px; font-weight:700; color:var(--text-primary); margin:36px 0 16px; font-family:'Aileron', sans-serif;}
   .sponsor-tier-heading:first-child{margin-top:0;}
+  /* Event Partner / Venue Partner headings pick up the nav accent. */
+  .sponsor-tier-heading.tier-heading-partner{color:#00bbff;}
   .sponsor-empty-line{font-size:14px; color:var(--text-muted); font-style:italic; margin-bottom:8px;}
   .sponsor-logo-grid{display:flex; flex-wrap:wrap; gap:16px;}
-  .sponsor-logo-tile{background:var(--white-card); border-radius:8px; display:flex; align-items:center; justify-content:center; padding:16px 24px;}
-  .sponsor-logo-tile img{max-width:100%; object-fit:contain; display:block;}
-  .tier-platinum .sponsor-logo-tile{height:110px;}
-  .tier-platinum .sponsor-logo-tile img{max-height:70px;}
-  .tier-gold .sponsor-logo-tile{height:90px;}
-  .tier-gold .sponsor-logo-tile img{max-height:56px;}
-  .tier-exhibitor .sponsor-logo-tile, .sponsor-logo-grid:not(.tier-platinum):not(.tier-gold) .sponsor-logo-tile{height:70px;}
-  .tier-exhibitor .sponsor-logo-tile img, .sponsor-logo-grid:not(.tier-platinum):not(.tier-gold) .sponsor-logo-tile img{max-height:40px;}
+  /* Event Partner + Venue Partner sit side by side above the sponsor tiers. */
+  .partners-row{display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start;}
+  .partners-row .sponsor-logo-tile{width:100%; flex:1 1 auto;}
+  /* Optically balanced rather than pixel-identical: the two lockups have different
+     aspect ratios (LTES 3.13:1, Carleton 2.78:1), so cap both width and height and
+     let each logo settle at its own proportion within an equal-width card. */
+  .partners-row .sponsor-logo-tile img{max-height:94px; max-width:270px;}
+  .partners-divider{border:0; border-top:1px solid var(--border); margin:44px 0 0;}
+  .sponsors-section-heading{font-size:26px; font-weight:700; margin:36px 0 0;
+    font-family:'Aileron', sans-serif; color:var(--text-primary);}
+  .sponsors-intro p + p{margin-top:14px;}
+  @media (max-width:700px){
+    .partners-row{grid-template-columns:1fr; gap:28px;}
+  }
+  .sponsor-logo-tile{background:var(--white-card); border-radius:8px; display:flex; align-items:center; justify-content:center;
+    padding:16px 24px; max-width:100%; box-sizing:border-box; min-width:0;}
+  .sponsor-logo-tile img{max-width:100%; height:auto; object-fit:contain; display:block;}
+  .tier-platinum .sponsor-logo-tile{height:148px;}
+  .tier-platinum .sponsor-logo-tile img{max-height:94px;}
+  .tier-gold .sponsor-logo-tile{height:122px;}
+  .tier-gold .sponsor-logo-tile img{max-height:76px;}
+  .tier-partner .sponsor-logo-tile{height:148px;}
+  .tier-partner .sponsor-logo-tile img{max-height:94px;}
+  .tier-exhibitor .sponsor-logo-tile, .sponsor-logo-grid:not(.tier-platinum):not(.tier-gold):not(.tier-partner) .sponsor-logo-tile{height:95px;}
+  .tier-exhibitor .sponsor-logo-tile img, .sponsor-logo-grid:not(.tier-platinum):not(.tier-gold):not(.tier-partner) .sponsor-logo-tile img{max-height:54px;}
   .benefit-tags{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;}
   .benefit-tag{border:1px solid var(--line); border-radius:6px; padding:10px 16px; font-size:12px; color:var(--text-mid);}
 
@@ -446,6 +476,7 @@
     width:180px; height:180px; border-radius:50%; object-fit:cover;
     border:2px solid rgba(255,255,255,0.15);
   }
+  .inline-link{color:var(--accent-cyan); text-decoration:underline;}
   .hof-sponsor-link{color:var(--accent-cyan); cursor:pointer; text-decoration:none; border-bottom:1px solid transparent; transition:border-color 0.15s ease, color 0.15s ease;}
   .hof-sponsor-link:hover{border-bottom-color:var(--accent-cyan); color:var(--text-primary);}
   .hof-mailto-link{color:var(--accent-cyan); text-decoration:none; border-bottom:1px solid transparent; transition:border-color 0.15s ease, color 0.15s ease;}
@@ -473,6 +504,11 @@
   .price-title{font-size:17px; font-weight:700; margin-bottom:8px;}
   .price-amount{font-size:34px; font-weight:800; margin:14px 0;}
   .price-desc{font-size:13px; color:var(--text-mid); margin-bottom:20px;}
+  /* Early Bird card is a link: whole box is the click target. */
+  a.price-card{display:block; text-decoration:none; color:inherit; cursor:pointer;
+    transition:border-color 0.18s ease, background-color 0.18s ease;}
+  a.price-card:hover{border-color:var(--accent-cyan); background:rgba(79,195,247,0.22);}
+  a.price-card:focus-visible{outline:2px solid var(--accent-cyan); outline-offset:3px;}
   .fee-note{font-size:13px; color:var(--text-lo); max-width:640px; margin:24px auto 0;}
 
   .sponsor-tier-block{padding:14px 0 40px;}
@@ -535,7 +571,7 @@
       <a data-page="sponsors" onclick="goTo('sponsors')">Commanditaires</a>
       <a data-page="venue" onclick="goTo('venue')">Lieu</a>
       <a data-page="halloffame" onclick="goTo('halloffame')">Temple de la renommée</a>
-      <a onclick="notifySignup()" class="btn btn-primary nav-register-btn">Inscription à venir</a>
+      <a href="https://www.eventbrite.ca/e/1995467603318?aff=oddtdtcreator" target="_blank" rel="noopener noreferrer" class="btn btn-primary nav-register-btn">Inscrivez-vous</a>
     </div>
     <a class="lang-switch" href="index.html" target="_self" onclick="this.href='index.html'+location.hash">EN</a>
     <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav()" aria-label="Menu">
@@ -568,7 +604,7 @@
       </div>
       <div class="hero-actions">
         <a onclick="goTo('agenda')" class="btn btn-primary">Voir le programme</a>
-        <a onclick="notifySignup()" class="btn btn-outline">Inscription bientôt ouverte &mdash; soyez avisé</a>
+        <a href="https://www.eventbrite.ca/e/1995467603318?aff=oddtdtcreator" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Inscrivez-vous maintenant</a>
       </div>
       <div class="countdown">
         <div class="cd-block"><div class="cd-num" id="cdDays">--</div><div class="cd-label mono">Jours</div></div>
@@ -739,12 +775,12 @@
     <h2>Frais d'inscription</h2>
     <p>C'est la première année où le Forum comporte des frais d'inscription. Ils couvrent les repas et le service de traiteur des deux journées. Si le coût représente un obstacle à votre participation, écrivez à <a href="mailto:vanessa.smikle@cme-emh.ca?subject=Question%20sur%20l%27inscription" style="color:var(--accent-cyan); text-decoration:underline;">vanessa.smikle@cme-emh.ca</a> pour discuter des options.</p>
     <div class="pricing-grid" style="grid-template-columns:repeat(2,minmax(240px,1fr)); max-width:640px; margin:30px auto 0;">
-      <div class="price-card featured">
+      <a href="https://www.eventbrite.ca/e/emh-annual-forum-2026-where-models-meet-reality-tickets-1995467603318?aff=oddtdtcreator&amp;keep_tld=true" target="_blank" rel="noopener noreferrer" class="price-card featured">
         <div class="price-tag mono">Jusqu'au 15 octobre 2026</div>
         <div class="price-title">Tarif préférentiel</div>
         <div class="price-amount">175 $ CA</div>
         <div class="price-desc">Événement complet (2 jours).<br>Passe d'une journée : 120 $ CA.</div>
-      </div>
+      </a>
       <div class="price-card">
         <div class="price-tag mono">À partir du 16 octobre 2026</div>
         <div class="price-title">Tarif régulier</div>
@@ -776,7 +812,7 @@
       
       <h2>Posez votre candidature comme panéliste ou pour présenter une affiche</h2>
       <p>Nous recherchons des panélistes de divers horizons : modélisation, politiques publiques, recherche, industrie et application pratique. Vous connaissez quelqu'un qui devrait être sur scène? Soumettez une candidature de panéliste ou d'affiche d'ici le <strong>15 septembre 2026</strong>.</p>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLScnPVbnLCguwL9ihHWquwdVjjPJxkSDMkufTU0gC_nQZw32aQ/viewform" rel="noopener noreferrer" class="btn btn-primary">Poser sa candidature comme panéliste</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScnPVbnLCguwL9ihHWquwdVjjPJxkSDMkufTU0gC_nQZw32aQ/viewform" rel="noopener noreferrer" class="btn btn-primary">Poser sa candidature comme panéliste ou présentateur d'affiche</a>
     </div>
 
     <!-- SPEAKERS GRID: remove comment tags when first speaker is added. Add one card per speaker using the template below. -->
@@ -835,11 +871,11 @@
 <div class="page" id="page-sponsors">
 
 <section class="page-banner" style="background:#070F2A; border-bottom:0px solid var(--line-soft);">
-  <div class="wrap">
+  <div class="wrap sponsors-intro">
     <h1>Nos commanditaires</h1>
-    <p>Nous remercions chaleureusement nos commanditaires de leur appui au Forum annuel du CME 2026.</p>
-	<p>Commanditer le Forum place votre organisation au cœur de la conversation canadienne sur la modélisation énergétique.</p> 
-	<p>Nos commanditaires rendent cet événement possible et sont mis en valeur dans le programme, sur le site et sur place.</p>
+    <p>Le partenaire officiel du Forum annuel du CME 2026 est <a href="https://www.irena.org/Energy-Transition/Country-engagement/Long-term-energy-scenarios-network" target="_blank" rel="noopener" class="inline-link">le réseau des scénarios énergétiques à long terme (LTES) de l'IRENA</a>.</p>
+    <p>Nous remercions chaleureusement nos commanditaires et partenaires de leur appui au Forum annuel du CME 2026.</p>
+    <p>Commanditer le Forum place votre organisation au cœur de la conversation canadienne sur la modélisation énergétique. Nos commanditaires rendent cet événement possible et sont mis en valeur dans le programme, sur le site et sur place.</p>
     <div class="banner-actions">
       <a href="#sponsor-cta" target="_self" class="btn btn-primary">Devenir commanditaire</a>
     </div>
@@ -850,6 +886,25 @@
   <div class="wrap">
 
     <div class="sponsor-tier-block">
+
+      <div class="partners-row">
+        <div class="partner-col">
+          <div class="sponsor-tier-heading tier-heading-partner">Partenaire de l'événement</div>
+          <div class="sponsor-logo-grid tier-partner">
+            <div class="sponsor-logo-tile"><a href="https://www.irena.org/Energy-Transition/Country-engagement/Long-term-energy-scenarios-network" rel="noopener noreferrer"><img src="images/partner-ltes.png" alt="Réseau mondial sur les scénarios énergétiques à long terme (LTES)"></a></div>
+          </div>
+        </div>
+        <div class="partner-col">
+          <div class="sponsor-tier-heading tier-heading-partner">Partenaire du lieu</div>
+          <div class="sponsor-logo-grid tier-partner">
+            <div class="sponsor-logo-tile"><a href="https://carleton.ca/" rel="noopener noreferrer"><img src="images/carleton-logo.png" alt="Université Carleton"></a></div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="partners-divider">
+
+      <h2 class="sponsors-section-heading">Commanditaires</h2>
 
       <div class="sponsor-tier-heading">Platine</div>
       <div class="sponsor-logo-grid tier-platinum">
@@ -886,10 +941,10 @@
   </div>
 </section>
 
-<section class="section sponsors" id="sponsor-cta" style="background:var(--bg-secondary); text-align:center;">
+<section class="section sponsors" id="sponsor-cta" style="background:var(--bg-secondary); text-align:left;">
   <div class="wrap">
     <h2 style="font-size:26px; margin-bottom:14px;">Devenez commanditaire</h2>
-    <p style="max-width:600px; margin:0 auto 24px;">Commanditer le Forum place votre organisation au cœur de la conversation canadienne sur la modélisation énergétique. Nos commanditaires rendent cet événement possible et sont mis en valeur dans le programme, sur le site et sur place.</p>
+    <p style="max-width:600px; margin:0 0 24px;">Commanditer le Forum place votre organisation au cœur de la conversation canadienne sur la modélisation énergétique. Nos commanditaires rendent cet événement possible et sont mis en valeur dans le programme, sur le site et sur place.</p>
     <a href="mailto:info@cme-emh.ca?subject=Int%C3%A9r%C3%AAt%20pour%20une%20commandite" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Devenir commanditaire</a>
   </div>
 </section>

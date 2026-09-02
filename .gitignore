@@ -6,3 +6,6 @@ emh-site-index-v25.html
 
 # Internal working documents — never commit
 *.docx
+
+# Local Claude Code dev-server config (machine-specific absolute paths)
+.claude/
