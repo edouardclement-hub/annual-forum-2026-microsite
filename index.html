@@ -494,6 +494,15 @@
   .fee-block h2{font-size:26px; margin-bottom:14px;}
   .fee-block p{max-width:640px; margin:0 auto;}
   .pricing-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:20px;}
+  /* Registration fees: two cards side by side, collapsing to one column before
+     they can overflow. The 240px column floor needs 500px of content width, so
+     anything narrower than ~580px viewport must stack. (This was previously an
+     inline grid-template-columns, which no media query could reach.) */
+  .pricing-grid.pricing-grid-2{grid-template-columns:repeat(2,minmax(240px,1fr));
+    max-width:640px; margin:30px auto 0;}
+  @media (max-width:640px){
+    .pricing-grid.pricing-grid-2{grid-template-columns:1fr;}
+  }
   .price-card{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:28px; text-align:left;}
   .price-card.featured{border-color:var(--accent-dim); background:var(--accent-bg);}
   .price-tag{font-size:11px; color:var(--text-lo); margin-bottom:8px;}
@@ -501,6 +510,13 @@
   .price-title{font-size:17px; font-weight:700; margin-bottom:8px;}
   .price-amount{font-size:34px; font-weight:800; margin:14px 0;}
   .price-desc{font-size:13px; color:var(--text-mid); margin-bottom:20px;}
+  /* Tax/fee qualifier: always smaller, lighter and in the body face rather than
+     the heavy display face the price uses. It sits on its own line under the
+     headline amount because the French phrasing is too long to sit inline beside
+     a 34px price without wrapping mid-phrase. */
+  .price-qualifier{display:block; font-size:13px; font-weight:400; color:var(--text-lo);
+    font-family:'Montserrat', sans-serif; letter-spacing:0; line-height:1.3; margin-top:4px;}
+  .price-desc .price-qualifier{display:inline; font-size:12px; margin-top:0;}
   /* Early Bird card is a link: whole box is the click target. */
   a.price-card{display:block; text-decoration:none; color:inherit; cursor:pointer;
     transition:border-color 0.18s ease, background-color 0.18s ease;}
@@ -771,18 +787,18 @@
     <div class="eyebrow mono">Registration</div>
     <h2>Registration Fees</h2>
     <p>This is the first year the Forum includes a registration fee. It covers food and catering for the two days. If cost is a barrier to your attendance, contact <a href="mailto:vanessa.smikle@cme-emh.ca?subject=Registration%20Question" style="color:var(--accent-cyan); text-decoration:underline;">vanessa.smikle@cme-emh.ca</a> to discuss options.</p>
-    <div class="pricing-grid" style="grid-template-columns:repeat(2,minmax(240px,1fr)); max-width:640px; margin:30px auto 0;">
+    <div class="pricing-grid pricing-grid-2">
       <a href="https://www.eventbrite.ca/e/emh-annual-forum-2026-where-models-meet-reality-tickets-1995467603318?aff=oddtdtcreator&amp;keep_tld=true" target="_blank" rel="noopener noreferrer" class="price-card featured">
         <div class="price-tag mono">Until 15 October 2026</div>
         <div class="price-title">Early Bird</div>
-        <div class="price-amount">CA$175</div>
-        <div class="price-desc">Entire event (2 days).<br>One-day pass: CA$120.</div>
+        <div class="price-amount">CA$175<span class="price-qualifier">plus taxes and fees</span></div>
+        <div class="price-desc">Entire event (2 days).<br>One-day pass: CA$120 <span class="price-qualifier">plus taxes and fees</span>.</div>
       </a>
       <div class="price-card">
         <div class="price-tag mono">From 16 October 2026</div>
         <div class="price-title">General Admission</div>
-        <div class="price-amount">CA$200</div>
-        <div class="price-desc">Entire event (2 days).<br>One-day pass: CA$150.</div>
+        <div class="price-amount">CA$200<span class="price-qualifier">plus taxes and fees</span></div>
+        <div class="price-desc">Entire event (2 days).<br>One-day pass: CA$150 <span class="price-qualifier">plus taxes and fees</span>.</div>
       </div>
     </div>
     <p class="fee-note">Registration includes meals, breaks, the welcome reception and access to session recordings. Full refunds are available until 25 November 2026 (21 days before the event).</p>
@@ -1159,7 +1175,7 @@
 <section class="hof-band">
   <div class="wrap">
     <h2>How to Nominate</h2>
-    <p>Anyone in the Canadian energy modelling, research or policy community can submit a nomination, individually or on behalf of an organization. The form takes about five minutes to complete.</p>
+    <p>Anyone in the Canadian energy modelling, research or policy community can submit a nomination, individually or on behalf of an organization. The form takes about ten minutes to complete.</p>
     <p>A selection committee of modellers, policy practitioners, and researchers will review all submissions.</p>
     <ul class="hof-timeline-list">
       <li><strong>Nominations close:</strong> 15 October 2026, 11:59 p.m. Pacific time</li>
@@ -1188,7 +1204,7 @@
 <section class="hof-band" id="hof-nominate">
   <div class="wrap" style="text-align:center;">
     <div class="eyebrow mono">Nomination Form</div>
-    <p style="max-width:520px; margin:0 auto 24px;">Complete the nomination form below. It takes about five minutes.</p>
+    <p style="max-width:520px; margin:0 auto 24px;">Complete the nomination form below. It takes about ten minutes.</p>
     <a href="https://docs.google.com/forms/d/1s58eOoTSOvGYV7mj4XNzwXMxAWJyXPmipxRvhYO_wmg/viewform" rel="noopener noreferrer" class="btn btn-primary">Open Nomination Form</a>
   </div>
 </section>
