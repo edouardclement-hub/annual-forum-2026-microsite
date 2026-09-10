@@ -9,3 +9,7 @@ emh-site-index-v25.html
 
 # Local Claude Code dev-server config (machine-specific absolute paths)
 .claude/
+
+# Raw logo sources (keep out of the published site)
+*.eps
+images/LTES_Logo.png

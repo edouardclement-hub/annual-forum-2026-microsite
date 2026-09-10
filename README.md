@@ -52,5 +52,5 @@ python3 -m http.server 8000
 
 - Registration buttons show "Registration soon" and scroll to the newsletter signup — swap in the real Eventbrite event URL when ticketing opens (nav + hero, both languages)
 - Speaker grid awaiting real speakers
-- Hotel recommendations and parking rates marked "shared before the event"
+- Parking rates marked "shared before the event" (hotel block at the Delta is live, deadline 19 Nov 2026)
 - French versions of text-bearing graphics (hero lockup, footer logo) pending from the designer

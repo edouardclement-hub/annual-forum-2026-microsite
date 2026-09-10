@@ -167,6 +167,11 @@
   .hero-location{font-size:13px; letter-spacing:0.12em; color:var(--accent-cyan); margin-top:4px;}
   .hero-actions{display:flex; gap:14px; margin-bottom:40px;}
   .hero-actions .btn{font-size:13px; text-transform:uppercase; letter-spacing:0.08em; border-radius:4px; height:44px; padding:0 28px;}
+  /* Co-host row: logos are blue-on-transparent, so they sit on white tiles like the sponsor grid. */
+  .hero-cohost{display:flex; align-items:center; flex-wrap:wrap; gap:12px 16px; margin:-10px 0 28px;}
+  .hero-cohost-label{font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted);}
+  .hero-cohost-logo{background:var(--white-card); border-radius:8px; padding:8px 14px; height:50px; display:inline-flex; align-items:center;}
+  .hero-cohost-logo img{height:100%; width:auto; max-width:170px; object-fit:contain; display:block;}
   .nav-register-btn{
     font-size:12px; text-transform:uppercase; letter-spacing:0.08em; border-radius:4px;
     height:34px; padding:0 18px; display:inline-flex; align-items:center;
@@ -345,11 +350,12 @@
   .sponsor-logo-grid{display:flex; flex-wrap:wrap; gap:16px;}
   /* Event Partner + Venue Partner sit side by side above the sponsor tiers. */
   .partners-row{display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start;}
-  .partners-row .sponsor-logo-tile{width:100%; flex:1 1 auto;}
+  .partners-row .sponsor-logo-tile{flex:1 1 180px; min-width:0;}
   /* Optically balanced rather than pixel-identical: the two lockups have different
      aspect ratios (LTES 3.13:1, Carleton 2.78:1), so cap both width and height and
      let each logo settle at its own proportion within an equal-width card. */
-  .partners-row .sponsor-logo-tile img{max-height:94px; max-width:270px;}
+  .partners-row .sponsor-logo-tile a{display:flex; justify-content:center; max-width:100%; min-width:0;}
+  .partners-row .sponsor-logo-tile img{max-height:94px; max-width:min(100%, 270px);}
   .partners-divider{border:0; border-top:1px solid var(--border); margin:44px 0 0;}
   .sponsors-section-heading{font-size:26px; font-weight:700; margin:36px 0 0;
     font-family:'Aileron', sans-serif; color:var(--text-primary);}
@@ -614,6 +620,11 @@
       <div class="hero-date-block">
         <div class="hero-date mono">5th edition &middot; 16 and 17 December 2026</div>
         <div class="hero-location mono">Richcraft Hall, Carleton University, Ottawa, Ontario</div>
+      </div>
+      <div class="hero-cohost">
+        <span class="hero-cohost-label mono">Co-hosted by</span>
+        <a href="https://www.irena.org" target="_blank" rel="noopener noreferrer" class="hero-cohost-logo"><img src="images/cohost-irena.png" alt="IRENA – International Renewable Energy Agency"></a>
+        <a href="https://www.irena.org/Energy-Transition/Country-engagement/Long-term-energy-scenarios-network" target="_blank" rel="noopener noreferrer" class="hero-cohost-logo"><img src="images/cohost-ltes.png" alt="Global Network on Long-term Energy Scenarios (LTES)"></a>
       </div>
       <div class="hero-actions">
         <a onclick="goTo('agenda')" class="btn btn-primary">View Agenda</a>
@@ -902,9 +913,10 @@
 
       <div class="partners-row">
         <div class="partner-col">
-          <div class="sponsor-tier-heading tier-heading-partner">Event Partner</div>
+          <div class="sponsor-tier-heading tier-heading-partner">Event Partners</div>
           <div class="sponsor-logo-grid tier-partner">
-            <div class="sponsor-logo-tile"><a href="https://www.irena.org/Energy-Transition/Country-engagement/Long-term-energy-scenarios-network" rel="noopener noreferrer"><img src="images/partner-ltes.png" alt="Global Network on Long-term Energy Scenarios (LTES)"></a></div>
+            <div class="sponsor-logo-tile"><a href="https://www.irena.org" rel="noopener noreferrer"><img src="images/cohost-irena.png" alt="IRENA – International Renewable Energy Agency"></a></div>
+            <div class="sponsor-logo-tile"><a href="https://www.irena.org/Energy-Transition/Country-engagement/Long-term-energy-scenarios-network" rel="noopener noreferrer"><img src="images/cohost-ltes.png" alt="Global Network on Long-term Energy Scenarios (LTES)"></a></div>
           </div>
         </div>
         <div class="partner-col">
@@ -1113,8 +1125,9 @@
     <div class="venue-list-item" style="margin-bottom:0;">
       <div class="venue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"/></svg></div>
       <div>
-        <div class="venue-item-title">Hotel Recommendations</div>
-        <div class="venue-item-body">Hotel recommendations will be shared before the event.</div>
+        <div class="venue-item-title">Preferred Rate at the Delta Hotel</div>
+        <div class="venue-item-body">We have negotiated a preferred rate for Forum attendees at the Delta Hotels by Marriott Ottawa City Centre. Book through the link below by <strong>19 November 2026</strong> to secure the rate.</div>
+        <a href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1784738177327&amp;key=GRP&amp;app=resvlink&amp;_branch_match_id=1620923109442503540&amp;_branch_referrer=H4sIAAAAAAAAA8soKSkottLXTywo0MtNLCrKzC8p0UvOz9UvSi0uy0wtN7LPTLE1NLcwMTe2MDQ3NzYyV8tOrbR1DwpQA2qxBanKyczLVqsrSk1LBWrPS49PKsovL04tsnVNSU8FAMYkVzdfAAAA" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="margin-top:14px;">Book at the Preferred Rate</a>
       </div>
     </div>
   </div>
