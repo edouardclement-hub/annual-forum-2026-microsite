@@ -36,7 +36,7 @@ python3 -m http.server 8000
 | Content | Where |
 |---|---|
 | Agenda sessions | JS arrays `AGENDA_DAY1` / `AGENDA_DAY2` near the bottom of the file |
-| Speakers | `SPEAKERS` array near the bottom of the file — one entry per person. The speakers grid, the agenda thumbnails and the modal all render from it. See “Adding a speaker” below |
+| Speakers | `SPEAKERS` array near the bottom of the file — one entry per person. The speakers grid, the agenda speaker cards and the modal all render from it. See “Adding a speaker” below |
 | Sponsor logos | `sponsor-logo-grid` blocks on the Sponsors page — one `sponsor-logo-tile` per logo, tiered by section |
 | Countdown target | `updateCountdown()` function (currently 2026-12-16 08:00 EST) |
 | Footer | `<template id="footer-template">` — injected into every page by JS, edit once |
@@ -50,14 +50,18 @@ python3 -m http.server 8000
 
 ## Adding a speaker
 
-One entry in the `SPEAKERS` array drives the speakers grid, the agenda thumbnails and the
-modal. Add it to **both** `index.html` and `fr.html` with the same `id`, `photo` and
-`sessions`; only the `_en` / `_fr` fields differ.
+One entry in the `SPEAKERS` array drives the speakers grid, the agenda speaker cards and
+the modal. Add it to **both** `index.html` and `fr.html` with the same `id`, `type`,
+`photo` and `sessions`; only the `_en` / `_fr` fields differ.
 
 ```js
 {
   id: "jane-doe",                                   // lowercase first-last, unique
   name: "Jane Doe",
+  type: "Speaker",                                  // "Speaker" | "Keynote" | "Moderator"
+                                                    // or an array for two roles, e.g.
+                                                    // ["Moderator", "Speaker"]
+  french_title_form: "feminine",                    // fr.html only: agrees the moderator badge
   title_en: "Director of Modelling",
   title_fr: "Direction de la modélisation",
   organization_en: "Example Institute",
@@ -66,12 +70,19 @@ modal. Add it to **both** `index.html` and `fr.html` with the same `id`, `photo`
   photo: "images/speaker-jane-doe.jpg",             // a file path, never base64 — see below
   bio_en: "First paragraph.\n\nSecond paragraph.",
   bio_fr: "Premier paragraphe.\n\nDeuxi\u00e8me paragraphe.",
-  sessions: ["d1-s3"]                               // IDs from AGENDA_DAY1 / AGENDA_DAY2
+  sessions: ["d1-s3"],                              // IDs from AGENDA_DAY1 / AGENDA_DAY2
+  presentation_title: ""                            // shown in the modal when set
 }
 ```
 
 Blank lines (`\n\n`) in a bio become separate paragraphs in the modal. Entries are sorted
 by first name at render time, so order in the array doesn't matter.
+
+`type` renders as a badge next to the name in the modal. A speaker with no `photo` gets a
+neutral placeholder showing their initials, so an entry can go in before the headshot does.
+
+The `sessions` IDs come from the speaker spreadsheet, which numbers sessions by their place
+in the programme; `SESSION_ID_MAP` translates each one onto the agenda row it belongs to.
 
 ### Speaker photos: use a file, never base64
 

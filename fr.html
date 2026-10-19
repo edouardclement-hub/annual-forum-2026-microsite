@@ -263,44 +263,22 @@
     border-bottom:1px solid var(--border);
   }
   .acc-static-row:last-child{border-bottom:none;}
-  /* Each agenda entry wraps its row plus the inline profile panel, so the panel
-     stays visible whether or not the session's description is expanded. */
+  /* Each agenda entry wraps its row plus the session's speaker cards. */
   .acc-entry{border-bottom:1px solid var(--border);}
   .acc-entry:last-child{border-bottom:none;}
   .acc-entry details.acc-item, .acc-entry .acc-static-row{border-bottom:none;}
-  .acc-profile{display:none; background:var(--bg-card); padding:22px 24px 24px 162px;
-    position:relative; border-top:1px solid var(--border);}
-  .acc-profile.open{display:block;}
-  .acc-profile-top{display:flex; align-items:flex-start; gap:18px;}
-  .acc-profile-photo{width:72px; height:72px; border-radius:50%; object-fit:cover; flex-shrink:0;
-    background:#DDE3EF;}
-  .acc-profile-name{font-size:17px; font-weight:700; color:var(--text-primary);
-    font-family:'Aileron', sans-serif;}
-  .acc-profile-title{font-size:13px; color:var(--accent-cyan); margin-top:4px;}
-  .acc-profile-org{font-size:13px; color:var(--text-muted); margin-top:2px;}
-  .acc-profile-linkedin{display:inline-flex; align-items:center; justify-content:center;
-    width:30px; height:30px; border-radius:50%; background:var(--accent-blue); margin-top:12px;
-    transition:background-color 0.15s ease;}
-  .acc-profile-linkedin:hover{background:var(--accent-cyan);}
-  .acc-profile-about{margin-top:18px;}
-  .acc-profile-about-heading{font-size:11px; font-weight:700; letter-spacing:0.1em;
-    text-transform:uppercase; color:var(--accent-cyan); margin-bottom:8px;}
-  .acc-profile-bio{font-size:13.5px; line-height:1.65; color:var(--text-muted); max-width:640px;}
-  .acc-profile-bio p{color:inherit; margin-bottom:10px;}
-  .acc-profile-bio p:last-child{margin-bottom:0;}
-  .acc-profile-close{position:absolute; top:16px; right:20px; width:28px; height:28px;
-    border-radius:50%; background:var(--bg-secondary); border:1px solid var(--border);
-    color:var(--text-muted); font-size:16px; line-height:1; cursor:pointer;
-    display:flex; align-items:center; justify-content:center;}
-  .acc-profile-close:hover{color:var(--text-primary); border-color:var(--accent-cyan);}
-  /* The thumbnail whose profile is open keeps its ring. */
-  .acc-speaker-thumb.active img{box-shadow:0 0 0 2px var(--accent-cyan);}
-  .acc-speaker-thumb.active .acc-speaker-overlay{opacity:1;}
-  @media (max-width:760px){
-    .acc-profile{padding:20px 20px 22px 24px;}
-  }
   .acc-static-row .acc-time{color:var(--text-muted); opacity:0.7;}
   .acc-static-row .acc-title{font-weight:600; color:var(--text-muted); font-size:14px;}
+  /* Narrow screens: the 120px time column and the 162px indent under it leave the
+     description and the speaker cards almost no room, so the row stacks instead. */
+  @media (max-width:620px){
+    details.acc-item summary{grid-template-columns:1fr 22px; gap:4px 12px; padding:16px;}
+    details.acc-item summary .acc-time{grid-column:1 / -1; grid-row:1;}
+    details.acc-item summary .acc-title{grid-column:1; grid-row:2;}
+    details.acc-item summary .acc-chevron{grid-column:2; grid-row:2;}
+    .acc-desc{padding:0 16px 20px; max-width:none;}
+    .acc-static-row{grid-template-columns:1fr; gap:2px; padding:12px 16px;}
+  }
   .agenda-row{display:grid; grid-template-columns:80px 26px 1fr auto; gap:18px; align-items:flex-start; padding:20px 0; border-top:1px solid var(--border);}
   .agenda-row:first-of-type{border-top:none;}
   .a-time{font-size:13px; color:var(--text-muted); padding-top:2px;}
@@ -365,15 +343,13 @@
   .speaker-card-name{font-weight:600; font-size:17px; color:#12141C; line-height:1.3;}
   .speaker-card-title{font-size:13px; color:#3C4254; margin-top:6px; line-height:1.4;}
   .speaker-card-org{font-size:13px; color:#5A6170; margin-top:2px; line-height:1.4;}
-  /* Role badge — moderators and keynotes only. Two variants: the modal sits on
-     white, the agenda tooltip and inline profile sit on the dark panel. */
+  /* Speaker type badge — every speaker carries one; a speaker with two roles
+     across the programme shows both. */
+  .speaker-badges{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;}
+  .speaker-badges:empty{display:none;}
   .speaker-role-label{font-size:10.5px; font-weight:700; letter-spacing:0.09em;
     text-transform:uppercase; color:#0B1E45; background:rgba(11,30,69,0.08);
-    border-radius:3px; padding:3px 7px; display:inline-block; margin-top:8px;}
-  .speaker-role-label:empty{display:none;}
-  .acc-role-label{font-size:9.5px; font-weight:700; letter-spacing:0.09em;
-    text-transform:uppercase; color:var(--accent-cyan); display:block; margin-top:3px;}
-  .acc-role-label:empty{display:none;}
+    border-radius:3px; padding:3px 8px; display:inline-block;}
   .speakers-empty{font-size:14px; color:var(--text-muted); margin-top:24px;}
 
   /* MODAL */
@@ -389,8 +365,11 @@
     transition:background-color 0.15s ease, color 0.15s ease;}
   .speaker-modal-close:hover{background:#DDE3EF; color:#12141C;}
   .speaker-modal-top{display:grid; grid-template-columns:140px 1fr; gap:28px; align-items:center;}
+  .speaker-modal-photo-wrap{position:relative; width:140px; height:140px;}
   .speaker-modal-photo{width:140px; height:140px; border-radius:50%; object-fit:cover; display:block;
     background:#DDE3EF;}
+  .speaker-modal-photo-wrap .speaker-initials{position:absolute; inset:0; border-radius:50%;
+    font-size:44px;}
   .speaker-modal-name{font-size:24px; font-weight:700; color:#12141C; font-family:'Aileron', sans-serif;
     line-height:1.25;}
   .speaker-modal-title{font-size:14px; color:#3C4254; margin-top:6px;}
@@ -406,39 +385,56 @@
   .speaker-modal-bio{font-size:14.5px; line-height:1.65; color:#2A2F3C;}
   .speaker-modal-bio p{color:inherit; margin-bottom:12px;}
   .speaker-modal-bio p:last-child{margin-bottom:0;}
+  .speaker-modal-presentation{font-size:14.5px; line-height:1.55; color:#2A2F3C;
+    margin-top:20px; padding-top:18px; border-top:1px solid #E2E6F0;}
+  .speaker-modal-presentation-label{display:block; font-size:11px; font-weight:700;
+    letter-spacing:0.1em; text-transform:uppercase; color:#5A6170; margin-bottom:5px;}
   @media (max-width:600px){
     .speaker-modal{padding:30px 22px;}
     .speaker-modal-top{grid-template-columns:1fr; justify-items:center; text-align:center; gap:18px;}
+    .speaker-badges{justify-content:center;}
   }
 
-  /* AGENDA SESSION SPEAKER THUMBNAILS */
-  .acc-speakers{display:flex; flex-wrap:wrap; align-items:center; gap:8px; grid-column:2; margin-top:10px;}
-  .acc-speaker-thumb{position:relative; width:34px; height:34px; border-radius:50%; overflow:visible;
-    cursor:pointer; flex-shrink:0; transition:transform 0.15s ease;}
-  .acc-speaker-thumb img{width:34px; height:34px; border-radius:50%; object-fit:cover; display:block;
-    background:#DDE3EF; box-shadow:0 0 0 0 rgba(79,195,247,0); transition:box-shadow 0.15s ease;}
-  .acc-speaker-thumb:hover{transform:scale(1.12);}
-  .acc-speaker-thumb:hover img{box-shadow:0 0 0 2px var(--accent-cyan);}
-  .acc-speaker-thumb:focus-visible{outline:2px solid var(--accent-cyan); outline-offset:3px;}
-  /* Same hover affordance as a speaker card: the photo dims and invites a click.
-     The thumb is too small for the full label, so the wording lives in the tooltip. */
-  .acc-speaker-overlay{position:absolute; inset:0; border-radius:50%; background:rgba(11,30,69,0.78);
-    opacity:0; transition:opacity 0.18s ease; display:flex; align-items:center; justify-content:center;
-    color:#FFFFFF; font-size:14px; font-weight:700; line-height:1; pointer-events:none;}
-  .acc-speaker-thumb:hover .acc-speaker-overlay,
-  .acc-speaker-thumb:focus-visible .acc-speaker-overlay{opacity:1;}
-  .acc-speaker-tip{position:absolute; bottom:calc(100% + 9px); left:50%; transform:translateX(-50%);
-    background:#0B1E45; border:1px solid var(--border); border-radius:6px; padding:7px 10px;
-    white-space:nowrap; opacity:0; pointer-events:none; transition:opacity 0.15s ease; z-index:20;
-    box-shadow:0 6px 18px rgba(0,0,0,0.35); cursor:pointer;}
-  /* Bridges the gap under the tooltip so the pointer can travel from the photo onto
-     the tooltip without it disappearing — the label itself is clickable. */
-  .acc-speaker-tip::after{content:''; position:absolute; top:100%; left:0; right:0; height:11px;}
-  .acc-speaker-thumb:hover .acc-speaker-tip, .acc-speaker-thumb:focus-visible .acc-speaker-tip{
-    opacity:1; pointer-events:auto;}
-  .acc-speaker-tip:hover .acc-speaker-tip-cta{text-decoration:underline;}
-  .acc-speaker-tip-name{font-size:12px; font-weight:700; color:var(--text-primary); display:block;}
-  .acc-speaker-tip-cta{font-size:11px; color:var(--accent-cyan); display:block; margin-top:2px;}
+  /* AGENDA SESSION SPEAKER CARDS — rendered from the SPEAKERS array; a card opens
+     the shared speaker modal, the same one the Speakers page uses. */
+  .acc-speakers{padding:0 24px 24px 162px;}
+  .acc-static-row + .acc-speakers{padding-top:4px;}
+  .acc-speaker-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  @media (max-width:1024px){ .acc-speaker-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:620px){ .acc-speaker-grid{grid-template-columns:1fr;} }
+  @media (max-width:760px){ .acc-speakers{padding:0 16px 22px;} }
+  .acc-speaker-card{
+    display:block; width:100%; box-sizing:border-box; text-align:center; cursor:pointer;
+    font:inherit; color:inherit; -webkit-appearance:none; appearance:none;
+    background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
+    padding:20px 14px 18px;
+    transition:transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .acc-speaker-card:hover{transform:translateY(-3px); border-color:var(--accent-cyan);
+    box-shadow:0 10px 24px rgba(0,0,0,0.32);}
+  .acc-speaker-card:focus-visible{outline:2px solid var(--accent-cyan); outline-offset:3px;}
+  .acc-speaker-card-photo{display:block; position:relative; width:96px; height:96px;
+    border-radius:50%; margin:0 auto 14px; overflow:hidden; background:#DDE3EF;}
+  .acc-speaker-card-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  .acc-speaker-card-overlay{position:absolute; inset:0; border-radius:50%;
+    background:rgba(11,30,69,0.82); opacity:0; transition:opacity 0.18s ease;
+    display:flex; align-items:center; justify-content:center; padding:0 8px;}
+  .acc-speaker-card:hover .acc-speaker-card-overlay,
+  .acc-speaker-card:focus-visible .acc-speaker-card-overlay{opacity:1;}
+  .acc-speaker-card-overlay span{color:#FFFFFF; font-size:10px; font-weight:700;
+    letter-spacing:0.07em; text-transform:uppercase; font-family:'Montserrat', sans-serif;
+    line-height:1.35; text-align:center;}
+  .acc-speaker-card-name{display:block; font-size:15px; font-weight:700;
+    color:var(--text-primary); line-height:1.3; font-family:'Aileron', sans-serif;}
+  .acc-speaker-card-title{display:block; font-size:12px; color:var(--accent-cyan);
+    margin-top:6px; line-height:1.45;}
+  .acc-speaker-card-org{display:block; font-size:12px; color:var(--text-muted);
+    margin-top:3px; line-height:1.45;}
+  /* Neutral stand-in when a speaker has no headshot yet. */
+  .speaker-initials{display:flex; width:100%; height:100%; align-items:center;
+    justify-content:center; background:var(--accent-blue); color:#FFFFFF;
+    font-family:'Aileron', sans-serif; font-weight:700; line-height:1;}
+  .acc-speaker-card-photo .speaker-initials{font-size:30px;}
 
   .featured-card{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:26px; display:flex; gap:18px; position:relative;}
   .featured-badge{position:absolute; top:16px; right:16px; background:var(--amber); color:#241800; font-size:10px; font-weight:700; letter-spacing:0.06em; padding:4px 9px; border-radius:4px;}
@@ -947,33 +943,38 @@
     <!-- Grid is rendered from the SPEAKERS array near the bottom of this file. -->
     <div class="speaker-grid-new" id="speakerGrid"></div>
 
-    <!-- Speaker modal: one per page, shared by the cards above and the agenda thumbnails. -->
-    <div class="speaker-modal-overlay" id="speakerModalOverlay" onclick="if(event.target===this) closeSpeakerModal()">
-      <div class="speaker-modal" role="dialog" aria-modal="true" aria-labelledby="speakerModalName">
-        <button class="speaker-modal-close" onclick="closeSpeakerModal()" aria-label="Fermer">&times;</button>
-        <div class="speaker-modal-top">
-          <img id="speakerModalPhoto" class="speaker-modal-photo" src="" alt="">
-          <div class="speaker-modal-idblock">
-            <div id="speakerModalName" class="speaker-modal-name"></div>
-            <div id="speakerModalRole" class="speaker-role-label"></div>
-            <div id="speakerModalTitle" class="speaker-modal-title"></div>
-            <div id="speakerModalOrg" class="speaker-modal-org"></div>
-            <a id="speakerModalLinkedin" class="speaker-modal-linkedin" href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.940v5.666H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="speaker-modal-about">
-          <div class="speaker-modal-bio-heading">À propos du conférencier</div>
-          <div id="speakerModalBio" class="speaker-modal-bio"></div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
 </div><!-- /page-speakers -->
+
+<!-- Speaker modal: one per page, shared by the speakers grid and the agenda cards.
+     It lives outside every .page wrapper, because a hidden page would hide it too. -->
+<div class="speaker-modal-overlay" id="speakerModalOverlay" onclick="if(event.target===this) closeSpeakerModal()">
+  <div class="speaker-modal" role="dialog" aria-modal="true" aria-labelledby="speakerModalName">
+    <button class="speaker-modal-close" onclick="closeSpeakerModal()" aria-label="Fermer">&times;</button>
+    <div class="speaker-modal-top">
+      <div class="speaker-modal-photo-wrap">
+        <img id="speakerModalPhoto" class="speaker-modal-photo" src="" alt="">
+        <div id="speakerModalInitials" class="speaker-initials" aria-hidden="true"></div>
+      </div>
+      <div class="speaker-modal-idblock">
+        <div id="speakerModalName" class="speaker-modal-name"></div>
+        <div id="speakerModalRole" class="speaker-badges"></div>
+        <div id="speakerModalTitle" class="speaker-modal-title"></div>
+        <div id="speakerModalOrg" class="speaker-modal-org"></div>
+        <a id="speakerModalLinkedin" class="speaker-modal-linkedin" href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.940v5.666H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="speaker-modal-about">
+      <div class="speaker-modal-bio-heading">À propos du conférencier</div>
+      <div id="speakerModalBio" class="speaker-modal-bio"></div>
+      <div id="speakerModalPresentation" class="speaker-modal-presentation" style="display:none"></div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -1450,7 +1451,7 @@ var SPEAKERS = [
   {
     id: "chris-bataille",
     name: "Chris Bataille",
-    role: "Keynote",
+    type: "Keynote",
     french_title_form: "masculine",
     title_en: "Associate Researcher (IDDRI) and Global Fellow (CGEP)",
     title_fr: "Chercheur associé (IDDRI) et Global Fellow (CGEP)",
@@ -1466,7 +1467,7 @@ var SPEAKERS = [
   {
     id: "hamidreza-(hamid)-zareipour",
     name: "Hamidreza (Hamid) Zareipour",
-    role: "Speaker",
+    type: "Speaker",
     french_title_form: "masculine",
     title_en: "Professor",
     title_fr: "Professeur",
@@ -1482,7 +1483,7 @@ var SPEAKERS = [
   {
     id: "kate-lonergan",
     name: "Kate Lonergan",
-    role: "Speaker",
+    type: "Speaker",
     french_title_form: "feminine",
     title_en: "Senior Research Analyst, Canada Impact+ Research Postdoctoral Fellow",
     title_fr: "Analyste de recherche principale, Boursière postdoctorale Impact+ Canada.",
@@ -1498,7 +1499,7 @@ var SPEAKERS = [
   {
     id: "richard-hendriks",
     name: "Richard Hendriks",
-    role: "Moderator",
+    type: "Moderator",
     french_title_form: "masculine",
     title_en: "PhD Candidate | Director",
     title_fr: "Candidat au doctorat | Directeur",
@@ -1514,7 +1515,7 @@ var SPEAKERS = [
   {
     id: "steven-wong",
     name: "Steven Wong",
-    role: "Speaker",
+    type: "Speaker",
     french_title_form: "masculine",
     title_en: "Senior Technical Advisor, Renewable Energy Integration | Adjunct Associate Professor, Electrical and Computer Engineering",
     title_fr: "Conseiller technique principal, Intégration des énergies renouvelables | Professeur agrégé auxiliaire, Génie électrique et informatique",
@@ -1530,7 +1531,7 @@ var SPEAKERS = [
   {
     id: "tanya-oberoi",
     name: "Tanya Oberoi",
-    role: "Speaker",
+    type: "Speaker",
     french_title_form: "feminine",
     title_en: "Doctoral Candidate",
     title_fr: "Candidate au doctorat",
@@ -1550,26 +1551,56 @@ var SPEAKER_TITLE_FIELD = "title_fr";
 var SPEAKER_ORG_FIELD = "organization_fr";
 var SPEAKER_STR = {
   viewProfile: "Voir le profil &rsaquo;",
-  tipCta: "D\u00e9ployer le profil \u203a",
+  expandProfile: "Voir le profil \u203a",
   empty: "Les personnes conférencières sont en cours de confirmation. Revenez bientôt.",
   about: "À propos du conférencier",
+  presentation: "Présentation",
   close: "Fermer"
 };
 
 
-// Role labels — only moderators and keynotes are badged; plain speakers are not.
-// The moderator label agrees with french_title_form on the speaker entry.
-var SPEAKER_ROLE_STR = {
+// Speaker type labels — shown as a badge in the profile modal. Moderator and
+// Keynote keep the wording already used elsewhere on this page; the moderator
+// label agrees with french_title_form on the entry.
+var SPEAKER_TYPE_STR = {
   Moderator: { masculine: "Animateur", feminine: "Animatrice" },
-  Keynote: "Conf\u00e9rence d\u2019ouverture"
+  Keynote: "Conf\u00e9rence d\u2019ouverture",
+  Speaker: "Personne conf\u00e9renci\u00e8re"
 };
 
-function speakerRoleLabel(sp){
-  if(!sp || !sp.role) return "";
-  var label = SPEAKER_ROLE_STR[sp.role];
+function speakerTypeLabel(type, sp){
+  var label = SPEAKER_TYPE_STR[type];
   if(!label) return "";
   if(typeof label === "string") return label;
-  return label[sp.french_title_form === "feminine" ? "feminine" : "masculine"];
+  return label[sp && sp.french_title_form === "feminine" ? "feminine" : "masculine"];
+}
+
+function speakerTypeLabels(sp){
+  if(!sp) return [];
+  var types = Array.isArray(sp.type) ? sp.type : (sp.type ? [sp.type] : []);
+  var out = [];
+  for(var i = 0; i < types.length; i++){
+    var label = speakerTypeLabel(types[i], sp);
+    if(label && out.indexOf(label) === -1) out.push(label);
+  }
+  return out;
+}
+
+// First and last initial, skipping any bracketed short form in the middle.
+function speakerInitials(sp){
+  var toks = ((sp && sp.name) || "").trim().split(/\s+/).filter(function(t){
+    return t && t.charAt(0) !== "(";
+  });
+  if(!toks.length) return "?";
+  var last = toks.length > 1 ? toks[toks.length - 1].charAt(0) : "";
+  return (toks[0].charAt(0) + last).toUpperCase();
+}
+
+function speakerPhotoHtml(sp){
+  if(sp && sp.photo){
+    return '<img src="' + escapeHtml(sp.photo) + '" alt="' + escapeHtml(sp.name || '') + '">';
+  }
+  return '<span class="speaker-initials" aria-hidden="true">' + escapeHtml(speakerInitials(sp)) + '</span>';
 }
 
 function speakersSorted(){
@@ -1639,8 +1670,8 @@ function renderSpeakerGrid(){
   el.style.display = '';
   el.innerHTML = list.map(function(sp){
     return '<div class="speaker-card-new" tabindex="0" role="button"'
-      + ' onclick="openSpeakerModal(\'' + sp.id + '\')"'
-      + ' onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openSpeakerModal(\'' + sp.id + '\');}">'
+      + ' onclick="openSpeakerModal(\'' + sp.id + '\', this)"'
+      + ' onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openSpeakerModal(\'' + sp.id + '\', this);}">'
       + '<div class="speaker-card-photo-wrap">'
       +   '<img src="' + escapeHtml(sp.photo || '') + '" alt="' + escapeHtml(sp.name || '') + '">'
       +   '<div class="speaker-card-overlay"><span>' + SPEAKER_STR.viewProfile + '</span></div>'
@@ -1655,35 +1686,52 @@ function renderSpeakerGrid(){
 function sessionSpeakersHtml(sessionId){
   var list = speakersForSession(sessionId);
   if(!list.length) return '';
-  return '<div class="acc-speakers">' + list.map(function(sp){
-    var call = "toggleSessionProfile('" + sessionId + "','" + sp.id + "',this)";
-    return '<span class="acc-speaker-thumb" tabindex="0" role="button" aria-expanded="false"'
-      + ' data-speaker="' + sp.id + '"'
-      + ' aria-label="' + escapeHtml(sp.name || '') + '"'
-      + ' onclick="event.preventDefault();event.stopPropagation();' + call + '"'
-      + ' onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();event.stopPropagation();' + call + ';}">'
-      + '<img src="' + escapeHtml(sp.photo || '') + '" alt="' + escapeHtml(sp.name || '') + '">'
-      + '<span class="acc-speaker-overlay" aria-hidden="true">\u203a</span>'
-      + '<span class="acc-speaker-tip">'
-      +   '<span class="acc-speaker-tip-name">' + escapeHtml(sp.name || '') + '</span>'
-      +   (speakerRoleLabel(sp) ? '<span class="acc-role-label">' + escapeHtml(speakerRoleLabel(sp)) + '</span>' : '')
-      +   '<span class="acc-speaker-tip-cta">' + SPEAKER_STR.tipCta + '</span>'
+  return '<div class="acc-speakers"><div class="acc-speaker-grid">' + list.map(function(sp){
+    return '<button type="button" class="acc-speaker-card"'
+      + ' onclick="openSpeakerModal(\'' + sp.id + '\', this)">'
+      + '<span class="acc-speaker-card-photo">'
+      +   speakerPhotoHtml(sp)
+      +   '<span class="acc-speaker-card-overlay"><span>' + SPEAKER_STR.expandProfile + '</span></span>'
       + '</span>'
-      + '</span>';
-  }).join('') + '</div>';
+      + '<span class="acc-speaker-card-name">' + escapeHtml(sp.name || '') + '</span>'
+      + '<span class="acc-speaker-card-title">' + escapeHtml(sp[SPEAKER_TITLE_FIELD] || '') + '</span>'
+      + '<span class="acc-speaker-card-org">' + escapeHtml(sp[SPEAKER_ORG_FIELD] || '') + '</span>'
+      + '</button>';
+  }).join('') + '</div></div>';
 }
 
-// ---------- Speaker modal (shared by the speakers grid and the agenda) ----------
+// ---------- Speaker modal (shared by the speakers grid and the agenda cards) ----------
 var speakerModalScrollY = 0;
+var speakerModalOpener = null;
 
-function openSpeakerModal(id){
+function setSpeakerModalPhoto(sp){
+  var img = document.getElementById('speakerModalPhoto');
+  var ini = document.getElementById('speakerModalInitials');
+  if(sp.photo){
+    img.src = sp.photo;
+    img.alt = sp.name || '';
+    img.style.display = '';
+    ini.style.display = 'none';
+    ini.textContent = '';
+  } else {
+    img.removeAttribute('src');
+    img.alt = '';
+    img.style.display = 'none';
+    ini.style.display = '';
+    ini.textContent = speakerInitials(sp);
+  }
+}
+
+function openSpeakerModal(id, opener){
   var sp = speakerById(id);
   var overlay = document.getElementById('speakerModalOverlay');
   if(!sp || !overlay) return;
-  document.getElementById('speakerModalPhoto').src = sp.photo || '';
-  document.getElementById('speakerModalPhoto').alt = sp.name || '';
+  speakerModalOpener = opener || null;
+  setSpeakerModalPhoto(sp);
   document.getElementById('speakerModalName').textContent = sp.name || '';
-  document.getElementById('speakerModalRole').textContent = speakerRoleLabel(sp);
+  document.getElementById('speakerModalRole').innerHTML = speakerTypeLabels(sp).map(function(l){
+    return '<span class="speaker-role-label">' + escapeHtml(l) + '</span>';
+  }).join('');
   document.getElementById('speakerModalTitle').textContent = sp[SPEAKER_TITLE_FIELD] || '';
   document.getElementById('speakerModalOrg').textContent = sp[SPEAKER_ORG_FIELD] || '';
   var li = document.getElementById('speakerModalLinkedin');
@@ -1694,6 +1742,15 @@ function openSpeakerModal(id){
     bio.split(/\n\s*\n/).map(function(p){
       return '<p>' + escapeHtml(p.trim()).replace(/\n/g, '<br>') + '</p>';
     }).join('');
+  var pres = document.getElementById('speakerModalPresentation');
+  if(sp.presentation_title){
+    pres.innerHTML = '<span class="speaker-modal-presentation-label">'
+      + SPEAKER_STR.presentation + '</span>' + escapeHtml(sp.presentation_title);
+    pres.style.display = '';
+  } else {
+    pres.innerHTML = '';
+    pres.style.display = 'none';
+  }
   var box = overlay.querySelector('.speaker-modal');
   if(box) box.scrollTop = 0;
   // Lock page scroll without losing position.
@@ -1703,6 +1760,13 @@ function openSpeakerModal(id){
   document.body.style.left = '0';
   document.body.style.right = '0';
   overlay.classList.add('open');
+  var closeBtn = overlay.querySelector('.speaker-modal-close');
+  if(closeBtn) speakerFocus(closeBtn);
+}
+
+function speakerFocus(el){
+  if(!el || typeof el.focus !== 'function') return;
+  try { el.focus({ preventScroll: true }); } catch(e) { el.focus(); }
 }
 
 function closeSpeakerModal(){
@@ -1714,77 +1778,15 @@ function closeSpeakerModal(){
   document.body.style.left = '';
   document.body.style.right = '';
   window.scrollTo(0, speakerModalScrollY);
+  // Send focus back to the card or tile that opened the modal.
+  var opener = speakerModalOpener;
+  speakerModalOpener = null;
+  if(opener && document.body.contains(opener)) speakerFocus(opener);
 }
 
 document.addEventListener('keydown', function(e){
-  if(e.key === 'Escape'){ closeSpeakerModal(); closeAllSessionProfiles(); }
+  if(e.key === 'Escape') closeSpeakerModal();
 });
-
-// ---------- Inline speaker profile inside an agenda row ----------
-// The agenda expands a speaker's profile in place; the modal is used by the
-// speakers page only.
-function speakerBioHtml(sp){
-  var bio = sp[SPEAKER_BIO_FIELD] || '';
-  return bio.split(/\n\s*\n/).map(function(p){
-    return '<p>' + escapeHtml(p.trim()).replace(/\n/g, '<br>') + '</p>';
-  }).join('');
-}
-
-function closeSessionProfile(panel){
-  if(!panel) return;
-  panel.classList.remove('open');
-  panel.innerHTML = '';
-  panel.removeAttribute('data-open-speaker');
-  var entry = panel.closest('.acc-entry');
-  if(entry){
-    entry.querySelectorAll('.acc-speaker-thumb.active').forEach(function(t){
-      t.classList.remove('active');
-      t.setAttribute('aria-expanded', 'false');
-    });
-  }
-}
-
-function closeAllSessionProfiles(){
-  document.querySelectorAll('.acc-profile.open').forEach(closeSessionProfile);
-}
-
-function toggleSessionProfile(sessionId, speakerId, thumbEl){
-  var panel = document.querySelector('.acc-profile[data-profile="' + sessionId + '"]');
-  var sp = speakerById(speakerId);
-  if(!panel || !sp) return;
-  var already = panel.classList.contains('open') && panel.getAttribute('data-open-speaker') === speakerId;
-  closeAllSessionProfiles();
-  if(already) return;   // second click on the same thumbnail collapses it
-
-  var li = sp.linkedin
-    ? '<a class="acc-profile-linkedin" href="' + escapeHtml(sp.linkedin) + '" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">'
-      + '<svg width="15" height="15" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.940v5.666H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>'
-    : '';
-
-  panel.innerHTML =
-      '<button class="acc-profile-close" aria-label="' + SPEAKER_STR.close + '"'
-    + ' onclick="closeSessionProfile(this.parentNode)">&times;</button>'
-    + '<div class="acc-profile-top">'
-    +   '<img class="acc-profile-photo" src="' + escapeHtml(sp.photo || '') + '" alt="' + escapeHtml(sp.name || '') + '">'
-    +   '<div>'
-    +     '<div class="acc-profile-name">' + escapeHtml(sp.name || '') + '</div>'
-    +     (speakerRoleLabel(sp) ? '<div class="acc-role-label">' + escapeHtml(speakerRoleLabel(sp)) + '</div>' : '')
-    +     '<div class="acc-profile-title">' + escapeHtml(sp[SPEAKER_TITLE_FIELD] || '') + '</div>'
-    +     '<div class="acc-profile-org">' + escapeHtml(sp[SPEAKER_ORG_FIELD] || '') + '</div>'
-    +     li
-    +   '</div>'
-    + '</div>'
-    + '<div class="acc-profile-about">'
-    +   '<div class="acc-profile-about-heading">' + SPEAKER_STR.about + '</div>'
-    +   '<div class="acc-profile-bio">' + speakerBioHtml(sp) + '</div>'
-    + '</div>';
-  panel.classList.add('open');
-  panel.setAttribute('data-open-speaker', speakerId);
-  if(thumbEl){
-    thumbEl.classList.add('active');
-    thumbEl.setAttribute('aria-expanded', 'true');
-  }
-}
 
 
 window.addEventListener('DOMContentLoaded', function(){
@@ -1860,20 +1862,18 @@ function renderAgendaAccordion(containerId, sessions){
         +   '<span class="acc-time">'+s.time+'</span>'
         +   '<span class="acc-title">'+title+'</span>'
         +   '<span class="acc-chevron" aria-hidden="true">+</span>'
-        +   speakers
         + '</summary>'
         + '<div class="acc-desc">'+desc+linkHtml+'</div>'
+        + speakers
         + '</details>'
-        + '<div class="acc-profile" data-profile="'+(s.id||'')+'"></div>'
         + '</div>';
     }
     return '<div class="acc-entry" data-session="'+(s.id||'')+'">'
       + '<div class="acc-static-row">'
       + '<span class="acc-time">'+s.time+'</span>'
       + '<span class="acc-title">'+title+'</span>'
-      + speakers
       + '</div>'
-      + '<div class="acc-profile" data-profile="'+(s.id||'')+'"></div>'
+      + speakers
       + '</div>';
   }).join('');
   el.innerHTML = html;
