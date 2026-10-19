@@ -61,7 +61,8 @@ the modal. Add it to **both** `index.html` and `fr.html` with the same `id`, `ty
   type: "Speaker",                                  // "Speaker" | "Keynote" | "Moderator"
                                                     // or an array for two roles, e.g.
                                                     // ["Moderator", "Speaker"]
-  french_title_form: "feminine",                    // fr.html only: agrees the moderator badge
+  french_title_form: "feminine",                    // fr.html only: "feminine" | "masculine",
+                                                    // agrees the French type badge
   title_en: "Director of Modelling",
   title_fr: "Direction de la modélisation",
   organization_en: "Example Institute",
@@ -78,7 +79,8 @@ the modal. Add it to **both** `index.html` and `fr.html` with the same `id`, `ty
 Blank lines (`\n\n`) in a bio become separate paragraphs in the modal. Entries are sorted
 by first name at render time, so order in the array doesn't matter.
 
-`type` renders as a badge next to the name in the modal. A speaker with no `photo` gets a
+`type` renders as a badge next to the name in the modal. On `fr.html` the badge is
+gendered from `french_title_form`, so set it on every entry. A speaker with no `photo` gets a
 neutral placeholder showing their initials, so an entry can go in before the headshot does.
 
 The `sessions` IDs come from the speaker spreadsheet, which numbers sessions by their place

@@ -1564,13 +1564,13 @@ var SPEAKER_STR = {
 };
 
 
-// Speaker type labels — shown as a badge in the profile modal. Moderator and
-// Keynote keep the wording already used elsewhere on this page; the moderator
-// label agrees with french_title_form on the entry.
+// Speaker type labels — shown as a badge in the profile modal. Every label agrees
+// with french_title_form on the speaker's own entry, so a badge carries the same
+// gender as the title and organisation beside it.
 var SPEAKER_TYPE_STR = {
   Moderator: { masculine: "Animateur", feminine: "Animatrice" },
-  Keynote: "Conf\u00e9rencier principal(e)",
-  Speaker: "Personne conf\u00e9renci\u00e8re"
+  Keynote: { masculine: "Conf\u00e9rencier principal", feminine: "Conf\u00e9renci\u00e8re principale" },
+  Speaker: { masculine: "Conf\u00e9rencier", feminine: "Conf\u00e9renci\u00e8re" }
 };
 
 function speakerTypeLabel(type, sp){
