@@ -397,8 +397,10 @@
 
   /* AGENDA SESSION SPEAKER CARDS — rendered from the SPEAKERS array; a card opens
      the shared speaker modal, the same one the Speakers page uses. */
-  .acc-speakers{padding:0 24px 24px 162px;}
-  .acc-static-row + .acc-speakers{padding-top:4px;}
+  /* Sits outside the <details>, so the speakers are on the page whether or not the
+     session is expanded; the description slots in above them when it is. */
+  .acc-speakers{background:var(--bg-secondary); padding:0 24px 24px 162px;}
+  .acc-static-row + .acc-speakers{padding-top:4px; background:var(--bg-primary);}
   .acc-speaker-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
   @media (max-width:1024px){ .acc-speaker-grid{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:620px){ .acc-speaker-grid{grid-template-columns:1fr;} }
@@ -1879,8 +1881,8 @@ function renderAgendaAccordion(containerId, sessions){
         +   '<span class="acc-chevron" aria-hidden="true">+</span>'
         + '</summary>'
         + '<div class="acc-desc">'+desc+linkHtml+'</div>'
-        + speakers
         + '</details>'
+        + speakers
         + '</div>';
     }
     return '<div class="acc-entry" data-session="'+(s.id||'')+'">'
