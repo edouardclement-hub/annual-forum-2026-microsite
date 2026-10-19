@@ -396,7 +396,7 @@
      the shared speaker modal, the same one the Speakers page uses. */
   .acc-speakers{padding:0 24px 24px 162px;}
   .acc-static-row + .acc-speakers{padding-top:4px;}
-  .acc-speaker-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  .acc-speaker-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
   @media (max-width:1024px){ .acc-speaker-grid{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:620px){ .acc-speaker-grid{grid-template-columns:1fr;} }
   @media (max-width:760px){ .acc-speakers{padding:0 16px 22px;} }
@@ -404,34 +404,34 @@
     display:block; width:100%; box-sizing:border-box; text-align:center; cursor:pointer;
     font:inherit; color:inherit; -webkit-appearance:none; appearance:none;
     background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
-    padding:20px 14px 18px;
+    padding:16px 12px 15px;
     transition:transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
   }
   .acc-speaker-card:hover{transform:translateY(-3px); border-color:var(--accent-cyan);
     box-shadow:0 10px 24px rgba(0,0,0,0.32);}
   .acc-speaker-card:focus-visible{outline:2px solid var(--accent-cyan); outline-offset:3px;}
-  .acc-speaker-card-photo{display:block; position:relative; width:96px; height:96px;
-    border-radius:50%; margin:0 auto 14px; overflow:hidden; background:#DDE3EF;}
+  .acc-speaker-card-photo{display:block; position:relative; width:74px; height:74px;
+    border-radius:50%; margin:0 auto 11px; overflow:hidden; background:#DDE3EF;}
   .acc-speaker-card-photo img{width:100%; height:100%; object-fit:cover; display:block;}
   .acc-speaker-card-overlay{position:absolute; inset:0; border-radius:50%;
     background:rgba(11,30,69,0.82); opacity:0; transition:opacity 0.18s ease;
     display:flex; align-items:center; justify-content:center; padding:0 8px;}
   .acc-speaker-card:hover .acc-speaker-card-overlay,
   .acc-speaker-card:focus-visible .acc-speaker-card-overlay{opacity:1;}
-  .acc-speaker-card-overlay span{color:#FFFFFF; font-size:10px; font-weight:700;
-    letter-spacing:0.07em; text-transform:uppercase; font-family:'Montserrat', sans-serif;
-    line-height:1.35; text-align:center;}
-  .acc-speaker-card-name{display:block; font-size:15px; font-weight:700;
+  .acc-speaker-card-overlay span{color:#FFFFFF; font-size:8.5px; font-weight:700;
+    letter-spacing:0.06em; text-transform:uppercase; font-family:'Montserrat', sans-serif;
+    line-height:1.3; text-align:center;}
+  .acc-speaker-card-name{display:block; font-size:13.5px; font-weight:700;
     color:var(--text-primary); line-height:1.3; font-family:'Aileron', sans-serif;}
-  .acc-speaker-card-title{display:block; font-size:12px; color:var(--accent-cyan);
-    margin-top:6px; line-height:1.45;}
-  .acc-speaker-card-org{display:block; font-size:12px; color:var(--text-muted);
-    margin-top:3px; line-height:1.45;}
+  .acc-speaker-card-title{display:block; font-size:11px; color:var(--accent-cyan);
+    margin-top:5px; line-height:1.4;}
+  .acc-speaker-card-org{display:block; font-size:11px; color:var(--text-muted);
+    margin-top:2px; line-height:1.4;}
   /* Neutral stand-in when a speaker has no headshot yet. */
   .speaker-initials{display:flex; width:100%; height:100%; align-items:center;
     justify-content:center; background:var(--accent-blue); color:#FFFFFF;
     font-family:'Aileron', sans-serif; font-weight:700; line-height:1;}
-  .acc-speaker-card-photo .speaker-initials{font-size:30px;}
+  .acc-speaker-card-photo .speaker-initials{font-size:24px;}
 
   .featured-card{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:26px; display:flex; gap:18px; position:relative;}
   .featured-badge{position:absolute; top:16px; right:16px; background:var(--amber); color:#241800; font-size:10px; font-weight:700; letter-spacing:0.06em; padding:4px 9px; border-radius:4px;}
@@ -1815,7 +1815,7 @@ var AGENDA_DAY1 = [
     desc: "Decarbonizing heavy industry and building the domestic supply chains and workforce the transition depends on are where competitiveness and economic opportunity are most at stake. This session puts industry practitioners alongside modellers to ask where Canada can build real strength." },
   { id: "d1-s11", time: "16:55 \u2013 17:05", title: "Special Video" },
   { id: "d1-s12", time: "17:05 \u2013 18:30", title: "5th - Anniversary Reception + Hall of Fame", desc: "Hall of Fame induction takes place during the reception.",
-    link: { page: "halloffame", text: "Hall of Fame Induction \u2014 learn about this year's nominee \u2192" } },
+    link: { page: "halloffame", text: "Hall of Fame Induction \u2014 learn about the award \u2192" } },
 ];
 
 var AGENDA_DAY2 = [
