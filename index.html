@@ -1627,6 +1627,11 @@ function agendaRowForSession(sheetSessionId){
   return SESSION_ID_MAP[sheetSessionId] || sheetSessionId;
 }
 
+function isModerator(sp){
+  if(!sp || !sp.type) return false;
+  return Array.isArray(sp.type) ? sp.type.indexOf("Moderator") !== -1 : sp.type === "Moderator";
+}
+
 function speakersForSession(agendaRowId){
   return speakersSorted().filter(function(sp){
     if(!Array.isArray(sp.sessions)) return false;
@@ -1634,6 +1639,11 @@ function speakersForSession(agendaRowId){
       if(agendaRowForSession(sp.sessions[i]) === agendaRowId) return true;
     }
     return false;
+  }).sort(function(a, b){
+    // The moderator leads the session, so their card comes first. Sort is stable,
+    // so everyone else keeps the first-name order speakersSorted() set. The
+    // speakers grid itself stays alphabetical.
+    return (isModerator(a) ? 0 : 1) - (isModerator(b) ? 0 : 1);
   });
 }
 
