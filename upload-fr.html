@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Déposez votre présentation | Forum annuel 2026 du CME</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Speaker presentation upload. Back end: Apps Script project "EMH Forum Uploads" (~/Projects/emh-forum-upload).
+     upload.html and upload-fr.html are built together; keep them in sync. -->
+<style>
+  :root { --navy:#0B1E45; --navy-2:#0D2252; --cyan:#4FC3F7; --blue:#2979FF; --muted:#A8C0E8;
+          --ink:#1f2937; --line:#d9dee7; --soft:#6b7280; --err:#b42318; --ok:#067647; --cyan-bg:#e6f6fd; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+         background:var(--navy); color:#fff; line-height:1.5; }
+  nav { border-bottom:1px solid rgba(255,255,255,.12); background:var(--navy); }
+  nav .in { max-width:760px; margin:0 auto; padding:16px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  nav .logo { display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; color:#fff; text-decoration:none; }
+  nav .logo img { width:26px; height:26px; }
+  nav .logo span { color:var(--cyan); }
+  nav .lang { color:#fff; font-size:12px; font-weight:600; letter-spacing:.08em; text-decoration:none; border:1px solid rgba(255,255,255,.3); border-radius:4px; padding:4px 10px; }
+  nav .lang:hover { border-color:var(--cyan); color:var(--cyan); }
+  .hero { max-width:760px; margin:0 auto; padding:36px 16px 8px; }
+  .eyebrow { color:var(--cyan); font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; }
+  .hero h1 { margin:6px 0 10px; font-size:30px; font-weight:700; line-height:1.2; }
+  .hero p { margin:0; color:var(--muted); max-width:640px; }
+  main { max-width:760px; margin:20px auto 0; padding:0 16px 40px; }
+  .card { background:#fff; color:var(--ink); border-radius:10px; padding:24px; }
+  @media (max-width:560px) { .card { padding:18px 14px; } .hero h1 { font-size:24px; } }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .full { grid-column:1 / -1; }
+  @media (max-width:560px) { .grid { grid-template-columns:1fr; } }
+  label { display:block; font-weight:600; font-size:14px; margin-bottom:5px; color:var(--navy); }
+  label .req { color:var(--err); }
+  .hint { font-weight:400; color:var(--soft); font-size:13px; }
+  input, textarea, select { width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font:inherit; font-size:15px; background:#fff; color:inherit; }
+  select:disabled { background:#f3f4f6; color:var(--soft); }
+  input:focus, textarea:focus, select:focus { outline:2px solid var(--blue); outline-offset:-1px; border-color:var(--blue); }
+  textarea { min-height:70px; resize:vertical; }
+  #sessionOther { margin-top:8px; }
+  .code { padding-bottom:18px; margin-bottom:18px; border-bottom:1px solid #eef1f5; }
+  .code input { max-width:320px; letter-spacing:.04em; }
+  .drop { margin-top:18px; border:2px dashed var(--line); border-radius:10px; padding:28px 16px; text-align:center; cursor:pointer; transition:.15s; }
+  .drop.over, .drop:focus { border-color:var(--blue); background:var(--cyan-bg); outline:none; }
+  .drop strong { color:var(--blue); }
+  .drop small { display:block; margin-top:6px; color:var(--soft); }
+  ul.files { list-style:none; padding:0; margin:14px 0 0; }
+  ul.files li { padding:10px 0; border-bottom:1px solid #eef1f5; font-size:14px; }
+  .row1 { display:flex; align-items:flex-start; gap:10px; }
+  .fname { flex:1; min-width:0; overflow-wrap:anywhere; }
+  .fname small { color:var(--soft); }
+  .st { white-space:nowrap; color:var(--soft); }
+  .st.ok { color:var(--ok); font-weight:600; } .st.err { color:var(--err); white-space:normal; text-align:right; max-width:55%; }
+  @media (max-width:560px) { .row1 { flex-wrap:wrap; } .st.err { order:3; flex-basis:100%; max-width:none; text-align:left; } }
+  .rm { border:0; background:none; color:var(--soft); cursor:pointer; font-size:18px; line-height:1; padding:0 4px; }
+  .rm:hover { color:var(--err); }
+  .progress { margin-top:16px; height:8px; border-radius:4px; background:#e5eef3; overflow:hidden; }
+  .progress div { height:100%; width:0; background:var(--blue); transition:width .4s; }
+  .actions { margin-top:20px; display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
+  button.primary { background:var(--cyan); color:var(--navy); border:0; border-radius:4px; padding:12px 24px; font:inherit; font-size:15px; font-weight:700; letter-spacing:.04em; cursor:pointer; }
+  button.primary:disabled { opacity:.5; cursor:default; }
+  button.primary.working:disabled { opacity:1; background:var(--navy); color:#fff; cursor:progress; }
+  .msg { font-size:14px; flex:1 1 240px; }
+  .msg.err { color:var(--err); } .msg strong { color:var(--navy); }
+  .privacy { margin:18px 0 0; font-size:12px; color:var(--soft); }
+  .done { text-align:center; padding:30px 10px; }
+  .done h2 { color:var(--navy); margin:0 0 8px; }
+  .done .sid { display:inline-block; margin:6px 0 4px; padding:6px 12px; border-radius:6px; background:var(--cyan-bg); color:var(--navy); font-weight:700; letter-spacing:.05em; }
+  .done a { color:var(--blue); }
+  footer { text-align:center; font-size:12px; color:var(--muted); margin-top:18px; }
+  footer a { color:var(--cyan); }
+</style>
+</head>
+<body>
+<nav><div class="in">
+  <a class="logo" href="fr.html"><img src="images/nav-logo.png" alt="EMH logo"> <span>EMH</span> Annual Forum 2026</a>
+  <a class="lang" href="upload.html" hreflang="en-CA">EN</a>
+</div></nav>
+
+<div class="hero">
+  <div class="eyebrow">Conférenciers</div>
+  <h1>Déposez votre présentation</h1>
+  <p>Envoyez-nous vos diapositives avant le Forum. PowerPoint ou PDF, jusqu’à 100 Mo par fichier. Besoin de corriger votre fichier? Déposez-le simplement de nouveau : chaque dépôt est conservé comme une nouvelle version (v1, v2, ...), rien n’est écrasé.</p>
+</div>
+
+<main>
+  <div class="card" id="formCard">
+    <div class="code">
+      <label for="code">Code d’accès <span class="req">*</span> <span class="hint">indiqué dans votre courriel d’invitation</span></label>
+      <input id="code" autocomplete="off" autocapitalize="characters" spellcheck="false">
+    </div>
+
+    <div class="grid">
+      <div><label for="name">Nom <span class="req">*</span></label><input id="name" autocomplete="name" maxlength="120"></div>
+      <div><label for="email">Courriel <span class="req">*</span></label><input id="email" type="email" autocomplete="email" maxlength="160"></div>
+      <div><label for="organization">Organisation <span class="req">*</span></label><input id="organization" autocomplete="organization" maxlength="160"></div>
+      <div><label for="session">Séance <span class="req">*</span></label><select id="session">
+        <option value="">Choisissez votre séance</option>
+        <option value="Session 1">Séance 1 : Ce que les modèles nous disent de la vision de la transition</option>
+        <option value="Session 2">Séance 2 : Les angles morts : ce que les modèles manquent de la vision</option>
+        <option value="Session 3">Séance 3 : Les interconnexions : d’« optimales » à construites</option>
+        <option value="Session 4">Séance 4 : Chaînes de valeur et force industrielle</option>
+        <option value="Session 5">Séance 5 : Abordable, fiable et efficace : l’électrification et la demande</option>
+        <option value="Session 6">Séance 6 : L’IA et la frontière de la modélisation</option>
+        <option value="Session 7">Séance 7 : Décider dans l’incertitude</option>
+        <option value="Other">Autre (conférence principale, plénière, ...)</option>
+      </select>
+        <input id="sessionOther" maxlength="80" placeholder="Décrivez votre séance" aria-label="Décrivez votre séance" hidden></div>
+      <div class="full"><label for="title">Titre de la présentation <span class="hint">(facultatif)</span></label><input id="title" maxlength="300"></div>
+      <div class="full"><label for="notes">Notes <span class="hint">(facultatif)</span></label><textarea id="notes" maxlength="2000" placeholder="Toute information utile. Si ce fichier remplace un envoi précédent, indiquez ce qui a changé."></textarea></div>
+    </div>
+
+    <div class="drop" id="drop" tabindex="0" role="button" aria-label="Déposez votre présentation">
+      <strong>Glissez votre fichier ici</strong> ou cliquez pour parcourir
+      <small id="dropHint"></small>
+      <input type="file" id="fileInput" multiple hidden>
+    </div>
+    <ul class="files" id="fileList" aria-live="polite"></ul>
+
+    <div class="progress" id="progress" hidden><div id="bar"></div></div>
+    <div class="actions">
+      <button class="primary" id="submitBtn" disabled>Déposer</button>
+      <span class="msg" id="msg" role="status"></span>
+    </div>
+
+    <p class="privacy">Nous utilisons votre nom et votre courriel uniquement pour assurer le suivi de votre présentation. Seule l’équipe du Forum du CME voit votre fichier.</p>
+  </div>
+
+  <div class="card done" id="doneCard" hidden>
+    <h2>Merci, votre présentation a bien été reçue</h2>
+    <p id="doneText"></p>
+    <p>Votre numéro de dépôt<br><span class="sid" id="doneId"></span><br><small>Indiquez-le si vous nous écrivez au sujet de ce fichier.</small></p>
+    <p><a href="#" id="again">Déposer un autre fichier</a></p>
+  </div>
+
+  <footer>
+    Des questions? Écrivez-nous à <a href="mailto:info@cme-emh.ca">info@cme-emh.ca</a><br>
+    La page ne fonctionne pas sur votre réseau? Envoyez votre fichier à la même adresse.
+  </footer>
+</main>
+
+<script>
+  // Apps Script back end (Code.gs doPost in the "EMH Forum Uploads" project).
+  const API = 'https://script.google.com/macros/s/AKfycby-S1K9vjCbvXeCeGpT1d_RZUh07M-pkZSK1LCrBDXfSzlICq_3AJUy2yKjAZ3Op579/exec';
+  const LANG = 'fr';
+  const L = {"loading": "Chargement...", "unavailable": "Indisponible", "accepted": "Acceptés : ", "upto": "jusqu’à", "perfile": "Mo par fichier", "not_type": "Refusé : seulement les fichiers", "files": "", "not_size": "Refusé : plus de", "mb": "Mo", "empty": "Refusé : fichier vide", "ready": "Prêt", "saved": "Enregistré", "waiting": "En attente", "uploading": "Envoi", "failed": "Échec : ", "remove": "Retirer", "checking": "Vérification...", "finishing": "Finalisation...", "keep_open": "<strong>Gardez cette page ouverte<\/strong> jusqu’à la confirmation.", "need_code": "Veuillez entrer le code d’accès indiqué dans votre courriel d’invitation.", "need_fields": "Veuillez indiquer votre nom, votre courriel et votre organisation.", "bad_email": "Veuillez entrer un courriel valide.", "need_session": "Veuillez choisir votre séance.", "need_other": "Veuillez décrire votre séance.", "too_many": "Veuillez envoyer au plus {n} fichiers à la fois.", "file_one": "fichier reçu", "file_many": "fichiers reçus", "received_for": "pour", "as_version": "enregistré comme version", "partial": "{s} enregistré(s), {f} en échec (dépôt {id}). Cliquez sur Déposer pour réessayer, ou envoyez-les à {c}.", "all_failed": "L’envoi a échoué. Veuillez réessayer, ou nous envoyer votre fichier par courriel.", "no_server": "Le serveur n’a pas répondu ({s}). Veuillez réessayer.", "load_fail": "Cette page n’a pas pu se charger ({e}). Rechargez-la, ou envoyez votre fichier à info@cme-emh.ca.", "kb": "Ko"};
+  const SUBMIT = 'Déposer';
+  let P = null, MAX = 0;
+  const $ = id => document.getElementById(id);
+  const sesSel = $('session'), drop = $('drop'), input = $('fileInput'), list = $('fileList'), btn = $('submitBtn'), msg = $('msg');
+  // Identifies this page load for the server's access code attempt counter.
+  const sessionKey = Array.from(crypto.getRandomValues(new Uint8Array(16)), b => b.toString(16).padStart(2, '0')).join('');
+  let files = [];   // { file, state: ready|rejected|uploading|saved|failed, note }
+  let busy = false;
+  const fmt = (s, o) => s.replace(/\{(\w+)\}/g, (_, k) => o[k]);
+
+  // "Other" asks for a description, so keynote and plenary speakers are not stuck.
+  sesSel.addEventListener('change', () => {
+    const o = $('sessionOther'), on = sesSel.value === 'Other';
+    o.hidden = !on;
+    if (on) o.focus(); else o.value = '';
+  });
+
+  drop.addEventListener('click', () => { if (!busy && P) input.click(); });
+  drop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!busy && P) input.click(); } });
+  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', e => { if (!busy && P) addFiles(e.dataTransfer.files); });
+  input.addEventListener('change', () => { addFiles(input.files); input.value = ''; });
+
+  function addFiles(fl) {
+    for (const f of fl) {
+      const dot = f.name.lastIndexOf('.');
+      const ext = dot > 0 ? f.name.slice(dot).toLowerCase() : '';
+      let note = '';
+      if (!P.allowed.includes(ext)) note = L.not_type + ' ' + P.allowed.join(', ') + (L.files ? ' ' + L.files : '');
+      else if (f.size > MAX) note = L.not_size + ' ' + P.maxMb + ' ' + L.mb;
+      else if (!f.size) note = L.empty;
+      files.push({ file: f, state: note ? 'rejected' : 'ready', note: note });
+    }
+    msg.textContent = '';
+    render();
+  }
+
+  // Files still to send: ready, or failed in an earlier attempt.
+  const pending = () => files.filter(f => f.state === 'ready' || f.state === 'failed');
+
+  function render() {
+    list.innerHTML = '';
+    files.forEach((it, i) => {
+      const li = document.createElement('li');
+      const row = document.createElement('div');
+      row.className = 'row1';
+      const n = document.createElement('span');
+      n.className = 'fname';
+      n.textContent = it.file.name + ' ';
+      const size = document.createElement('small');
+      size.textContent = '(' + (it.file.size < 1048576 ? Math.max(1, Math.round(it.file.size / 1024)) + ' ' + L.kb
+        : (it.file.size / 1048576).toFixed(1) + ' ' + L.mb) + ')';
+      n.append(size);
+      const st = document.createElement('span');
+      st.className = 'st' + (it.state === 'saved' ? ' ok' : it.state === 'rejected' || it.state === 'failed' ? ' err' : '');
+      st.textContent = { ready: L.ready, saved: L.saved, uploading: it.note, rejected: it.note, failed: it.note }[it.state];
+      row.append(n, st);
+      if (!busy && it.state !== 'saved') {
+        const x = document.createElement('button');
+        x.className = 'rm'; x.textContent = '×'; x.title = L.remove; x.setAttribute('aria-label', L.remove + ' ' + it.file.name);
+        x.onclick = () => { files.splice(i, 1); render(); };
+        row.append(x);
+      }
+      li.append(row);
+      list.append(li);
+    });
+    btn.disabled = busy || !pending().length;
+  }
+
+  function readB64(blob) {
+    return new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(String(r.result).split(',')[1] || '');
+      r.onerror = () => rej(new Error('Could not read the file.'));
+      r.readAsDataURL(blob);
+    });
+  }
+
+  // text/plain and no cookies: a simple cross-site request that never involves the visitor's Google sign-ins.
+  async function call(action, arg) {
+    const r = await fetch(API, { method: 'POST', credentials: 'omit', redirect: 'follow',
+      body: JSON.stringify(Object.assign({ action: action, lang: LANG }, arg)) });
+    if (!r.ok) throw new Error(fmt(L.no_server, { s: r.status }));
+    const out = await r.json();
+    if (!out.ok) throw new Error(out.error);
+    return out.data;
+  }
+
+  // One retry for each piece, since a single slow request should not fail a large file.
+  async function callRetry(fn, arg) {
+    try { return await call(fn, arg); }
+    catch (e) { await new Promise(r => setTimeout(r, 1500)); return call(fn, arg); }
+  }
+
+  // Shows the bar and button label while sending; progress(null) puts both back.
+  function progress(frac, label) {
+    $('progress').hidden = frac === null;
+    $('bar').style.width = Math.round((frac || 0) * 100) + '%';
+    btn.textContent = frac === null ? SUBMIT : label;
+    btn.classList.toggle('working', frac !== null);
+  }
+
+  function say(text, cls) { msg.className = 'msg' + (cls ? ' ' + cls : ''); msg.textContent = text; }
+  const errText = e => (e && e.message ? e.message : String(e)).replace(/^(Exception|Error):\s*/, '');
+
+  btn.addEventListener('click', async () => {
+    const f = { code: $('code').value.trim(), name: $('name').value.trim(), email: $('email').value.trim(),
+                organization: $('organization').value.trim(), session: sesSel.value,
+                sessionOther: $('sessionOther').value.trim(), title: $('title').value.trim(), notes: $('notes').value };
+    if (!f.code) return say(L.need_code, 'err');
+    if (!f.name || !f.email || !f.organization) return say(L.need_fields, 'err');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)) return say(L.bad_email, 'err');
+    if (!f.session) return say(L.need_session, 'err');
+    if (f.session === 'Other' && !f.sessionOther) return say(L.need_other, 'err');
+    const todo = pending();
+    if (todo.length > P.maxFiles) return say(fmt(L.too_many, { n: P.maxFiles }), 'err');
+
+    busy = true;
+    todo.forEach(it => { it.state = 'uploading'; it.note = L.waiting; });
+    render();
+    // Overall progress: checking 0-10%, uploading 10-90% by bytes, finishing 90-100%.
+    const total = todo.reduce((n, it) => n + it.file.size, 0);
+    let sent = 0;
+    progress(0.03, L.checking);
+    msg.className = 'msg'; msg.innerHTML = L.keep_open;
+
+    let start;
+    try {
+      start = await call('startSubmission', Object.assign({ sessionKey: sessionKey,
+        files: todo.map(it => ({ name: it.file.name, size: it.file.size })) }, f));
+    } catch (e) {
+      todo.forEach(it => { it.state = 'ready'; });
+      busy = false; progress(null); render();
+      return say(errText(e), 'err');
+    }
+
+    const base = { code: f.code, sessionKey: sessionKey, submissionId: start.submissionId };
+    for (let i = 0; i < todo.length; i++) {
+      const it = todo[i], size = it.file.size;
+      try {
+        for (let off = 0; off < size; off += P.chunk) {
+          it.note = L.uploading + ' ' + Math.round(off / size * 100) + '%'; render();
+          progress(0.1 + 0.8 * (sent + off) / total, L.uploading + ' ' + Math.round((sent + off) / total * 100) + '%');
+          const data = await readB64(it.file.slice(off, off + P.chunk));
+          await callRetry('uploadChunk', Object.assign({ index: i, offset: off, data: data }, base));
+        }
+        it.state = 'saved';
+        sent += size;
+      } catch (e) {
+        it.state = 'failed'; it.note = L.failed + errText(e);
+      }
+      render();
+    }
+
+    let result = null;
+    if (todo.some(it => it.state === 'saved')) {
+      progress(0.92, L.finishing);
+      try { result = await callRetry('finishSubmission', base); } catch (e) { /* the files are saved even if logging fails */ }
+    }
+    busy = false;
+    progress(null);
+    const failed = todo.filter(it => it.state === 'failed').length;
+    const saved = todo.length - failed;
+
+    if (saved && !failed) {
+      const where = f.session === 'Other' ? f.sessionOther : sesSel.options[sesSel.selectedIndex].text;
+      $('formCard').hidden = true; $('doneCard').hidden = false;
+      $('doneText').textContent = saved + ' ' + (saved > 1 ? L.file_many : L.file_one) + ' ' + L.received_for + ' ' + where +
+        (result && result.version ? ', ' + L.as_version + ' ' + result.version : '') + '.';
+      $('doneId').textContent = start.submissionId;
+      window.scrollTo(0, 0);
+    } else if (saved) {
+      say(fmt(L.partial, { s: saved, f: failed, id: start.submissionId, c: P.contact }), 'err');
+    } else {
+      say(L.all_failed, 'err');
+    }
+    render();
+  });
+
+  $('again').addEventListener('click', e => {
+    e.preventDefault();
+    files = []; $('notes').value = ''; say('');
+    $('doneCard').hidden = true; $('formCard').hidden = false;
+    render();
+  });
+
+  render();
+  call('config').then(c => {
+    P = c; MAX = P.maxMb * 1024 * 1024;
+    $('dropHint').textContent = L.accepted + P.allowed.join(', ') + ', ' + L.upto + ' ' + P.maxMb + ' ' + L.perfile;
+    input.accept = P.allowed.join(',');
+  }).catch(e => {
+    say(fmt(L.load_fail, { e: errText(e) }), 'err');
+  });
+</script>
+</body>
+</html>
