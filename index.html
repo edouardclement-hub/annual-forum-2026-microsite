@@ -398,6 +398,8 @@
   .acc-speakers{padding:0 24px 24px 162px;}
   .acc-static-row + .acc-speakers{padding-top:4px;}
   .acc-speaker-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  /* The moderator's card gets a row to itself; the speakers start on the next one. */
+  .acc-speaker-card.acc-role-moderator + .acc-speaker-card{grid-column-start:1;}
   @media (max-width:1024px){ .acc-speaker-grid{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:620px){ .acc-speaker-grid{grid-template-columns:1fr;} }
   @media (max-width:760px){ .acc-speakers{padding:0 16px 22px;} }
