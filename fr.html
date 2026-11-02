@@ -597,6 +597,8 @@
   .hof-dates{display:flex; gap:28px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:24px;}
   .hof-date-label{display:block; font-size:11px; color:var(--text-muted); letter-spacing:0.1em;}
   .hof-date-value{display:block; font-size:15px; color:var(--accent-cyan); font-weight:700; margin-top:4px;}
+  /* Shown in place of the nomination button once the window has closed. */
+  .hof-dates-closed{display:inline-block; padding:7px 14px; border:1px solid var(--line-soft); border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted);}
   .hof-about-grid{display:grid; grid-template-columns:1fr 340px; gap:40px; align-items:center;}
   .hof-about-photo{width:100%; height:auto; border-radius:12px; display:block; object-fit:cover;}
   .hof-criteria-list{list-style:none; padding:0; margin:0 0 20px; max-width:680px;}
@@ -1273,13 +1275,11 @@
   <div class="wrap">
     <h1>Temple de la renommée</h1>
     <p>Temple de la renommée canadien de la modélisation énergétique et des politiques publiques 2026</p>
-    <p style="margin-top:10px; max-width:640px; margin-left:auto; margin-right:auto;">La période de mise en candidature est ouverte pour ce prix national créé par le Carrefour de modélisation énergétique (CME) afin de reconnaître des carrières qui ont fait progresser la modélisation des systèmes énergétiques et l'élaboration de politiques fondées sur des données probantes au Canada.</p>
+    <p style="margin-top:10px; max-width:640px; margin-left:auto; margin-right:auto;">Cette année, le Carrefour de modélisation énergétique (CME) a lancé un appel de candidatures pour un nouveau prix national soulignant des carrières qui ont fait progresser la modélisation des systèmes énergétiques et l’élaboration de politiques fondées sur des données probantes au Canada. La période de mise en candidature est maintenant terminée. Joignez-vous à nous le 16 décembre pour la remise du prix en direct.</p>
     <div class="hof-dates">
       <div><span class="hof-date-label mono">Début des mises en candidature</span><span class="hof-date-value">26 août 2026</span></div>
       <div><span class="hof-date-label mono">Fin des mises en candidature</span><span class="hof-date-value">20 octobre 2026</span></div>
-    </div>
-    <div class="banner-actions">
-      <a href="#hof-nominate" target="_self" class="btn btn-primary">Soumettre une candidature</a>
+      <div><span class="hof-dates-closed mono">Mises en candidature maintenant closes</span></div>
     </div>
   </div>
 </section>
@@ -1319,15 +1319,14 @@
 <!-- HOW TO NOMINATE -->
 <section class="hof-band">
   <div class="wrap">
-    <h2>Comment soumettre une candidature</h2>
-    <p>Toute personne de la communauté canadienne de la modélisation énergétique, de la recherche ou des politiques publiques peut soumettre une candidature, à titre individuel ou au nom d'une organisation. Le formulaire prend environ dix minutes à remplir.</p>
+    <h2>Processus de mise en candidature</h2>
+    <p>Toute personne de la communauté canadienne de la modélisation énergétique, de la recherche ou des politiques publiques peut soumettre une candidature, à titre individuel ou au nom d'une organisation.</p>
     <p>Un comité de sélection réunissant des spécialistes de la modélisation, des politiques publiques et de la recherche examinera toutes les soumissions.</p>
     <ul class="hof-timeline-list">
       <li><strong>Fin des mises en candidature :</strong> 20 octobre 2026, 23 h 59, heure du Pacifique</li>
       <li><strong>Prise de contact avec la personne finaliste :</strong> novembre 2026</li>
       <li><strong>Annonce de la personne intronisée :</strong> le 16 décembre 2026, au Forum</li>
     </ul>
-    <a href="#hof-nominate" target="_self" class="btn btn-primary">Soumettre une candidature</a>
   </div>
 </section>
 
@@ -1345,17 +1344,8 @@
   </div>
 </section>
 
-<!-- NOMINATION FORM -->
-<section class="hof-band" id="hof-nominate">
-  <div class="wrap" style="text-align:center;">
-    <div class="eyebrow mono">Formulaire de mise en candidature</div>
-    <p style="max-width:520px; margin:0 auto 24px;">Remplissez le formulaire de mise en candidature ci-dessous. Cela prend environ dix minutes.</p>
-    <a href="https://docs.google.com/forms/d/1s58eOoTSOvGYV7mj4XNzwXMxAWJyXPmipxRvhYO_wmg/viewform" rel="noopener noreferrer" class="btn btn-primary">Ouvrir le formulaire de mise en candidature</a>
-  </div>
-</section>
-
 <!-- SPONSORSHIP -->
-<section class="hof-band alt">
+<section class="hof-band">
   <div class="wrap">
     <h2>Occasions de commandite</h2>
     <p>Des <a onclick="goTo('sponsors')" class="hof-sponsor-link">occasions de commandite</a> sont offertes pour le prix du Temple de la renommée, donnant aux organisations une visibilité et l'occasion de s'associer aux chefs de file qui façonnent la transition énergétique propre du Canada.</p>

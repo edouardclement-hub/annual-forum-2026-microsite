@@ -594,6 +594,8 @@
   .hof-dates{display:flex; gap:28px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:24px;}
   .hof-date-label{display:block; font-size:11px; color:var(--text-muted); letter-spacing:0.1em;}
   .hof-date-value{display:block; font-size:15px; color:var(--accent-cyan); font-weight:700; margin-top:4px;}
+  /* Shown in place of the nomination button once the window has closed. */
+  .hof-dates-closed{display:inline-block; padding:7px 14px; border:1px solid var(--line-soft); border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted);}
   .hof-about-grid{display:grid; grid-template-columns:1fr 340px; gap:40px; align-items:center;}
   .hof-about-photo{width:100%; height:auto; border-radius:12px; display:block; object-fit:cover;}
   .hof-criteria-list{list-style:none; padding:0; margin:0 0 20px; max-width:680px;}
@@ -1270,13 +1272,11 @@
   <div class="wrap">
     <h1>Hall of Fame</h1>
     <p>2026 Canadian Energy Modelling and Policymaking Hall of Fame</p>
-    <p style="margin-top:10px; max-width:640px; margin-left:auto; margin-right:auto;">Nominations are now open for a national award created by the Energy Modelling Hub (EMH) to recognize careers that have advanced energy system modelling and evidence-based policymaking in Canada.</p>
+    <p style="margin-top:10px; max-width:640px; margin-left:auto; margin-right:auto;">This year, the Energy Modelling Hub (EMH) opened nominations for a new national award recognizing careers that have advanced energy system modelling and evidence-based policymaking in Canada. Nominations are now closed. Join us on December 16 for the live award presentation.</p>
     <div class="hof-dates">
       <div><span class="hof-date-label mono">Nomination Start Date</span><span class="hof-date-value">26 August 2026</span></div>
       <div><span class="hof-date-label mono">Nomination End Date</span><span class="hof-date-value">20 October 2026</span></div>
-    </div>
-    <div class="banner-actions">
-      <a href="#hof-nominate" target="_self" class="btn btn-primary">Submit a Nomination</a>
+      <div><span class="hof-dates-closed mono">Submissions now closed</span></div>
     </div>
   </div>
 </section>
@@ -1316,15 +1316,14 @@
 <!-- HOW TO NOMINATE -->
 <section class="hof-band">
   <div class="wrap">
-    <h2>How to Nominate</h2>
-    <p>Anyone in the Canadian energy modelling, research or policy community can submit a nomination, individually or on behalf of an organization. The form takes about ten minutes to complete.</p>
+    <h2>Nomination Process</h2>
+    <p>Anyone in the Canadian energy modelling, research or policy community can submit a nomination, individually or on behalf of an organization.</p>
     <p>A selection committee of modellers, policy practitioners, and researchers will review all submissions.</p>
     <ul class="hof-timeline-list">
       <li><strong>Nominations close:</strong> 20 October 2026, 11:59 p.m. Pacific time</li>
       <li><strong>Finalist contacted:</strong> November 2026</li>
       <li><strong>Inductee announced:</strong> 16 December 2026, at the Forum</li>
     </ul>
-    <a href="#hof-nominate" target="_self" class="btn btn-primary">Submit a Nomination</a>
   </div>
 </section>
 
@@ -1342,17 +1341,8 @@
   </div>
 </section>
 
-<!-- NOMINATION FORM -->
-<section class="hof-band" id="hof-nominate">
-  <div class="wrap" style="text-align:center;">
-    <div class="eyebrow mono">Nomination Form</div>
-    <p style="max-width:520px; margin:0 auto 24px;">Complete the nomination form below. It takes about ten minutes.</p>
-    <a href="https://docs.google.com/forms/d/1s58eOoTSOvGYV7mj4XNzwXMxAWJyXPmipxRvhYO_wmg/viewform" rel="noopener noreferrer" class="btn btn-primary">Open Nomination Form</a>
-  </div>
-</section>
-
 <!-- SPONSORSHIP -->
-<section class="hof-band alt">
+<section class="hof-band">
   <div class="wrap">
     <h2>Sponsorship Opportunities</h2>
     <p><a onclick="goTo('sponsors')" class="hof-sponsor-link">Sponsorship opportunities</a> for the Hall of Fame Awards are open, giving organizations visibility and a chance to align with the leaders shaping Canada's clean energy transition.</p>
