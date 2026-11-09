@@ -101,7 +101,7 @@
         <option value="Session 7">Séance 7 : Décider dans l’incertitude</option>
         <option value="Other">Autre (conférence principale, plénière, ...)</option>
       </select>
-        <input id="sessionOther" maxlength="80" placeholder="Décrivez votre séance" aria-label="Décrivez votre séance" hidden></div>
+        <input id="sessionOther" maxlength="80" placeholder="Décrivez votre séance (facultatif)" aria-label="Décrivez votre séance (facultatif)" hidden></div>
       <div class="full"><label for="title">Titre de la présentation <span class="hint">(facultatif)</span></label><input id="title" maxlength="300"></div>
       <div class="full"><label for="notes">Notes <span class="hint">(facultatif)</span></label><textarea id="notes" maxlength="2000" placeholder="Toute information utile. Si ce fichier remplace un envoi précédent, indiquez ce qui a changé."></textarea></div>
     </div>
@@ -253,7 +253,6 @@
     if (!f.name || !f.email || !f.organization) return say(L.need_fields, 'err');
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)) return say(L.bad_email, 'err');
     if (!f.session) return say(L.need_session, 'err');
-    if (f.session === 'Other' && !f.sessionOther) return say(L.need_other, 'err');
     const todo = pending();
     if (todo.length > P.maxFiles) return say(fmt(L.too_many, { n: P.maxFiles }), 'err');
 
@@ -305,7 +304,7 @@
     const saved = todo.length - failed;
 
     if (saved && !failed) {
-      const where = f.session === 'Other' ? f.sessionOther : sesSel.options[sesSel.selectedIndex].text;
+      const where = f.session === 'Other' && f.sessionOther ? f.sessionOther : sesSel.options[sesSel.selectedIndex].text;
       $('formCard').hidden = true; $('doneCard').hidden = false;
       $('doneText').textContent = saved + ' ' + (saved > 1 ? L.file_many : L.file_one) + ' ' + L.received_for + ' ' + where +
         (result && result.version ? ', ' + L.as_version + ' ' + result.version : '') + '.';
