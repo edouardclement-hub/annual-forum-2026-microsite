@@ -41,8 +41,6 @@
   input:focus, textarea:focus, select:focus { outline:2px solid var(--blue); outline-offset:-1px; border-color:var(--blue); }
   textarea { min-height:70px; resize:vertical; }
   #sessionOther { margin-top:8px; }
-  .code { padding-bottom:18px; margin-bottom:18px; border-bottom:1px solid #eef1f5; }
-  .code input { max-width:320px; letter-spacing:.04em; }
   .drop { margin-top:18px; border:2px dashed var(--line); border-radius:10px; padding:28px 16px; text-align:center; cursor:pointer; transition:.15s; }
   .drop.over, .drop:focus { border-color:var(--blue); background:var(--cyan-bg); outline:none; }
   .drop strong { color:var(--blue); }
@@ -88,11 +86,6 @@
 
 <main>
   <div class="card" id="formCard">
-    <div class="code">
-      <label for="code">Code d’accès <span class="req">*</span> <span class="hint">indiqué dans votre courriel d’invitation</span></label>
-      <input id="code" autocomplete="off" autocapitalize="characters" spellcheck="false">
-    </div>
-
     <div class="grid">
       <div><label for="name">Nom <span class="req">*</span></label><input id="name" autocomplete="name" maxlength="120"></div>
       <div><label for="email">Courriel <span class="req">*</span></label><input id="email" type="email" autocomplete="email" maxlength="160"></div>
@@ -254,10 +247,9 @@
   const errText = e => (e && e.message ? e.message : String(e)).replace(/^(Exception|Error):\s*/, '');
 
   btn.addEventListener('click', async () => {
-    const f = { code: $('code').value.trim(), name: $('name').value.trim(), email: $('email').value.trim(),
+    const f = { code: '', name: $('name').value.trim(), email: $('email').value.trim(),
                 organization: $('organization').value.trim(), session: sesSel.value,
                 sessionOther: $('sessionOther').value.trim(), title: $('title').value.trim(), notes: $('notes').value };
-    if (!f.code) return say(L.need_code, 'err');
     if (!f.name || !f.email || !f.organization) return say(L.need_fields, 'err');
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)) return say(L.bad_email, 'err');
     if (!f.session) return say(L.need_session, 'err');
