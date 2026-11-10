@@ -267,6 +267,14 @@
   .acc-title{font-size:15px; font-weight:700; color:var(--text-primary);}
   .acc-desc{padding:0 24px 22px 162px; font-size:13.5px; line-height:1.6; color:var(--text-muted); max-width:640px;}
   .acc-crosslink{margin-top:10px;}
+  /* Session sponsor: label plus the sponsor's logo on a white tile, like the
+     sponsor grid, since the logos are drawn for a light background. */
+  .acc-sponsor{display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:16px;}
+  .acc-sponsor-label{font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    font-family:'Montserrat', sans-serif; color:var(--text-muted);}
+  .acc-sponsor a{display:inline-flex; align-items:center; background:var(--white-card);
+    border-radius:6px; padding:6px 12px;}
+  .acc-sponsor img{height:34px; width:auto; display:block;}
   .acc-crosslink a{color:var(--accent-cyan); text-decoration:underline; cursor:pointer; font-weight:600;}
   .acc-static-row{
     background:var(--bg-primary); padding:14px 24px; display:grid; grid-template-columns:120px 1fr; gap:18px; align-items:center;
@@ -279,12 +287,16 @@
   .acc-entry .acc-item, .acc-entry .acc-static-row{border-bottom:none;}
   .acc-static-row .acc-time{color:var(--text-muted); opacity:0.7;}
   .acc-static-row .acc-title{font-weight:600; color:var(--text-muted); font-size:14px;}
+  .acc-static-row:has(.acc-sponsor){grid-template-columns:120px 1fr auto;}
+  .acc-static-row .acc-sponsor{margin-top:0;}
+  .acc-static-row .acc-sponsor img{height:26px;}
   /* Narrow screens: the 120px time column and the 162px indent under it leave the
      description and the speaker cards almost no room, so the row stacks instead. */
   @media (max-width:620px){
     .acc-row{grid-template-columns:1fr; gap:2px; padding:16px;}
     .acc-desc{padding:0 16px 20px; max-width:none;}
-    .acc-static-row{grid-template-columns:1fr; gap:2px; padding:12px 16px;}
+    .acc-static-row, .acc-static-row:has(.acc-sponsor){grid-template-columns:1fr; gap:2px; padding:12px 16px;}
+    .acc-static-row .acc-sponsor{margin-top:8px;}
     .agenda-tabs{gap:8px; padding:10px 0; margin:16px 0 12px;}
     .agenda-tabs .tab-btn{flex:1 1 auto; padding:9px 12px; font-size:12px;}
   }
@@ -428,6 +440,9 @@
   }
   .acc-speaker-card:hover{transform:translateY(-3px); border-color:var(--accent-cyan);
     box-shadow:0 10px 24px rgba(0,0,0,0.32);}
+  .acc-speaker-card.is-pending{cursor:default;}
+  .speaker-silhouette{display:block; width:100%; height:100%; fill:#9AA6BF;}
+  .acc-speaker-card.is-pending:hover{transform:none; border-color:var(--border); box-shadow:none;}
   .acc-speaker-card:focus-visible{outline:2px solid var(--accent-cyan); outline-offset:3px;}
   .acc-speaker-card-photo{display:block; position:relative; width:74px; height:74px;
     flex:0 0 74px; border-radius:50%; margin:0 auto 11px; overflow:hidden;
@@ -505,6 +520,20 @@
   @media (max-width:700px){
     .partners-row{grid-template-columns:1fr; gap:28px;}
   }
+  /* Agenda sponsor band. Same white tiles as the Sponsors page, smaller, with
+     logo size stepping down by tier. */
+  .agenda-sponsors{padding:10px 0 50px; text-align:center;}
+  .as-groups{display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-end; gap:26px 34px; margin-top:20px;}
+  .as-group{display:flex; flex-direction:column; align-items:center; gap:10px;}
+  .as-label{font-size:10.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    font-family:'Montserrat', sans-serif; color:var(--text-muted);}
+  .as-logos{display:flex; flex-wrap:wrap; justify-content:center; gap:10px;}
+  .agenda-sponsors .sponsor-logo-tile{padding:10px 16px; height:auto;}
+  .agenda-sponsors .sponsor-logo-tile img{height:34px; width:auto; max-width:160px;}
+  .agenda-sponsors .as-gold .sponsor-logo-tile img{height:46px; max-width:200px;}
+  .agenda-sponsors .as-platinum .sponsor-logo-tile img{height:60px; max-width:240px;}
+  .as-more{display:inline-block; margin-top:24px; font-size:13px; font-weight:600;
+    color:var(--accent-cyan); text-decoration:underline; cursor:pointer;}
   .sponsor-logo-tile{background:var(--white-card); border-radius:8px; display:flex; align-items:center; justify-content:center;
     padding:16px 24px; max-width:100%; box-sizing:border-box; min-width:0;}
   .sponsor-logo-tile img{max-width:100%; height:auto; object-fit:contain; display:block;}
@@ -633,9 +662,6 @@
     .hof-inductee-grid{grid-template-columns:1fr;}
   }
 
-  .format-explainer{padding:70px 0; border-bottom:1px solid var(--line-soft);}
-  .format-explainer .wrap{display:grid; grid-template-columns:1.4fr 1fr; gap:50px; align-items:center;}
-  .format-explainer h2{font-size:26px; margin-bottom:14px;}
   .placeholder-tag{display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent-2); background:var(--accent-2-bg); border:1px solid var(--accent-2); border-radius:4px; padding:2px 8px; margin-left:10px;}
 
   .grid-intro{font-size:14px; color:var(--text-mid); margin:0 0 30px;}
@@ -917,16 +943,6 @@
   </div>
 </section>
 
-<section class="format-explainer" style="background:#070F2A; border-bottom:0px solid var(--line-soft); margin-top:-60px;">
-  <div class="wrap" style="grid-template-columns:1fr; max-width:830px;">
-    <div>
-      <div class="eyebrow mono">Formule</div>
-      <h2>Perspectives variées, questions d'actualité</h2>
-      <p>Cette année, chaque panel réunit modélisation, politiques publiques, réglementation et industrie autour d'un même sujet. Chaque voix s'exprime depuis sa propre perspective. Vous repartez en comprenant à la fois la modélisation et les décisions qu'elle doit éclairer.</p>
-      <p style="font-size:13px; color:var(--text-lo); margin-top:16px;">* Des séances et des conférenciers ou conférencières pourraient s'ajouter au programme — revenez consulter cette page régulièrement!</p>
-    </div>
-  </div>
-</section>
 
 <section class="section agenda" style="padding:50px 0 30px;">
   <div class="wrap">
@@ -951,6 +967,60 @@
       <p class="day-subtitle">Par ordre alphabétique de l’auteur principal</p>
       <div class="acc-list" id="poster-list"></div>
     </div>
+  </div>
+</section>
+
+<!-- Agenda sponsor band: every sponsor, by tier, as on the Sponsors page. -->
+<section class="agenda-sponsors">
+  <div class="wrap">
+    <div class="eyebrow mono">Merci à nos commanditaires</div>
+    <div class="as-groups">
+        <div class="as-group as-platinum">
+          <div class="as-label">Platine</div>
+          <div class="as-logos">
+            <div class="sponsor-logo-tile"><a href="https://iet.polymtl.ca/" rel="noopener noreferrer"><img src="images/sponsor-01.png" alt="Institut de l'énergie Trottier (IET)"></a></div>
+          </div>
+        </div>
+        <div class="as-group as-gold">
+          <div class="as-label">Or</div>
+          <div class="as-logos">
+            <div class="sponsor-logo-tile"><a href="https://electricityhr.ca/fr/" rel="noopener noreferrer"><img src="images/sponsor-02.png" alt="EHRC"></a></div>
+            <div class="sponsor-logo-tile"><a href="https://www.naviusresearch.com/" rel="noopener noreferrer"><img src="images/sponsor-06.png" alt="Navius Research"></a></div>
+          </div>
+        </div>
+        <div class="as-group">
+          <div class="as-label">Réception de bienvenue</div>
+          <div class="as-logos">
+            <div class="sponsor-logo-tile"><a href="https://www.esmia.ca/" rel="noopener noreferrer"><img src="images/sponsor-07.png" alt="ESMIA Consultants"></a></div>
+          </div>
+        </div>
+        <div class="as-group">
+          <div class="as-label">Argent</div>
+          <div class="as-logos">
+            <div class="sponsor-logo-tile"><a href="https://www.torontohydro.com/" rel="noopener noreferrer"><img src="images/sponsor-03.png" alt="Toronto Hydro"></a></div>
+          </div>
+        </div>
+        <div class="as-group">
+          <div class="as-label">Bronze</div>
+          <div class="as-logos">
+            <div class="sponsor-logo-tile"><a href="https://www.altalink.ca/" rel="noopener noreferrer"><img src="images/sponsor-08.png" alt="AltaLink"></a></div>
+          </div>
+        </div>
+        <div class="as-group">
+          <div class="as-label">Dîner et pauses</div>
+          <div class="as-logos">
+            <div class="sponsor-logo-tile"><a href="https://www.dunsky.com/fr/" rel="noopener noreferrer"><img src="images/sponsor-04.png" alt="Dunsky Energy + Climate"></a></div>
+          </div>
+        </div>
+        <div class="as-group">
+          <div class="as-label">Exposants</div>
+          <div class="as-logos">
+            <div class="sponsor-logo-tile"><a href="https://www.ieso.ca/" rel="noopener noreferrer"><img src="images/sponsor-05.png" alt="IESO"></a></div>
+            <div class="sponsor-logo-tile"><a href="https://energy-information.canada.ca/fr" rel="noopener noreferrer"><img src="images/sponsor-09-fr.png" alt="Centre canadien d'information sur l'énergie (CCIE)"></a></div>
+          </div>
+        </div>
+    </div>
+    <a class="as-more" onclick="goTo('sponsors')">Voir tous les commanditaires &rarr;</a>
   </div>
 </section>
 
@@ -1093,6 +1163,11 @@
         <div class="sponsor-logo-tile"><a href="https://www.torontohydro.com/" rel="noopener noreferrer"><img src="images/sponsor-03.png" alt="Toronto Hydro"></a></div>
       </div>
 
+      <div class="sponsor-tier-heading">Bronze</div>
+      <div class="sponsor-logo-grid">
+        <div class="sponsor-logo-tile"><a href="https://www.altalink.ca/" rel="noopener noreferrer"><img src="images/sponsor-08.png" alt="AltaLink"></a></div>
+      </div>
+
       <div class="sponsor-tier-heading">Dîner et pauses</div>
       <div class="sponsor-logo-grid">
         <div class="sponsor-logo-tile"><a href="https://www.dunsky.com/fr/" rel="noopener noreferrer"><img src="images/sponsor-04.png" alt="Dunsky Energy + Climate"></a></div>
@@ -1102,11 +1177,6 @@
       <div class="sponsor-logo-grid tier-exhibitor">
         <div class="sponsor-logo-tile"><a href="https://www.ieso.ca/" rel="noopener noreferrer"><img src="images/sponsor-05.png" alt="IESO"></a></div>
         <div class="sponsor-logo-tile"><a href="https://energy-information.canada.ca/fr" rel="noopener noreferrer"><img src="images/sponsor-09-fr.png" alt="Centre canadien d'information sur l'énergie (CCIE)"></a></div>
-      </div>
-
-      <div class="sponsor-tier-heading">Bronze</div>
-      <div class="sponsor-logo-grid">
-        <div class="sponsor-logo-tile"><a href="https://www.altalink.ca/" rel="noopener noreferrer"><img src="images/sponsor-08.png" alt="AltaLink"></a></div>
       </div>
 
       <div class="sponsor-tier-heading">Sacs cadeaux et prix</div>
@@ -1493,6 +1563,24 @@ setInterval(updateCountdown, 1000);
 // Blank lines in a bio (\n\n) become separate paragraphs in the modal.
 var SPEAKERS = [
   {
+    id: "new-economy-canada-tba",
+    pending: true,
+    name: "",
+    type: "Speaker",
+    organization_en: "New Economy Canada",
+    organization_fr: "New Economy Canada",
+    sessions: ["d1-s1"]
+  },
+  {
+    id: "epcor-tba",
+    pending: true,
+    name: "",
+    type: "Speaker",
+    organization_en: "EPCOR",
+    organization_fr: "EPCOR",
+    sessions: ["d2-s5"]
+  },
+  {
     id: "amara-slaymaker",
     name: "Amara Slaymaker",
     type: "Speaker",
@@ -1765,23 +1853,6 @@ var SPEAKERS = [
     presentation_title: ""
   },
   {
-    id: "mike-enskat",
-    name: "Mike Enskat",
-    type: "Moderator",
-    french_title_form: "masculine",
-    pronouns: "",
-    title_en: "Director",
-    title_fr: "Directeur",
-    organization_en: "IRENA Innovation and Technology Centre (IITC)",
-    organization_fr: "Centre d’innovation et de technologie (IITC) de l’Agence internationale pour les énergies renouvelables (IRENA)",
-    linkedin: "https://www.linkedin.com/in/mike-enskat-080458b/",
-    photo: "images/speaker-mike-enskat.jpg",
-    bio_en: "Dr. Mike Enskat is Director of the IRENA Innovation and Technology Centre (IITC), where he oversees the Agency’s advice to member countries on technology status and roadmaps, energy planning, costs and markets, and innovation policy frameworks. He has more than 20 years of experience across energy, water, mobility and green hydrogen. Before joining IRENA, he was Head of the Infrastructure Section (Energy, Water and Mobility) at GIZ. There, he managed a portfolio of more than €400 million in technical assistance projects for clients including the German Federal Government, the European Union and the World Bank. He helped establish major multilateral initiatives, including the Africa-EU Energy Partnership, GET.invest and IRENA. He holds a PhD in Political Science from the University of Heidelberg and a Master’s in European and International Politics from the University of Edinburgh.",
-    bio_fr: "Mike Enskat, Ph. D., est directeur du Centre d’innovation et de technologie (IITC) de l’Agence internationale pour les énergies renouvelables (IRENA), où il supervise les conseils que l’Agence offre à ses pays membres sur l’état des technologies et les feuilles de route, la planification énergétique, les coûts et les marchés, ainsi que les cadres de politiques d’innovation. Il compte plus de 20 ans d’expérience dans les domaines de l’énergie, de l’eau, de la mobilité et de l’hydrogène vert. Avant de se joindre à l’IRENA, il a été chef de la Section des infrastructures (énergie, eau et mobilité) à la GIZ. Il y a géré un portefeuille de plus de 400 millions d’euros en projets d’assistance technique pour des clients comme le gouvernement fédéral allemand, l’Union européenne et la Banque mondiale. Il a contribué à la mise sur pied de grandes initiatives multilatérales, dont le Partenariat Afrique-UE pour l’énergie, GET.invest et l’IRENA. Il est titulaire d’un doctorat en science politique de l’Université de Heidelberg et d’une maîtrise en politique européenne et internationale de l’Université d’Édimbourg.",
-    sessions: ["d1-s1"],
-    presentation_title: ""
-  },
-  {
     id: "nicolle-jaramillo",
     name: "Nicolle Jaramillo",
     type: "Speaker",
@@ -2030,6 +2101,7 @@ var SPEAKER_STR = {
   empty: "Les personnes conférencières sont en cours de confirmation. Revenez bientôt.",
   about: "À propos",
   presentation: "Présentation",
+  tba: "\u00c0 confirmer",
   close: "Fermer"
 };
 
@@ -2164,7 +2236,8 @@ function speakersForSession(agendaRowId){
     // keynotes, then everyone else. Sort is stable, so within each group the
     // first-name order speakersSorted() set is kept. The speakers grid itself
     // stays alphabetical.
-    return speakerRoleRank(a) - speakerRoleRank(b);
+    // A speaker still to be announced goes after the named ones.
+    return speakerRoleRank(a) - speakerRoleRank(b) || (a.pending ? 1 : 0) - (b.pending ? 1 : 0);
   });
 }
 
@@ -2176,7 +2249,7 @@ function speakerById(id){
 function renderSpeakerGrid(){
   var el = document.getElementById('speakerGrid');
   if(!el) return;
-  var list = speakersSorted();
+  var list = speakersSorted().filter(function(sp){ return !sp.pending; });
   if(!list.length){
     el.innerHTML = '';
     el.style.display = 'none';
@@ -2206,10 +2279,25 @@ function renderSpeakerGrid(){
   }).join('');
 }
 
+// Empty head-and-shoulders outline for a speaker not yet named.
+var SPEAKER_SILHOUETTE = '<svg class="speaker-silhouette" viewBox="0 0 74 74" aria-hidden="true">'
+  + '<circle cx="37" cy="29" r="13"/><path d="M12 74c0-15 11-25 25-25s25 10 25 25z"/></svg>';
+
 function sessionSpeakersHtml(sessionId){
   var list = speakersForSession(sessionId);
   if(!list.length) return '';
   return '<div class="acc-speakers"><div class="acc-speaker-grid">' + list.map(function(sp){
+    // Not yet named: same card, but no profile to open.
+    if(sp.pending){
+      return '<div class="acc-speaker-card acc-role-' + speakerRoleKey(sp) + ' is-pending">'
+        + '<span class="acc-speaker-card-photo">' + SPEAKER_SILHOUETTE + '</span>'
+        + '<span class="acc-speaker-card-name">' + SPEAKER_STR.tba + '</span>'
+        + '<span class="acc-speaker-card-badges">'
+        +   speakerBadgesHtml(sp, 'acc-speaker-card-badge')
+        + '</span>'
+        + '<span class="acc-speaker-card-org">' + escapeHtml(sp[SPEAKER_ORG_FIELD] || '') + '</span>'
+        + '</div>';
+    }
     return '<button type="button" class="acc-speaker-card acc-role-' + speakerRoleKey(sp) + '"'
       + ' onclick="openSpeakerModal(\'' + sp.id + '\', this)">'
       + '<span class="acc-speaker-card-photo">'
@@ -2350,9 +2438,11 @@ var AGENDA_DAY1 = [
   { id: "d1-s3", time: "9 h 45 \u2013 11 h", title: "Séance 1 \u2014 Ce que les modèles nous disent de la vision de la transition",
     desc: "Partout au Canada, les gouvernements mettent de l'avant des visions concurrentes de la transition électrique. Cette séance demande ce que nos modèles disent réellement de ces trajectoires, s'il s'agit des bonnes, et où l'analyse peut \u2014 ou ne peut pas encore \u2014 se prononcer." },
   { id: "d1-s4", time: "11 h \u2013 11 h 30", title: "Pause réseautage" },
-  { id: "d1-s5", time: "11 h 30 \u2013 12 h 30", title: "Séance 2 \u2014 Les angles morts : ce que les modèles manquent de la vision",
+  { id: "d1-s5", sponsor: { name: "Navius Research", logo: "images/sponsor-06.png", url: "https://www.naviusresearch.com/" },
+    time: "11 h 30 \u2013 12 h 30", title: "Séance 2 \u2014 Les angles morts : ce que les modèles manquent de la vision",
     desc: "À partir des plus récents résultats du Forum de comparaison multimodèles (MMCF) et de travaux méthodologiques récents, cette séance met en lumière ce que nos modèles manquent systématiquement \u2014 demande, comportements, marchés et plus \u2014 et ce qu'il faudrait pour combler ces lacunes. Cette séance s'adresse d'abord aux personnes qui participent au MMCF." },
-  { id: "d1-s6", time: "12 h 30 \u2013 13 h 30", title: "Dîner et réseautage" },
+  { id: "d1-s6", sponsor: { name: "Dunsky Energy + Climate", logo: "images/sponsor-04.png", url: "https://www.dunsky.com/fr/", label: "Commandit\u00e9 par" },
+    time: "12 h 30 \u2013 13 h 30", title: "Dîner et réseautage" },
   { id: "d1-s7", time: "13 h 30 \u2013 13 h 55", title: "Concours de présentations d'affiches \u2014 Partie 1" },
   { id: "d1-s8", time: "13 h 55 \u2013 15 h 10", title: "Séance 3 \u2014 Les interconnexions : d'«\u00a0optimales\u00a0» à construites",
     desc: "Depuis des années, la modélisation montre que le transport interprovincial est «\u00a0optimal\u00a0», et pourtant peu se construit. Cette séance demande ce que la modélisation doit intégrer pour produire des résultats constructibles, et pas seulement optimaux, en réunissant économistes, organismes de réglementation et spécialistes de la transition." },
@@ -2360,7 +2450,8 @@ var AGENDA_DAY1 = [
   { id: "d1-s10", time: "15 h 40 \u2013 16 h 55", title: "Séance 4 \u2014 Chaînes de valeur et force industrielle",
     desc: "Décarboner l'industrie lourde et bâtir les chaînes d'approvisionnement et la main-d'œuvre dont dépend la transition : c'est là que la compétitivité et les débouchés économiques se jouent le plus. Cette séance réunit l'industrie et la modélisation pour cerner où le Canada peut bâtir une force réelle." },
   { id: "d1-s11", time: "16 h 55 \u2013 17 h 05", title: "Vidéo spéciale" },
-  { id: "d1-s12", time: "17 h 05 \u2013 18 h 30", title: "Réception du 5e anniversaire + Temple de la renommée", desc: "L'intronisation au Temple de la renommée a lieu pendant la réception.",
+  { id: "d1-s12", sponsor: { name: "ESMIA Consultants", logo: "images/sponsor-07.png", url: "https://www.esmia.ca/" },
+    time: "17 h 05 \u2013 18 h 30", title: "Réception du 5e anniversaire + Temple de la renommée", desc: "L'intronisation au Temple de la renommée a lieu pendant la réception.",
     link: { page: "halloffame", text: "Intronisation au Temple de la renommée \u2014 en savoir plus sur le prix \u2192" } },
 ];
 
@@ -2433,13 +2524,15 @@ var AGENDA_DAY2 = [
   { id: "d2-s1", time: "8 h 30 \u2013 9 h", title: "Arrivée et café" },
   { id: "d2-s2", time: "9 h \u2013 9 h 30", title: "Grande conférence (30 min) \u2014 Les défis de la transition",
     desc: "La deuxième voix tournée vers l'extérieur : la réalité humaine et économique de la mise en œuvre \u2014 main-d'œuvre, chaînes d'approvisionnement, abordabilité \u2014 et ce qu'elle exige de l'analyse." },
-  { id: "d2-s3", time: "9 h 30 \u2013 10 h 30", title: "Séance 5 \u2014 Abordable, fiable et efficace : l'électrification et la demande",
+  { id: "d2-s3", sponsor: { name: "Toronto Hydro", logo: "images/sponsor-03.png", url: "https://www.torontohydro.com/" },
+    time: "9 h 30 \u2013 10 h 30", title: "Séance 5 \u2014 Abordable, fiable et efficace : l'électrification et la demande",
     desc: "Un système fortement électrifié doit être abordable et fiable, et l'ampleur de ce qu'il faut construire dépend beaucoup de la demande. Cette séance demande comment la gestion de la demande, la flexibilité et l'efficacité redéfinissent ce qu'exige réellement un réseau fiable." },
   { id: "d2-s4", time: "10 h 30 \u2013 11 h", title: "Pause réseautage" },
   { id: "d2-s5", time: "11 h \u2013 12 h", title: "Séance 6 \u2014 L'IA et la frontière de la modélisation",
     desc: "L'IA transforme la pratique de la modélisation : préparation et complétion des données, exécution plus rapide des modèles, interprétation et communication des résultats. Cette séance demande où l'IA renforce véritablement le travail de modélisation, et où elle introduit des risques." },
   { id: "d2-s6", time: "12 h \u2013 12 h 25", title: "Concours de présentations d'affiches \u2014 Partie 2 + Résultats" },
-  { id: "d2-s7", time: "12 h 25 \u2013 13 h 25", title: "Dîner et réseautage" },
+  { id: "d2-s7", sponsor: { name: "Dunsky Energy + Climate", logo: "images/sponsor-04.png", url: "https://www.dunsky.com/fr/", label: "Commandit\u00e9 par" },
+    time: "12 h 25 \u2013 13 h 25", title: "Dîner et réseautage" },
   { id: "d2-s8", time: "13 h 25 \u2013 13 h 35", title: "Présentation du Baromètre annuel" },
   { id: "d2-s9", time: "13 h 35 \u2013 14 h 50", title: "Séance 7 \u2014 Décider dans l'incertitude",
     desc: "La séance de clôture passe des résultats au jugement : ce que les modèles peuvent légitimement affirmer, et comment bien décider lorsqu'ils divergent et que l'avenir demeure réellement incertain. Cette discipline sous-tend toutes les autres séances du programme." },
@@ -2448,6 +2541,15 @@ var AGENDA_DAY2 = [
 
 function escapeHtml(s){
   return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+var SESSION_SPONSOR_LABEL = "Commandit\u00e9e par";
+
+function sessionSponsorHtml(sp){
+  if(!sp) return '';
+  return '<div class="acc-sponsor"><span class="acc-sponsor-label">' + (sp.label || SESSION_SPONSOR_LABEL) + '</span>'
+    + '<a href="' + sp.url + '" target="_blank" rel="noopener noreferrer">'
+    + '<img src="' + sp.logo + '" alt="' + escapeHtml(sp.name) + '"></a></div>';
 }
 
 function renderAgendaAccordion(containerId, sessions){
@@ -2465,7 +2567,7 @@ function renderAgendaAccordion(containerId, sessions){
         +   '<span class="acc-time">'+s.time+'</span>'
         +   '<span class="acc-title">'+title+'</span>'
         + '</div>'
-        + '<div class="acc-desc">'+desc+linkHtml+'</div>'
+        + '<div class="acc-desc">'+desc+linkHtml+sessionSponsorHtml(s.sponsor)+'</div>'
         + speakers
         + '</div>'
         + '</div>';
@@ -2474,6 +2576,7 @@ function renderAgendaAccordion(containerId, sessions){
       + '<div class="acc-static-row">'
       + '<span class="acc-time">'+s.time+'</span>'
       + '<span class="acc-title">'+title+'</span>'
+      + sessionSponsorHtml(s.sponsor)
       + '</div>'
       + speakers
       + '</div>';
