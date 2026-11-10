@@ -248,6 +248,13 @@
 
   /* ACCORDION AGENDA COMPONENT */
   .day-subtitle{font-size:14px; color:var(--text-muted); margin:-6px 0 18px; font-style:italic;}
+  /* Posters tab: one row per poster, title first, then lead author and affiliation. */
+  .poster-row{background:var(--bg-secondary); border-bottom:1px solid var(--border); padding:16px 24px;}
+  .poster-row:last-child{border-bottom:none;}
+  .poster-title{font-size:14.5px; font-weight:600; color:var(--text-primary); line-height:1.45;}
+  .poster-byline{font-size:13px; color:var(--text-muted); margin-top:4px; line-height:1.5;}
+  .poster-author{color:var(--accent-cyan);}
+  @media (max-width:620px){ .poster-row{padding:14px 16px;} }
   .acc-list{border-radius:16px; overflow:hidden; border:1px solid var(--border);}
   .acc-item{background:var(--bg-secondary); border-bottom:1px solid var(--border);}
   .acc-item:last-child{border-bottom:none;}
@@ -926,6 +933,7 @@
     <div class="agenda-tabs">
       <button class="tab-btn active" onclick="showDay(1,this,'agenda')">Jour 1 - mer. 16 déc.</button>
       <button class="tab-btn" onclick="showDay(2,this,'agenda')">Jour 2 - jeu. 17 déc.</button>
+      <button class="tab-btn" onclick="showDay(3,this,'agenda')">Affiches</button>
     </div>
 
     <div id="agenda-day1">
@@ -936,6 +944,12 @@
     <div id="agenda-day2" style="display:none;">
       <p class="day-subtitle">Le défi et la frontière &middot; Fin du programme à 15 h 05</p>
       <div class="acc-list" id="acc-day2"></div>
+    </div>
+
+    <!-- Third tab: the posters. It keeps the day-N id so showDay() can switch to it. -->
+    <div id="agenda-day3" style="display:none;">
+      <p class="day-subtitle">Par ordre alphabétique de l’auteur principal</p>
+      <div class="acc-list" id="poster-list"></div>
     </div>
   </div>
 </section>
@@ -2308,8 +2322,10 @@ window.addEventListener('DOMContentLoaded', function(){
 
 // Day tabs (home + agenda page both use this)
 function showDay(n, btn, scope){
-  document.getElementById(scope + '-day1').style.display = n===1 ? 'block':'none';
-  document.getElementById(scope + '-day2') && (document.getElementById(scope + '-day2').style.display = n===2 ? 'block':'none');
+  for(var k = 1; k <= 3; k++){
+    var panel = document.getElementById(scope + '-day' + k);
+    if(panel) panel.style.display = n===k ? 'block':'none';
+  }
   var bar = btn.parentElement;
   var tabs = bar.querySelectorAll('.tab-btn');
   tabs.forEach(function(b){ b.classList.remove('active'); });
@@ -2347,6 +2363,71 @@ var AGENDA_DAY1 = [
   { id: "d1-s12", time: "17 h 05 \u2013 18 h 30", title: "Réception du 5e anniversaire + Temple de la renommée", desc: "L'intronisation au Temple de la renommée a lieu pendant la réception.",
     link: { page: "halloffame", text: "Intronisation au Temple de la renommée \u2014 en savoir plus sur le prix \u2192" } },
 ];
+
+// Posters tab. Lead author, affiliation and title from EMH_Forum_2026_Poster.xlsx,
+// kept in order of the lead author's last name.
+var POSTERS = [
+  { author: "Erick Arwa", organization_en: "Net Zero Atlantic", organization_fr: "Net Zero Atlantic",
+    title: "Isolating and Analyzing the Value of Integration of Atlantic Canada Electricity Systems" },
+  { author: "Junoh Bede", organization_en: "Simon Fraser University", organization_fr: "Université Simon Fraser",
+    title: "Sensitivity analysis of clustering method in CLEWs Global" },
+  { author: "Sabrina Desilets", organization_en: "Polytechnique Montréal", organization_fr: "Polytechnique Montréal",
+    title: "The Biomass Allocation Problem: Simulating the Substitution of Fossil-Based Products by a Distributed Biorefining Ecosystem" },
+  { author: "Seyyedeh Rozita Ebrahimi", organization_en: "Simon Fraser University", organization_fr: "Université Simon Fraser",
+    title: "CLEWs-C2070: Decarbonization Pathways for Canada with Enhanced Forest and Agricultural Representation" },
+  { author: "Sara Ghaboulian", organization_en: "HEC Montréal", organization_fr: "HEC Montréal",
+    title: "Which Uncertainties Matter? Machine Learning-Guided Robust Optimization of Hydrogen-Integrated Urban Energy Systems" },
+  { author: "N. Tyler Goncalves", organization_en: "University of British Columbia", organization_fr: "Université de la Colombie-Britannique",
+    title: "A participatory approach to mapping rooftop solar resources in Kamloops using open tools and data" },
+  { author: "Houda Haidar", organization_en: "University of Toronto", organization_fr: "Université de Toronto",
+    title: "Integrating Bioenergy with Carbon Capture and Storage (BECCS) into the CANOE Energy System Model: A System Value Assessment for Alberta" },
+  { author: "Md Eliasinul Islam", organization_en: "Simon Fraser University", organization_fr: "Université Simon Fraser",
+    title: "Least-Cost Is Not Enough: Testing British Columbia’s Electricity Pathways Against Real Constraints" },
+  { author: "Omid Khajehdehi", organization_en: "University of Calgary", organization_fr: "Université de Calgary",
+    title: "Policy, trade, and opinion dynamics in the transition to electric vehicles in Canada" },
+  { author: "Mojtaba Khastar", organization_en: "University of Ottawa", organization_fr: "Université d’Ottawa",
+    title: "Where Models Meet Meters: Decomposing the Gap Between Projected and Realized Savings in Toronto’s Home Energy Loan Program" },
+  { author: "Dijuan Liang", organization_en: "University of Toronto", organization_fr: "Université de Toronto",
+    title: "Critical Material Constraints Shape Optimal Energy Transition Pathways: Evidence from the Canadian Road Transportation and Electricity Sectors" },
+  { author: "Jaden Majumdar", organization_en: "Posterity Group | University of Toronto", organization_fr: "Posterity Group | Université de Toronto",
+    title: "Snap Back to Reality: The Simulation of Demand Response Under Uncertainty" },
+  { author: "Jonathan Milner", organization_en: "Navius Research", organization_fr: "Navius Research",
+    title: "An Expansion Planning Approach to categorizing Candidate Wind Sites in Energy-Economy Models" },
+  { author: "Manish Mosalpuri", organization_en: "University of Calgary", organization_fr: "Université de Calgary",
+    title: "Technical, Economic, and Environmental Feasibility Assessment of the Canadian Industrial Sector’s Electrification" },
+  { author: "Henri Theogene Mugabonejo", organization_en: "NARD Consult Ltd", organization_fr: "NARD Consult Ltd",
+    title: "The Future Role of the Bottom-Up Approach in the Supply of Sustainable Housing and Construction Management Process" },
+  { author: "Adrien Prigent", organization_en: "Natural Resources Canada", organization_fr: "Ressources naturelles Canada",
+    title: "Co-optimization of grid expansion and flexibility-enabled industry electrification pathways: A PyPSA-Canada case study" },
+  { author: "Olivia Carolina da Rosa", organization_en: "Hydro-Québec", organization_fr: "Hydro-Québec",
+    title: "How Much Industrial Heat Can Cities Count On? Estimating Unavoidable Excess Heat from Aluminum Production" },
+  { author: "Elahe Sahraie", organization_en: "Natural Resources Canada", organization_fr: "Ressources naturelles Canada",
+    title: "Quebec Regional Electricity Modelling in PyPSA-Canada: Blind Spots in External Market and Intertie Representation for Interprovincial and International Trade" },
+  { author: "François Saunier", organization_en: "CIRAIG | Polytechnique Montréal", organization_fr: "CIRAIG | Polytechnique Montréal",
+    title: "Intégrer l’analyse de cycle de vie dans les modèles de systèmes énergétiques : vers une évaluation plus holistique des scénarios de transition énergétique" },
+  { author: "Yoselyn Seas", organization_en: "Simon Fraser University", organization_fr: "Université Simon Fraser",
+    title: "From sunlight to table: Expanding CLEWs modelling" },
+  { author: "Patrick Shorey", organization_en: "Natural Resources Canada", organization_fr: "Ressources naturelles Canada",
+    title: "Building Performance Simulation and Techno-Economic Analysis of Residential Thermal and Battery Electric Energy Storage Technologies in Canada" },
+  { author: "Luis Victor-Gallardo", organization_en: "Natural Resources Canada", organization_fr: "Ressources naturelles Canada",
+    title: "Assessing transmission cost variation in capacity expansion models – an application to Canada" },
+  { author: "Luis Victor-Gallardo", organization_en: "Simon Fraser University", organization_fr: "Université Simon Fraser",
+    title: "The Canadian distribution data landscape: an exploration using a feeder surrogate" },
+  { author: "Xiaogui Zheng", organization_en: "University of Alberta", organization_fr: "Université de l’Alberta",
+    title: "Developing an Enhanced Building-Sector Module in GCAM-Canada to Assess Decarbonization Pathways" }
+];
+
+function renderPosterList(containerId){
+  var el = document.getElementById(containerId);
+  if(!el) return;
+  el.innerHTML = POSTERS.map(function(p){
+    return '<div class="poster-row">'
+      + '<div class="poster-title">' + escapeHtml(p.title) + '</div>'
+      + '<div class="poster-byline"><span class="poster-author">' + escapeHtml(p.author) + '</span>'
+      +   ' &middot; ' + escapeHtml(p[SPEAKER_ORG_FIELD] || '') + '</div>'
+      + '</div>';
+  }).join('');
+}
 
 var AGENDA_DAY2 = [
   { id: "d2-s1", time: "8 h 30 \u2013 9 h", title: "Arrivée et café" },
@@ -2404,6 +2485,7 @@ window.addEventListener('DOMContentLoaded', function(){
   renderSpeakerGrid();
   renderAgendaAccordion('acc-day1', AGENDA_DAY1);
   renderAgendaAccordion('acc-day2', AGENDA_DAY2);
+  renderPosterList('poster-list');
 });
 
 // Animated network background (ported from NetworkNodeBackground.jsx)
